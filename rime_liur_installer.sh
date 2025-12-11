@@ -78,6 +78,7 @@ LUA_FILES=(
     "lua/liu_symbols_hint_filter.lua"
     "lua/liu_symbols_number_processor.lua"
     "lua/liu_symbols_processor.lua"
+    "lua/liu_tilde_processor.lua"
     "lua/liu_vrsf_hint.lua"
     "lua/liu_w2c_sorter.lua"
     "lua/liu_wildcard_code_hint.lua"
