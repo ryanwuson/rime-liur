@@ -1,20 +1,21 @@
 - [蝦米輸入方案功能說明](user-guide.md)
-- **基本功能**
-  - [一、基本輸入](user-guide.md#一、基本輸入)
-  - [二、造詞功能](user-guide.md#二、造詞功能)
-  - [三、同音選字](user-guide.md#三、同音選字)
+- **安裝與基本**
+  - [一、安裝方式](user-guide.md#一、安裝方式)
+  - [二、基本輸入](user-guide.md#二、基本輸入)
+  - [三、造詞功能](user-guide.md#三、造詞功能)
+  - [四、同音選字](user-guide.md#四、同音選字)
 - **注音與符號**
-  - [四、注音相關](user-guide.md#四、注音相關)
-  - [五、符號相關](user-guide.md#五、符號相關)
-  - [六、變體英數](user-guide.md#六、變體英數)
-  - [七、擴充模式](user-guide.md#七、擴充模式)
+  - [五、注音相關](user-guide.md#五、注音相關)
+  - [六、符號相關](user-guide.md#六、符號相關)
+  - [七、變體英數](user-guide.md#七、變體英數)
+  - [八、擴充模式](user-guide.md#八、擴充模式)
 - **進階功能**
-  - [八、快打模式](user-guide.md#八、快打模式)
-  - [九、萬用字元查詢](user-guide.md#九、萬用字元查詢)
-  - [十、查碼模式](user-guide.md#十、查碼模式)
-  - [十一、按鍵說明](user-guide.md#十一、按鍵說明)
+  - [九、快打模式](user-guide.md#九、快打模式)
+  - [十、萬用字元查詢](user-guide.md#十、萬用字元查詢)
+  - [十一、查碼模式](user-guide.md#十一、查碼模式)
+  - [十二、按鍵說明](user-guide.md#十二、按鍵說明)
 - **快速參考**
-  - [十二、快捷鍵總覽](user-guide.md#十二、快捷鍵總覽)
-  - [十三、引導鍵總覽](user-guide.md#十三、引導鍵總覽)
+  - [十三、快捷鍵總覽](user-guide.md#十三、快捷鍵總覽)
+  - [十四、引導鍵總覽](user-guide.md#十四、引導鍵總覽)
 - **設定**
-  - [十四、主題與字體設定](user-guide.md#十四、主題與字體設定)
+  - [十五、主題與字體設定](user-guide.md#十五、主題與字體設定)
