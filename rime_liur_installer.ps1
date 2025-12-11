@@ -107,9 +107,9 @@ $FONT_FILES_WIN = @(
 )
 
 Write-Host ""
-Write-Host "     +-----------------------------+" -ForegroundColor Cyan
-Write-Host "     | RIME 蝦米輸入方案 自動安裝工具 |" -ForegroundColor Cyan
-Write-Host "     +-----------------------------+" -ForegroundColor Cyan
+Write-Host "======================================" -ForegroundColor Cyan
+Write-Host "  RIME 蝦米輸入方案 自動安裝工具" -ForegroundColor Cyan
+Write-Host "======================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "本工具將執行以下作業："
 Write-Host "1. 下載蝦米輸入方案檔案到 Rime 資料夾"
@@ -124,9 +124,7 @@ for ($i = 5; $i -ge 1; $i--) {
 }
 
 Write-Host ""
-Write-Host "+----------------------------------+" -ForegroundColor Green
-Write-Host "| Step 1: 下載蝦米輸入方案檔案     |" -ForegroundColor Green
-Write-Host "+----------------------------------+" -ForegroundColor Green
+Write-Host "[ Step 1: 下載蝦米輸入方案檔案 ]" -ForegroundColor Green
 
 # 建立資料夾
 New-Item -ItemType Directory -Force -Path $RIME_FOLDER | Out-Null
@@ -166,9 +164,7 @@ foreach ($file in $OPENCC_FILES) {
 }
 
 Write-Host ""
-Write-Host "+----------------------------------+" -ForegroundColor Green
-Write-Host "| Step 2: 安裝字體                 |" -ForegroundColor Green
-Write-Host "+----------------------------------+" -ForegroundColor Green
+Write-Host "[ Step 2: 安裝字體 ]" -ForegroundColor Green
 
 New-Item -ItemType Directory -Force -Path $FONT_FOLDER | Out-Null
 
@@ -189,15 +185,13 @@ foreach ($file in $FONT_FILES_WIN) {
 }
 
 Write-Host ""
-Write-Host "+----------------------------------+" -ForegroundColor Green
-Write-Host "| Step 3: 完成                     |" -ForegroundColor Green
-Write-Host "+----------------------------------+" -ForegroundColor Green
+Write-Host "[ Step 3: 完成 ]" -ForegroundColor Green
 Write-Host ""
 Write-Host "請手動重新部署小狼毫（右鍵點擊系統匣圖示 → 重新部署）" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "     +----------------------------+" -ForegroundColor Cyan
-Write-Host "     | 蝦米輸入方案 安裝完成 ✨      |" -ForegroundColor Cyan
-Write-Host "     +----------------------------+" -ForegroundColor Cyan
+Write-Host "======================================" -ForegroundColor Cyan
+Write-Host "  蝦米輸入方案 安裝完成 ✨" -ForegroundColor Cyan
+Write-Host "======================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Rime 資料夾：$RIME_FOLDER"
 Write-Host "字體資料夾：$FONT_FOLDER"
