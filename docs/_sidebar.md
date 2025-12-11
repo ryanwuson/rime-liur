@@ -1,4 +1,4 @@
-- [蝦米輸入法功能說明](user-guide.md)
+- [蝦米輸入方案功能說明](user-guide.md)
 - **基本功能**
   - [一、基本輸入](user-guide.md#一、基本輸入)
   - [二、造詞功能](user-guide.md#二、造詞功能)
