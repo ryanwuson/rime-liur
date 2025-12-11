@@ -42,6 +42,7 @@ switches:
 engine:
   processors:
     - ascii_composer
+    - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
     - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
     - lua_processor@liu_extended_backspace           # `` 擴充模式（必須在 recognizer 之前攔截 ` 鍵）
     - lua_processor@liu_symbols_number_processor     # 符號清單數字選字及字母變化形（必須在 recognizer 之前攔截 ` 鍵）

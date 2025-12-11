@@ -117,3 +117,6 @@ liu_code_decoder_translator = require("liu_code_decoder")
 local liu_help_module = require("liu_help")
 liu_help_translator = liu_help_module.translator
 liu_help_filter = require("liu_help_filter")
+
+-- 波浪號直出處理（單獨輸入 ~ 時直接輸出）
+liu_tilde_processor = require("liu_tilde_processor")

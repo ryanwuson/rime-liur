@@ -44,7 +44,7 @@ curl -fsSL https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_
 irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_installer.ps1 | iex
 ```
 
-腳本會自動下載所需檔案並安裝字體。
+腳本會自動下載所需檔案並安裝字體
 
 ### 基本使用
 
