@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>User Guide</title>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
-    <script>
-      window.$docsify = {
-        name: 'User Guide',
-        repo: 'https://github.com/ryanwuson/rime-liur',
-        loadSidebar: true,         // <-- 注意逗號
-        homepage: 'user-guide.md'  // <-- 指定首頁 Markdown
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>蝦米輸入法 Rime 方案</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="蝦米輸入法 Rime 方案使用說明">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app">載入中...</div>
+  <script>
+    window.$docsify = {
+      name: '蝦米輸入法',
+      repo: 'ryanwuson/rime-liur',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      search: {
+        placeholder: '搜尋',
+        noData: '找不到結果',
+        paths: 'auto'
       }
-    </script>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  </body>
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 搜尋插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- 圖片縮放 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+</body>
 </html>
