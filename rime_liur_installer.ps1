@@ -173,7 +173,7 @@ Write-Host "下載字體檔案..."
 foreach ($file in $FONT_FILES) {
     $filename = Split-Path $file -Leaf
     if (Test-Path "$FONT_FOLDER\$filename") {
-        Write-Host "  略過 $filename（已存在）"
+        Write-Host "  [skip] $filename"
     } else {
         Write-Host "  安裝 $filename"
         Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$FONT_FOLDER\$filename"
@@ -184,7 +184,7 @@ foreach ($file in $FONT_FILES) {
 foreach ($file in $FONT_FILES_WIN) {
     $filename = Split-Path $file -Leaf
     if (Test-Path "$FONT_FOLDER\$filename") {
-        Write-Host "  略過 $filename（已存在）"
+        Write-Host "  [skip] $filename"
     } else {
         $encodedPath = $file -replace " ", "%20"
         Write-Host "  安裝 $filename"

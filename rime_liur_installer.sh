@@ -183,7 +183,7 @@ echo "下載字體檔案..."
 for file in "${FONT_FILES[@]}"; do
     filename=$(basename "$file")
     if [ -f "$FONT_FOLDER/$filename" ]; then
-        echo "  略過 $filename（已存在）"
+        echo "  [skip] $filename"
     else
         echo "  安裝 $filename"
         curl -fsSL "${GITHUB_RAW}/${file}" -o "$FONT_FOLDER/$filename"
