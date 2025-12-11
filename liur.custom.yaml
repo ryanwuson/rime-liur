@@ -1,0 +1,7 @@
+# liur.custom.yaml
+patch:
+  key_binder/bindings/+:
+    - { when: always, accept: 'Control+slash', select: easy_en }
+    - { when: composing, accept: space, send: Escape }
+    - { when: has_menu, accept: space, send: space }
+    - { when: has_menu, accept: space, send: space, option: { liu_phonetic: 0 } }

@@ -1,0 +1,471 @@
+#錯誤查看%TEMP%\rime.weasel
+# Rime schema settings
+# encoding: utf-8
+#
+schema:
+  schema_id: liur
+  name: 蝦米輸入法
+  version: "20181227"
+  author:
+    - 制作人
+  description: |
+    蝦米-拼音-注音輸入法
+  dependencies:
+    # - luna_pinyin  # 漢語拼音，目前未使用
+    - bopomofo_tw
+    - Mount_bopomo
+    - allbpm
+    - liur_symbols
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 英文 ]
+  - name: full_shape
+    states: [ 半形, 全形 ]
+  - name: simplification
+    states: [ 繁體, 简体 ]
+  - name: liu_w2c
+    reset: 0
+    states: [ 正常, 查碼 ]
+  - name: quick_mode
+    reset: 0
+    states: [ 正常, 快打 ]
+  - name: wildcard_mode
+    reset: 0
+    states: [ 正常, 萬用查字 ]
+  - name: extended_charset
+    states: [ 常用, 擴充字集 ]
+    reset: 0
+  - name: zh_tw
+    reset: 1
+
+engine:
+  processors:
+    - ascii_composer
+    - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@liu_extended_backspace           # `` 擴充模式（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@liu_symbols_number_processor     # 符號清單數字選字及字母變化形（必須在 recognizer 之前攔截 ` 鍵）
+    - recognizer
+    - lua_processor@liu_wildcard_processor           # 萬用字元開關（關閉時 ? 直接輸出）
+    - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
+    - lua_processor@liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'
+    - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'
+    - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
+    - key_binder
+    - speller
+#    - punctuator
+    - selector
+    - navigator
+    - express_editor
+#    - fluency_editor	#  語句流
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - lua_segmentor@liu_extended_segmentor  # 擴充模式 ``（lua segmentor 處理空輸入）
+    - affix_segmentor@extended_mode  # 擴充模式 ``（必須在 fancy 之前）
+    - affix_segmentor@fancy_number  # 變體數字 `/'
+    - affix_segmentor@fancy_upper   # 變體AA `///
+    - affix_segmentor@fancy_lower   # 變體aa `//
+    - affix_segmentor@fancy_title   # 變體Aa `/
+    - affix_segmentor@number_variant  # 數字變體 `'（必須在 symbols 之前）
+    - affix_segmentor@symbols  # 符號清單必須在 abc_segmentor 之前，以支援 `A `a 字母變化形
+    - affix_segmentor@code_decode  # 編碼解碼模式 ,,x
+    - affix_segmentor@help_mode  # 功能說明 ,,h
+    - abc_segmentor
+    - affix_segmentor@mkst
+    - affix_segmentor@liurqry
+    # - affix_segmentor@pinyin  # pinyin 區塊已註解，暫時停用
+    - affix_segmentor@phonetic
+    # - affix_segmentor@reverse2_lookup  # 未定義，暫時註解
+    - affix_segmentor@all_bpm
+#    - punct_segmentor
+    - fallback_segmentor
+  translators:
+#    - echo_translator
+#    - punct_translator
+#    - script_translator
+    - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
+    - lua_translator@liu_symbols_hint  # 符號清單提示
+    - lua_translator@liu_letter_variants  # 擴充模式字母變化形（``a 小寫，``A 大寫）
+    - lua_translator@liu_datetime  # 擴充模式日期時間（``/01~``/10）
+    - lua_translator@liu_fancy_translator  # 變體英數轉換器（`/ `// `/// `/'）
+    - lua_translator@date_translator  # 符號清單變體（`a 字母變體，`01 數字變體）
+    - lua_translator@liu_phonetic_suffix_translator  # 同音字翻譯器（選中後按 '）
+    - lua_translator@liu_code_decoder_translator  # 編碼解碼器（,,x 模式）
+    - script_translator@all_bpm
+    - table_translator@mkst
+    - table_translator@fixed
+    - table_translator@liurqry
+    - table_translator
+    # - script_translator@pinyin  # pinyin 區塊已註解，暫時停用
+    - script_translator@phonetic
+    - table_translator@symbols
+
+  filters:
+    - lua_filter@liu_completion_translator	#候選排序（假名、擴充漢字排後面）- 造詞模式下跳過
+    - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
+    - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元
+    - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼
+    - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
+    - reverse_lookup_filter@phonetic_reverse_lookup	#讀音查詢（必須在 simplifier 之前以查詢繁體字）
+    - simplifier
+    - lua_filter@liu_extended_filter	#擴充模式處理（禁用反查和簡體）- 必須在 simplifier 之後
+    - lua_filter@liu_remove_trad_in_w2c	#查碼模式下移除繁體標記
+    - lua_filter@liu_w2c_sorter	#字碼排序及簡體模式優化
+    - lua_filter@liu_vrsf_hint	#VRSF 選字提示（▸ ⟨v⟩ 等）- 必須在 liu_w2c_sorter 之後
+    - lua_filter@liu_quick_hint	#快打模式：提示可用簡碼（必須在 liu_w2c_sorter 之後以覆蓋繁體標記）
+    - lua_filter@liu_phonetic_suffix_filter	#嘸蝦米同音字（選中後按 '）- 必須在 simplifier 之後
+    - simplifier@zh_tw
+    # - reverse_lookup_filter@ovff_reverse_lookup  # 未定義，暫時註解
+    - lua_filter@liu_phonetic_override	#讀音查詢模式下移除編碼和繁體標記（必須在最後）
+    - lua_filter@liu_symbols_hint_filter	#符號清單提示處理（必須在所有 simplifier 之後，uniquifier 之前）
+    - lua_filter@liu_help_filter	#按鍵說明處理（必須在所有 simplifier 之後）
+    - lua_filter@liu_fancy_filter	#變體英數模式 preedit 處理
+    - uniquifier	#過濾重複的候選字（必須在所有 filter 之後）
+    # - single_char_filter  #單字優先
+
+# abc_segmentor:
+  # extra_tags:
+    # - liurqry
+
+liu_w2c:
+  opencc_config: liu_w2c.json
+  option_name: liu_w2c
+  show_in_comment: true
+  tags: [ abc, mkst, phonetic, symbols, lua, fancy_title, fancy_lower, fancy_upper, fancy_number ]  # 包含 symbols、lua、fancy 以支持符號清單和變體模式反查（extended_mode 不反查）
+  tips: all
+  
+
+
+zh_tw:	#只針對拼音及注音輸入進行台灣用語轉換
+  opencc_config: t2tw.json
+  option_name: zh_tw
+  tags: [ pinyin, phonetic ]
+
+simplifier:
+  option_name: simplification
+  tips: all	# 簡化字模式下顯示對應的傳統漢字
+  tags: [ abc, mkst, phonetic, symbols, lua, fancy_title, fancy_lower, fancy_upper, fancy_number ]  # 排除 extended_mode
+
+speller:
+  alphabet: "abcdefghijklmnopqrstuvwxyz[];',.?~"
+  delimiter: "~"
+  algebra:
+    # 萬用字元「?」支援 3-4 碼，最多 2 個 ?
+    # 注意：查碼模式下會自動禁用萬用字元以確保效能
+    # 3碼字
+    - derive/^~?([a-z])([a-z])([a-z])$/$1$2?/  # ab? (3碼)
+    - derive/^~?([a-z])([a-z])([a-z])$/$1?$3/  # a?c (3碼)
+    - derive/^~?([a-z])([a-z])([a-z])$/?$2$3/  # ?bc (3碼)
+    - derive/^~?([a-z])([a-z])([a-z])$/$1??/   # a?? (3碼)
+    - derive/^~?([a-z])([a-z])([a-z])$/??$3/   # ??c (3碼)
+    # 4碼字
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2$3?/  # abc? (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2?$4/  # ab?d (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1?$3$4/  # a?cd (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2$3$4/  # ?bcd (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2??/   # ab?? (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1?$3?/   # a?c? (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1??$4/   # a??d (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2$3?/   # ?bc? (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2?$4/   # ?b?d (4碼)
+    - derive/^~?([a-z])([a-z])([a-z])([a-z])$/??$3$4/   # ??cd (4碼)
+    # 移除 ~ 前綴（必須放在最後）
+    - xform/^~(.*)$/$1
+#為了加強造詞準確性，在字典中，以「~」前綴標記非標準拆字，再透過拼寫語法去除「~」後，送入辭典查詢
+#萬用字元「?」使用 Shift+/ 輸入，支援 3-4 碼、最多 2 個 ? 的查詢
+#查碼模式（Ctrl+'）下會自動禁用萬用字元以確保效能
+
+translator:
+  dictionary: liur.extended
+  db_class: tabledb
+  enable_user_dict: false
+  enable_sentence: false
+  enable_encoder: false
+  enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
+  encode_commit_history: false
+  max_phrase_length: 10
+  enable_completion: true
+  comment_format:
+    - xform/^~.*(.)$/▸⟨$1⟩   #將提示碼改為較美觀的型式
+  disable_user_dict_for_patterns:
+    - "^[',.].*$"
+  initial_quality: 1000
+
+fixed:
+  __include: /translator
+  enable_encoder: true
+  enable_user_dict: true
+  initial_quality: 100
+
+mkst:
+  enable_encoder: true
+  enable_user_dict: true
+  __include: /translator
+  enable_sentence: true
+  prefix: ';'
+  tips: "《造詞》▸"
+  closing_tips: "◀《造詞》"
+  tag: mkst
+  initial_quality: 10
+  preedit_format:
+    - "xform/~/`/"
+    - xform/^/《造詞》/
+
+liurqry:
+  __include: /translator
+  prefix: ";;"
+  suffix: "'"
+  tips: "《讀音查詢》▸"
+  closing_tips: "◂《讀音查詢》"
+  initial_quality: 300	# 調整該編譯器出字優先度
+  tag: liurqry
+  preedit_format:
+    - xform/^/《讀音查詢》/
+
+all_bpm:
+  tag: all_bpm
+  dictionary: allbpm
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  prefix: "';'"
+  tips: "《注音直出》▸"
+  # closing_tips: "◂《注音直出》"
+  preedit_format:
+    - xform/~//
+    - xform/^/《注音直出》/
+    - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-6347'|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˊˇˋ˙ˉ|"
+    - xform/\|//
+    - xform/`//
+
+# 漢語拼音反查（目前未使用）
+#pinyin:
+#  tag: pinyin
+#  dictionary: luna_pinyin
+#  prefix: "`"
+#  suffix: "'"
+#  preedit_format: &pinyin
+#    - xform/([nl])v/$1ü/
+#    - xform/([nl])ue/$1üe/
+#    - xform/([jqxy])v/$1u/
+#  tips: 【拼音】
+#  closing_tips: 【蝦米】
+#  initial_quality: 0.2
+
+phonetic:
+  tag: phonetic
+  dictionary: "Mount_bopomo.extended"
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: true
+  prefix: "';"
+  suffix: "'"
+  tips: "《注音輸入》▸"
+  closing_tips: "◂《注音輸入》"
+  preedit_format:
+    - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˊˇˋ˙|"
+    - xform/~/⋮/
+    - xform/^/《注音輸入》/
+    - xform/\|/  /
+    - xform/`/  /
+
+phonetic_reverse_lookup:
+  tags: [ liurqry ]
+  dictionary: Mount_bopomo.extended
+  overwrite_comment: true  # 覆蓋其他提示
+
+# 快打模式使用 ReverseLookup("openxiami_TCJP") 進行反查
+# Rime 會自動從 openxiami_TCJP 字典建立反查索引
+
+punctuator:
+#  import_preset: default
+#  import_preset: alternative
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: Tab, send: Page_Down, when: has_menu}
+    - {accept: "Shift+Tab", send: Page_Up, when: has_menu}      # Shift+Tab向上翻頁
+    - {accept: "Shift+Up", send: Page_Up, when: has_menu}       # Shift+上向上翻頁
+    - {accept: "Shift+Down", send: Page_Down, when: has_menu}   # Shift+下向下翻頁
+recognizer:
+  import_preset: default
+
+  patterns:
+    email: ^[a-z][-_.0-9a-z]*@.*$
+    url: ^(www[.]|https?:|ftp:|mailto:).*$
+    phonetic: "^';[-.,;/0-9a-z`|]*'?$"
+    all_bpm: "^';'[-a-z0-9.,/;']*$"
+# 讀音查詢引導鍵（;;）
+    mkst: "^;[a-z,.'~]*$"
+#造詞引導
+    liurqry: ";;[a-z']*'?$"
+# 擴充模式引導鍵（``）- 雙反引號
+# ``a = 小寫變化形（ā á...），``A = 大寫變化形（Ā Á...）
+# ``/ = 日期時間選單，``/01~``/10 = 日期時間分類
+    extended_mode: "^``[a-zA-Z/0-9:`']*`?$"
+# 變體英數模式（順序很重要：長的 prefix 要先匹配）
+# 允許結尾有 ` 以處理誤按情況（如 `/abc`）
+    fancy_number: "`/'[0-9.']*`?$"   # 變體數字 `/' (結尾加'可數字選字)
+    fancy_upper: "`///[a-z.]*`?$"   # 變體AA `///
+    fancy_lower: "`//[a-z.]*`?$"    # 變體aa `//
+    fancy_title: "`/[a-z.]*`?$"     # 變體Aa `/
+# 數字變體引導鍵（`'）
+# `'1~`'50 = 數字變體（① ⓵ ❶...）
+    number_variant: "(?<![=`/])`'[0-9]{0,2}`?$"
+# 符號清單引導鍵（`）- 數字編碼或字母變體
+# `a = 字母變體（Ⓐ ⓐ...），`01~`50 = 符號分類
+# 數字編碼後的數字鍵用於選字，字母變體後的數字鍵也用於選字
+# 允許結尾有 ` 以處理誤按情況（如 `01` 或 `a`）
+# 必須以 ` 開頭，避免 ix` 這種誤按觸發符號清單
+    symbols: "^`([0-9]{0,2}|[a-z])`?$"
+# 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
+# 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
+    code_decode: "^,,x[a-z\\-;,']*$"
+# 功能說明引導鍵（,,h）
+    help_mode: "^,,h$"
+
+# 符號清單配置
+# 注意：alphabet 只包含字母，數字輸入由 lua_processor@liu_symbols_number_processor 處理
+# `a = 字母變體（Ⓐ ⓐ...），`01~`50 = 符號分類，`'1~`'50 = 數字變體（① ⓵...）
+symbols:
+  tag: symbols
+  dictionary: liur_symbols
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  prefix: "`"
+  alphabet: "abcdefghijklmnopqrstuvwxyz`"
+  tips: "《符號清單》▸"
+  closing_tips: ""
+  initial_quality: 1
+  comment_format:
+    - xform/^/~/
+  preedit_format:
+    - xform/^01/[01]一般/
+    - xform/^02/[02]括號/
+    - xform/^03/[03]引號/
+    - xform/^04/[04]豎標/
+    - xform/^05/[05]數學/
+    - xform/^06/[06]單位/
+    - xform/^07/[07]貨幣/
+    - xform/^08/[08]分數/
+    - xform/^09/[09]上標/
+    - xform/^10/[10]下標/
+    - xform/^11/[11]注音/
+    - xform/^12/[12]拼音/
+    - xform/^13/[13]音標/
+    - xform/^14/[14]平假/
+    - xform/^15/[15]片假/
+    - xform/^16/[16]韓文/
+    - xform/^17/[17]藏文/
+    - xform/^18/[18]希臘/
+    - xform/^19/[19]俄語/
+    - xform/^20/[20]合字/
+    - xform/^21/[21]部首/
+    - xform/^22/[22]月份/
+    - xform/^23/[23]日期/
+    - xform/^24/[24]時間/
+    - xform/^25/[25]性別/
+    - xform/^26/[26]圈英/
+    - xform/^27/[27]圈數/
+    - xform/^28/[28]圈漢/
+    - xform/^29/[29]圈日/
+    - xform/^30/[30]圈韓/
+    - xform/^31/[31]括英/
+    - xform/^32/[32]括數/
+    - xform/^33/[33]括漢/
+    - xform/^34/[34]括韓/
+    - xform/^35/[35]框英/
+    - xform/^36/[36]框數/
+    - xform/^37/[37]框漢/
+    - xform/^38/[38]點數/
+    - xform/^39/[39]羅馬/
+    - xform/^40/[40]箭頭/
+    - xform/^41/[41]線段/
+    - xform/^42/[42]框線/
+    - xform/^43/[43]圓形/
+    - xform/^44/[44]三角/
+    - xform/^45/[45]方形/
+    - xform/^46/[46]星星/
+    - xform/^47/[47]八卦/
+    - xform/^48/[48]易經/
+    - xform/^49/[49]音樂/
+    - xform/^50/[50]圖案/
+    - "xform/^`$/``/"
+    # 字母變化形的 preedit 由 lua/liu_letter_variants.lua 處理
+
+# 變體英數配置
+# `/ = 變體Aa（首字母大寫）
+# `// = 變體aa（全小寫）
+# `/// = 變體AA（全大寫）
+# `/' = 變體數字
+# . = 空白分隔符
+
+# 變體Aa（首字母大寫）
+# preedit 由 lua/liu_fancy_filter.lua 處理
+fancy_title:
+  tag: fancy_title
+  prefix: "`/"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體Aa》▸"
+
+# 變體aa（全小寫）
+# preedit 由 lua/liu_fancy_filter.lua 處理
+fancy_lower:
+  tag: fancy_lower
+  prefix: "`//"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體aa》▸"
+
+# 變體AA（全大寫）
+# preedit 由 lua/liu_fancy_filter.lua 處理
+fancy_upper:
+  tag: fancy_upper
+  prefix: "`///"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體AA》▸"
+
+# 變體數字
+# preedit 由 lua/liu_fancy_filter.lua 處理
+fancy_number:
+  tag: fancy_number
+  prefix: "`/'"
+  alphabet: "0123456789.'`"
+  tips: "《變體數字》▸"
+
+# 數字變體（`'）
+# `'1~`'50 = 數字變體（① ⓵ ❶...）
+# preedit 由 rime.lua 的 date_translator 處理
+number_variant:
+  tag: number_variant
+  prefix: "`'"
+  alphabet: "0123456789`"
+  tips: "《變體數字》▸"
+
+# 擴充模式（``）- 字母變化形
+# ``a = 小寫變化形（ā á...），``A (Shift+a) = 大寫變化形（Ā Á...）
+# ``/ = 日期時間選單，``/01~``/10 = 日期時間分類
+# preedit 由 lua/liu_letter_variants.lua 和 lua/liu_datetime.lua 處理
+extended_mode:
+  tag: extended_mode
+  prefix: "``"
+  suffix: ""
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:`'"
+  tips: "▸"
+
+# 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
+# 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
+code_decode:
+  tag: code_decode
+  prefix: ",,x"
+  suffix: ""
+  alphabet: "abcdefghijklmnopqrstuvwxyz-;,'"
+  tips: "《解碼》▸"
+
+# 功能說明（,,h）- 顯示所有功能的快捷鍵說明
+help_mode:
+  tag: help_mode
+  prefix: ",,h"
+  tips: "《按鍵說明》▸"

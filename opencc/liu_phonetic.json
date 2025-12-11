@@ -1,0 +1,19 @@
+{
+  "name": "嘸蝦米同音字",
+  "segmentation": {
+    "type": "mmseg",
+    "dict": {
+      "type": "text",
+      "file": "liu_phonetic.txt"
+    }
+  },
+  "conversion_chain": [{
+    "dict": {
+      "type": "group",
+      "dicts": [{
+        "type": "text",
+        "file": "liu_phonetic.txt"
+      }]
+    }
+  }]
+}

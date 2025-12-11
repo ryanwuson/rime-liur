@@ -1,0 +1,112 @@
+# weasel.custom.yaml
+# 小狼毫主題配置 - 移植自 squirrel.custom.yaml
+# 包含亮色 (macos_light) 和暗色 (macos_dark) 主題
+
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.16.3
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Thu Dec  5 00:00:00 2024"
+  rime_version: 1.11.2
+
+patch:
+  style:
+    # 選擇皮膚，亮色與暗色主題
+    color_scheme: macos_light
+    color_scheme_dark: macos_dark
+    label_format: "%s "
+    hover_type: none
+    paging_on_scroll: true
+    click_to_capture: false
+
+    # 預設選項
+    font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+    label_font_face: "Maple Mono Normal"
+    comment_font_face: "Maple Mono Normal"
+    font_point: 16
+    label_font_point: 9
+    comment_font_point: 11
+    inline_preedit: true
+    preedit_type: composition
+    fullscreen: false
+    horizontal: false
+    display_tray_icon: false
+
+    layout:
+      align_type: center
+      min_width: 0
+      border_width: 1
+      margin_x: 0
+      margin_y: 1
+      spacing: 0
+      candidate_spacing: 0
+      hilite_spacing: 0
+      hilite_padding: 0
+      hilite_padding_x: 12
+      hilite_padding_y: 1
+      line_spacing: 5
+      corner_radius: 8
+      round_corner: 8
+      shadow_offset_x: 2
+      shadow_offset_y: 2
+      shadow_radius: 3
+
+  # 皮膚列表
+  preset_color_schemes:
+    macos_light:
+      name: "MacOS 淺色／MacOS Light"
+      author: Ryan
+      # 字體設定
+      font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+      font_point: 16
+      label_font_face: "Maple Mono Normal"
+      label_font_point: 9
+      comment_font_face: "Maple Mono Normal"
+      comment_font_point: 11
+      # 佈局
+      inline_preedit: true
+      text_orientation: horizontal
+      # 顏色設定
+      back_color: 0xF8F6F4                      # 底色
+      border_color: 0x26000000                  # 外邊框顏色（15% 透明度）
+      shadow_color: 0x26000000                  # 陰影顏色（15% 透明度）
+      candidate_text_color: 0x3c3c3c            # 文字顏色
+      candidate_back_color: 0xF8F6F4            # 候選項底色
+      label_color: 0x999999                     # 序號顏色
+      comment_text_color: 0x999999              # 注顏色
+      text_color: 0x424242                      # 拼音顏色
+      hilited_text_color: 0xFFFFFF              # 選中拼音顏色
+      hilited_back_color: 0xD75A00              # 選中拼音底色 (藍色)
+      hilited_candidate_text_color: 0xFFFFFF    # 選中文字顏色
+      hilited_candidate_back_color: 0xD75A00    # 選中底色 (藍色)
+      hilited_candidate_label_color: 0xFFFFFF   # 選中序號顏色
+      hilited_comment_text_color: 0xFFFFFF      # 選中注顏色
+
+    macos_dark:
+      name: "MacOS 深色／MacOS Dark"
+      author: Ryan
+      # 字體設定
+      font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+      font_point: 16
+      label_font_face: "Maple Mono Normal"
+      label_font_point: 9
+      comment_font_face: "Maple Mono Normal"
+      comment_font_point: 11
+      # 佈局
+      inline_preedit: true
+      text_orientation: horizontal
+      # 顏色設定
+      back_color: 0x32302F                      # 底色
+      border_color: 0x40FFFFFF                  # 外邊框顏色（25% 透明度白色）
+      shadow_color: 0x26000000                  # 陰影顏色（15% 透明度）
+      candidate_text_color: 0xe9e9ea            # 文字顏色
+      candidate_back_color: 0x32302F            # 候選項底色
+      label_color: 0x999999                     # 序號顏色
+      comment_text_color: 0x999999              # 注顏色
+      text_color: 0x808080                      # 拼音顏色
+      hilited_text_color: 0xFFFFFF              # 選中拼音顏色
+      hilited_back_color: 0xD75A00              # 選中拼音底色 (藍色)
+      hilited_candidate_text_color: 0xFFFFFF    # 選中文字顏色
+      hilited_candidate_back_color: 0xD75A00    # 選中底色 (藍色)
+      hilited_candidate_label_color: 0xFFFFFF   # 選中序號顏色
+      hilited_comment_text_color: 0x999999      # 選中注顏色

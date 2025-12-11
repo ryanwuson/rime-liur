@@ -1,0 +1,124 @@
+patch:
+  # ascii_mode、inline、no_inline、vim_mode 等等設定，可參考 /Library/Input Methods/Squirrel.app/Contents/SharedSupport/squirrel.yaml
+  app_options:
+    #com.raycast.macos:
+    #  ascii_mode: true   # 初始為西文模式
+    #com.microsoft.VSCode:
+    #  ascii_mode: true   # 初始為西文模式
+    #  vim_mode: true
+    #md.obsidian:
+    #  ascii_mode: true   # 初始為西文模式
+    #  vim_mode: true
+    #org.alacritty:
+    #  ascii_mode: true   # 初始為西文模式
+    #com.jetbrains.intellij:
+    #  ascii_mode: true
+    #  vim_mode: true
+  
+  style:
+    # 選擇皮膚，亮色與暗色主題
+    color_scheme: macos_light
+    color_scheme_dark: macos_dark
+  
+    # 預設選項：（可被皮膚覆蓋；如果皮膚沒寫，則默認使用這些屬性。）
+    text_orientation: horizontal  # horizontal | vertical
+    inline_preedit: true
+    corner_radius: 8
+    hilited_corner_radius: 0
+    border_height: 0
+    border_width: 0
+    line_spacing: 4
+    spacing: 10
+    #candidate_format: '%c. %@'
+    #base_offset: 6
+    font_face: 'MapleMonoNormal-Regular, PingFangTC-Regular, PlangothicP1-Regular, PlangothicP2-Regular, TW-Kai-98_1, TW-Kai-Plus-98_1, TW-Kai-Ext-B-98_1'
+    font_point: 26
+    label_font_face: 'MapleMonoNormal-Regular'
+    label_font_point: 14
+    comment_font_face: 'MapleMonoNormal-Regular'
+    comment_font_point: 18
+    show_paging: true
+  
+  # 皮膚列表
+  preset_color_schemes:
+    macos_light:
+      name: "MacOS 淺色／MacOS Light"
+      author: Ryan
+      font_face: "MapleMonoNormal-Regular, PingFangTC-Regular, PlangothicP1-Regular, PlangothicP2-Regular, TW-Kai-98_1, TW-Kai-Plus-98_1, TW-Kai-Ext-B-98_1"          # 字體及大小
+      font_point: 26
+      label_font_face: "MapleMonoNormal-Regular"    # 序號字體及大小
+      label_font_point: 14
+      comment_font_face: "MapleMonoNormal-Regular"  # 注字體及大小
+      comment_font_point: 18
+      candidate_format: "%c\u2005%@" # 編號 %c 和候選詞 %@ 前後的空間
+      candidate_list_layout: stacked   # 候選排布：層疊 stacked | 行 linear
+      text_orientation: horizontal    # 行文向： 橫 horizontal | 縱 vertical
+      inline_preedit: true            # 拼音位於： 候選框 false | 行內 true
+      translucency: true             # 磨砂： false | true
+      mutual_exclusive: false         # 色不疊加： false | true
+      border_height: 0                # 外邊框 高
+      border_width: 0                 # 外邊框 寬
+      corner_radius: 8                # 外邊框 圓角半徑
+      hilited_corner_radius: 0       # 選中框 圓角半徑
+      surrounding_extra_expansion: 0 # 候選項背景相對大小？
+      shadow_size: 0                 # 陰影大小
+      line_spacing: 4                # 行間距
+      base_offset: 0                 # 字基高
+      alpha: 1                       # 透明度，0~1
+      spacing: 10                    # 拼音與候選項之間的距離 （inline_preedit: false）
+      color_space: srgb                       # 色彩空間： srgb | display_p3
+      back_color: 0xF8F6F4                    # 底色
+      hilited_candidate_back_color: 0xD75A00  # 選中底色
+      label_color: 0x999999                   # 序號顏色
+      hilited_candidate_label_color: 0xFFFFFF # 選中序號顏色
+      candidate_text_color: 0x3c3c3c          # 文字顏色
+      hilited_candidate_text_color: 0xFFFFFF  # 選中文字顏色
+      comment_text_color: 0x999999            # 注顏色
+      hilited_comment_text_color: 0xFFFFFF    # 選中注顏色
+      text_color: 0x424242                    # 拼音顏色 （inline_preedit: false）
+      hilited_text_color: 0xFFFFFF            # 選中拼音顏色 （inline_preedit: false）
+      candidate_back_color: 0xF8F6F4          # 候選項底色
+      # preedit_back_color:                   # 拼音底色 （inline_preedit: false）
+      hilited_back_color: 0xD75A00            # 選中拼音底色 （inline_preedit: false）
+      border_color: 0xF8F6F4                  # 外邊框顏色
+  
+    macos_dark:
+      name: "MacOS 深色／MacOS Dark"
+      author: Ryan
+      font_face: "MapleMonoNormal-Regular, PingFangTC-Regular, PlangothicP1, TW-Kai-98_1, TW-Kai-Plus-98_1, TW-Kai-Ext-B-98_1"          # 字體及大小
+      font_point: 26
+      label_font_face: "MapleMonoNormal-Regular"    # 序號字體及大小
+      label_font_point: 14
+      comment_font_face: "MapleMonoNormal-Regular"  # 注字體及大小
+      comment_font_point: 18
+      candidate_format: "%c\u2005%@" # 編號 %c 和候選詞 %@ 前後的空間
+      candidate_list_layout: stacked   # 候選排布：層疊 stacked | 行 linear
+      text_orientation: horizontal    # 行文向： 橫 horizontal | 縱 vertical
+      inline_preedit: true            # 拼音位於： 候選框 false | 行內 true
+      translucency: true             # 磨砂： false | true
+      mutual_exclusive: false         # 色不疊加： false | true
+      border_height: 0                # 外邊框 高
+      border_width: 0                 # 外邊框 寬
+      corner_radius: 8                # 外邊框 圓角半徑
+      hilited_corner_radius: 0       # 選中框 圓角半徑
+      surrounding_extra_expansion: 0 # 候選項背景相對大小？
+      shadow_size: 0                 # 陰影大小
+      line_spacing: 4                # 行間距
+      base_offset: 0                 # 字基高
+      alpha: 1                       # 透明度，0~1
+      spacing: 10                    # 拼音與候選項之間的距離 （inline_preedit: false）
+      color_space: srgb                       # 色彩空間： srgb | display_p3
+      back_color: 0x32302F                  # 底色
+      hilited_candidate_back_color: 0xD75A00  # 選中底色
+      label_color: 0x999999                   # 序號顏色
+      hilited_candidate_label_color: 0xFFFFFF # 選中序號顏色
+      candidate_text_color: 0xe9e9ea          # 文字顏色
+      hilited_candidate_text_color: 0xFFFFFF  # 選中文字顏色
+      comment_text_color: 0x999999            # 注顏色
+      hilited_comment_text_color: 0x999999    # 選中注顏色
+      text_color: 0x808080                    # 拼音顏色 （inline_preedit: false）
+      hilited_text_color: 0xFFFFFF            # 選中拼音顏色 （inline_preedit: false）
+      candidate_back_color: 0x32302F          # 候選項底色
+      # preedit_back_color:                   # 拼音底色 （inline_preedit: false）
+      hilited_back_color: 0xD75A00            # 選中拼音底色 （inline_preedit: false）
+      border_color: 0x050505                  # 外邊框顏色

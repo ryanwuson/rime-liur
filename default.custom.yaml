@@ -1,0 +1,38 @@
+__patch:
+  - patch:
+      menu:
+        alternative_select_keys: "0123456789"	#重碼選擇鍵，從 0 開始
+        page_size: 5	#選單 每頁 顯示 個數
+      ascii_composer:
+        good_old_caps_lock: true
+        switch_key: {Caps_Lock: clear, Control_L: noop, Control_R: noop, Eisu_toggle: clear, Shift_L: commit_code, Shift_R: commit_code}
+        switcher/hotkeys:
+          - Control+grave
+          - Control+Shift+grave
+          - F4
+
+  - patch/+:
+      schema_list:
+        - schema: liur
+        - schema: easy_en
+      switcher/fix_schema_list_order: true
+  - patch/key_binder/bindings/+:
+    - { when: always, accept: 'Control+slash', select: liur }
+    - { accept: period, send: period, when: has_menu }      # 輸入.
+    - { accept: "Control+period", toggle: simplification, when: always }    #進行簡繁切換
+    - { accept: "Control+apostrophe", toggle: liu_w2c, when: always }   #顯示字碼
+    - { accept: "Control+comma", toggle: extended_charset, when: always}
+    - { accept: "Shift+space", toggle: full_shape, when: always}
+    # 數字小鍵盤選字（從 0 開始，與主鍵盤一致）
+    - { accept: KP_0, send: 0, when: has_menu }
+    - { accept: KP_1, send: 1, when: has_menu }
+    - { accept: KP_2, send: 2, when: has_menu }
+    - { accept: KP_3, send: 3, when: has_menu }
+    - { accept: KP_4, send: 4, when: has_menu }
+    - { accept: KP_5, send: 5, when: has_menu }
+    - { accept: KP_6, send: 6, when: has_menu }
+    - { accept: KP_7, send: 7, when: has_menu }
+    - { accept: KP_8, send: 8, when: has_menu }
+    - { accept: KP_9, send: 9, when: has_menu }
+    - { when: composing, accept: Control+k, send: Shift+Delete }
+# }
