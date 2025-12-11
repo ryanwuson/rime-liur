@@ -30,8 +30,21 @@
 
 ### 指令安裝步驟
 
-1. 打開終端機 (Terminal)，輸入`curl -fsSL https://git.io/rime_liur_installer | bash`
-2. 開始使用蝦米輸入
+#### macOS
+
+打開終端機 (Terminal)，輸入以下指令：
+```bash
+curl -fsSL https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_installer.sh | bash
+```
+
+#### Windows
+
+打開 PowerShell，輸入以下指令：
+```powershell
+irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_installer.ps1 | iex
+```
+
+腳本會自動下載所需檔案並安裝字體。
 
 ### 基本使用
 
