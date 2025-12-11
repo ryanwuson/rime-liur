@@ -172,16 +172,24 @@ New-Item -ItemType Directory -Force -Path $FONT_FOLDER | Out-Null
 Write-Host "下載字體檔案..."
 foreach ($file in $FONT_FILES) {
     $filename = Split-Path $file -Leaf
-    Write-Host "  安裝 $filename"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$FONT_FOLDER\$filename"
+    if (Test-Path "$FONT_FOLDER\$filename") {
+        Write-Host "  略過 $filename（已存在）"
+    } else {
+        Write-Host "  安裝 $filename"
+        Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$FONT_FOLDER\$filename"
+    }
 }
 
 # Windows 額外字體
 foreach ($file in $FONT_FILES_WIN) {
     $filename = Split-Path $file -Leaf
-    $encodedPath = $file -replace " ", "%20"
-    Write-Host "  安裝 $filename"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$encodedPath" -OutFile "$FONT_FOLDER\$filename"
+    if (Test-Path "$FONT_FOLDER\$filename") {
+        Write-Host "  略過 $filename（已存在）"
+    } else {
+        $encodedPath = $file -replace " ", "%20"
+        Write-Host "  安裝 $filename"
+        Invoke-WebRequest -Uri "$GITHUB_RAW/$encodedPath" -OutFile "$FONT_FOLDER\$filename"
+    }
 }
 
 Write-Host ""

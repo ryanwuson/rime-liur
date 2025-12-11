@@ -182,8 +182,12 @@ mkdir -p "$FONT_FOLDER"
 echo "下載字體檔案..."
 for file in "${FONT_FILES[@]}"; do
     filename=$(basename "$file")
-    echo "  安裝 $filename"
-    curl -fsSL "${GITHUB_RAW}/${file}" -o "$FONT_FOLDER/$filename"
+    if [ -f "$FONT_FOLDER/$filename" ]; then
+        echo "  略過 $filename（已存在）"
+    else
+        echo "  安裝 $filename"
+        curl -fsSL "${GITHUB_RAW}/${file}" -o "$FONT_FOLDER/$filename"
+    fi
 done
 
 echo
