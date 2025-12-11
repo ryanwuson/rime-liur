@@ -16,9 +16,9 @@ M.help_items = {
     "英數變體 ▸ `/",
     "日期時間 ▸ ``/",
     "字母變化 ▸ `` + a~z",
-    "快打模式 ▸ ,,sp",
     "萬用查字 ▸ ,,wc",
     "擴充字集 ▸ Ctrl + ,",
+    "完整說明 ▸ ryanwuson.github.io/rime-liur",
 }
 
 function M.translator(input, seg, env)
