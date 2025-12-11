@@ -285,7 +285,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 - **引導鍵**：<code>&#96;&#96;</code>
 - **提示**：<code>&#96;&#96;</code>▸
-- **顯示**：日期時間〔/〕、小寫變化〔a~z〕、大寫變化〔A~Z〕
+- **顯示**：日期時間〔/〕、小寫變化〔a&#126;z〕、大寫變化〔A&#126;Z〕
 
 <img src="images/08.1擴充模式選單.png" alt="08.1擴充模式選單" style="zoom:50%;" />
 
@@ -413,7 +413,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ### 提示格式
 
-- `~⟨編碼⟩`：顯示該字的字碼
+- `~⟨編碼⟩`：顯示該字的字碼（`~` 表示反查結果）
 - 字碼提示會顯示在候選字的註解區域
 
 ### 使用範例
@@ -459,7 +459,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 | `Shift + Space` | 全半形切換 | 半形 ↔ 全形 | |
 | `Ctrl + /` | 英文輸入 | 蝦米輸入法 ↔ Easy English | 切換英文輸入，按 Space 上屏 |
 | `Ctrl + .` | 繁簡切換 | 繁體 ↔ 简体 | 簡體模式下會顯示對應的繁體字標記〔繁體字〕 |
-| `Ctrl + '` | 查碼模式 | 正常 ↔ 查碼 | 顯示每個字的字碼，格式為 ~⟨編碼⟩ |
+| `Ctrl + '` | 查碼模式 | 正常 ↔ 查碼 | 顯示每個字的字碼，格式為 `~⟨編碼⟩` |
 | `Ctrl + ,` | 擴充字集 | 常用 ↔ 擴充字集 | 顯示 CJK 擴充字集 |
 | `,,sp` | 快打模式 | 正常 ↔ 快打 | 提示可用的簡碼 |
 | `,,wc` | 萬用查字 | 正常 ↔ 萬用查字 | 開啟後可使用 ? 作為萬用字元查詢 |
