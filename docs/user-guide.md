@@ -205,25 +205,25 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ### 符號清單
 
-- **引導鍵**：<code>\`</code>
+- **引導鍵**：<code>&#96;</code>
 - **提示**：《符號清單》▸
 
-#### 分類列表（<code>\`01</code> ~ <code>\`50</code>）
+#### 分類列表（<code>&#96;01</code> ~ <code>&#96;50</code>）
 
 ![06.1符號清單第1頁](images/06.1符號清單第1頁.png)
 
 ![06.1符號清單第2頁](images/06.1符號清單第2頁.png)
 
-- **舉例**：<code>\`25</code> → 性別、<code>\`46</code> → 星星
+- **舉例**：<code>&#96;25</code> → 性別、<code>&#96;46</code> → 星星
 
 ![06.1符號清單舉例](images/06.1符號清單舉例.gif)
 
 ### 字母變體
 
-- **輸入**：<code>\`a</code> ~ <code>\`z</code>
-- **提示**：<code>\`</code>《變體a》
+- **輸入**：<code>&#96;a</code> ~ <code>&#96;z</code>
+- **提示**：<code>&#96;</code>《變體a》
 - **說明**：輸入圈圈字母、方框字母、雙線字母、哥德體等變體
-- **舉例**：<code>\`a</code> → Ⓐ ⓐ 🅐 🄰 🅰 ...
+- **舉例**：<code>&#96;a</code> → Ⓐ ⓐ 🅐 🄰 🅰 ...
 
 ![06.2字母變體](images/06.2字母變體.gif)
 
@@ -233,46 +233,46 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ### 變體Aa（首字母大寫）
 
-- **引導鍵**：<code>\`/</code>
+- **引導鍵**：<code>&#96;/</code>
 - **提示**：《變體Aa》
 - **說明**：用 `.` 分隔單字，單字首字母大寫，可連續輸入
-- **舉例**：<code>\`/hello.world</code> → Ⓗⓔⓛⓛⓞ Ⓦⓞⓡⓛⓓ
+- **舉例**：<code>&#96;/hello.world</code> → Ⓗⓔⓛⓛⓞ Ⓦⓞⓡⓛⓓ
 
 ![07.1.1變體Aa](images/07.1.1變體Aa.gif)
 
 ### 變體aa（全小寫）
 
-- **引導鍵**：<code>\`//</code>
+- **引導鍵**：<code>&#96;//</code>
 - **提示**：《變體aa》
 - **說明**：用 `.` 分隔單字，單字均為小寫，可連續輸入
-- **舉例**：<code>\`//hello.world</code> → ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ
+- **舉例**：<code>&#96;//hello.world</code> → ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ
 
 ![07.1.2變體aa](images/07.1.2變體aa.gif)
 
 ### 變體AA（全大寫）
 
-- **引導鍵**：<code>\`///</code>
+- **引導鍵**：<code>&#96;///</code>
 - **提示**：《變體AA》
 - **說明**：用 `.` 分隔單字，單字均為大寫，可連續輸入
-- **舉例**：<code>\`///hello.word</code> → ⒽⒺⓁⓁⓄ ⓌⓄⓇⓁⒹ
+- **舉例**：<code>&#96;///hello.word</code> → ⒽⒺⓁⓁⓄ ⓌⓄⓇⓁⒹ
 
 ![07.1.3變體AA](images/07.1.3變體AA.gif)
 
 ### 變體數字 - 連打
 
-- **引導鍵**：<code>\`/'</code>
+- **引導鍵**：<code>&#96;/'</code>
 - **提示**：《變體數字》
 - **說明**：用 `.` 分隔數字，如果需要用數字鍵選字，於結尾按 `'` 即可
-- **舉例**：<code>\`/'123</code> → ①②③
+- **舉例**：<code>&#96;/'123</code> → ①②③
 
 ![07.2變體數字連打](images/07.2變體數字連打.gif)
 
 ### 變體數字 - 單選
 
-- **引導鍵**：<code>\`'</code>
-- **提示**：<code>\`'</code>《變體數字》
-- **範圍**：<code>\`'00</code> ~ <code>\`'50</code>
-- **舉例**：<code>\`'01</code> → ① ⓵ ⑴ ⒈ 🄂 １ ₁ ¹ 𝟏 𝟙 𝟷 𝟣 𝟭 Ⅰ ⅰ ㊀ ㈠ ...
+- **引導鍵**：<code>&#96;'</code>
+- **提示**：<code>&#96;'</code>《變體數字》
+- **範圍**：<code>&#96;'00</code> ~ <code>&#96;'50</code>
+- **舉例**：<code>&#96;'01</code> → ① ⓵ ⑴ ⒈ 🄂 １ ₁ ¹ 𝟏 𝟙 𝟷 𝟣 𝟭 Ⅰ ⅰ ㊀ ㈠ ...
 
 ![07.3變體數字單選](images/07.3變體數字單選.gif)
 
@@ -283,15 +283,15 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ### 擴充模式選單
 
-- **引導鍵**：<code>\`\`</code>
-- **提示**：<code>\`\`</code>▸
+- **引導鍵**：<code>&#96;&#96;</code>
+- **提示**：<code>&#96;&#96;</code>▸
 - **顯示**：日期時間〔/〕、小寫變化〔a~z〕、大寫變化〔A~Z〕
 
 <img src="images/08.1擴充模式選單.png" alt="08.1擴充模式選單" style="zoom:50%;" />
 
 ### 日期時間選單
 
-- **輸入**：<code>\`\`/</code>
+- **輸入**：<code>&#96;&#96;/</code>
 - **提示**：《日期時間》▸
 - **說明**：以多種格式輸出當下之年、月、日、時、分
 
@@ -299,7 +299,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ### 日期時間分類
 
-- **輸入**：<code>\`\`/01</code> ~ <code>\`\`/10</code>
+- **輸入**：<code>&#96;&#96;/01</code> ~ <code>&#96;&#96;/10</code>
 
 | 分類 | 範例 |
 |:----:|:-----|
@@ -314,25 +314,25 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 | [09]時區 | UTC+08:00, CST ... |
 | [10]節氣 | 小雪, 大雪 ... |
 
-- **舉例**：<code>\`\`08</code> → 組合
+- **舉例**：<code>&#96;&#96;08</code> → 組合
 
 ![08.1舉例](images/08.1舉例.gif)
 
 ### 小寫字母變化形
 
-- **輸入**：<code>\`\`a</code> ~ <code>\`\`z</code>
+- **輸入**：<code>&#96;&#96;a</code> ~ <code>&#96;&#96;z</code>
 - **提示**：《a變化》
 - **說明**：輸入帶音調符號的小寫字母
-- **舉例**：<code>\`\`a</code> → ā á ǎ à â ä ã å ...
+- **舉例**：<code>&#96;&#96;a</code> → ā á ǎ à â ä ã å ...
 
 ![08.2小寫字母變化形](images/08.2小寫字母變化形.gif)
 
 ### 大寫字母變化形
 
-- **輸入**：<code>\`\`A</code> ~ <code>\`\`Z</code>（Shift+字母）
+- **輸入**：<code>&#96;&#96;A</code> ~ <code>&#96;&#96;Z</code>（Shift+字母）
 - **提示**：《A變化》
 - **說明**：輸入帶音調符號的大寫字母
-- **舉例**：<code>\`\`A</code> → Ā Á Ǎ À Â Ä Ã Å ...
+- **舉例**：<code>&#96;&#96;A</code> → Ā Á Ǎ À Â Ä Ã Å ...
 
 ![08.3大寫字母變化形](images/08.3大寫字母變化形.gif)
 
@@ -411,6 +411,11 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 2. **學習輔助**：幫助使用者學習不熟悉的字的拆碼方式
 3. **反查功能**：在一般輸入、簡體中文、造詞模式、注音輸入均可使用，支援多字同時查詢字碼
 
+### 提示格式
+
+- `~⟨編碼⟩`：顯示該字的字碼
+- 字碼提示會顯示在候選字的註解區域
+
 ### 使用範例
 
 | 輸入 | 候選字 | 字碼顯示 |
@@ -420,10 +425,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ![11.查碼模式](images/11.查碼模式.gif)
 
-### 提示格式
 
-- `~⟨編碼⟩`：顯示該字的字碼
-- 字碼提示會顯示在候選字的註解區域
 
 ### 注意事項
 
@@ -504,29 +506,29 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 | 引導鍵 | 功能 |
 |:------:|:-----|
-| <code>\`</code> | 符號清單 |
-| <code>\`01</code> ~ <code>\`50</code> | 符號分類 |
-| <code>\`a</code> ~ <code>\`z</code> | 變體字母 |
+| <code>&#96;</code> | 符號清單 |
+| <code>&#96;01</code> ~ <code>&#96;50</code> | 符號分類 |
+| <code>&#96;a</code> ~ <code>&#96;z</code> | 變體字母 |
 
 ### 變體英數
 
 | 引導鍵 | 功能 |
 |:------:|:-----|
-| <code>\`'</code> | 數字變體（單選） |
-| <code>\`/</code> | 變體Aa（首字母大寫） |
-| <code>\`//</code> | 變體aa（全小寫） |
-| <code>\`///</code> | 變體AA（全大寫） |
-| <code>\`/'</code> | 變體數字連打 |
+| <code>&#96;'</code> | 數字變體（單選） |
+| <code>&#96;/</code> | 變體Aa（首字母大寫） |
+| <code>&#96;//</code> | 變體aa（全小寫） |
+| <code>&#96;///</code> | 變體AA（全大寫） |
+| <code>&#96;/'</code> | 變體數字連打 |
 
 ### 擴充模式
 
 | 引導鍵 | 功能 |
 |:------:|:-----|
-| <code>\`\`</code> | 擴充模式選單 |
-| <code>\`\`/</code> | 日期時間選單 |
-| <code>\`\`/01</code> ~ <code>\`\`/10</code> | 日期時間分類 |
-| <code>\`\`a</code> ~ <code>\`\`z</code> | 小寫字母變化形 |
-| <code>\`\`A</code> ~ <code>\`\`Z</code> | 大寫字母變化形 |
+| <code>&#96;&#96;</code> | 擴充模式選單 |
+| <code>&#96;&#96;/</code> | 日期時間選單 |
+| <code>&#96;&#96;/01</code> ~ <code>&#96;&#96;/10</code> | 日期時間分類 |
+| <code>&#96;&#96;a</code> ~ <code>&#96;&#96;z</code> | 小寫字母變化形 |
+| <code>&#96;&#96;A</code> ~ <code>&#96;&#96;Z</code> | 大寫字母變化形 |
 
 ---
 
