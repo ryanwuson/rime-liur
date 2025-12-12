@@ -69,7 +69,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 #### 刪除臨時造詞
 
-打出造詞後，游標移到該詞條，按 `Ctrl + K`（macOS 為 `Fn + Shift + Delete`）即可刪除。
+打出造詞後，游標移到該詞條，按 `Ctrl + K`（macOS 也可使用 `Fn + Shift + Delete`）即可刪除。
 
 #### 使用範例
 
