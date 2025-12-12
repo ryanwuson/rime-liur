@@ -8,6 +8,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <style>
+    /* 主題色改為藍色 #005AD7 */
+    :root {
+      --theme-color: #005AD7;
+    }
+    /* 連結顏色 */
+    a {
+      color: #005AD7;
+    }
+    /* Sidebar 選中項目 */
+    .sidebar-nav li.active > a {
+      color: #005AD7;
+      border-color: #005AD7;
+    }
+    /* 搜尋框 focus */
+    .search input:focus {
+      border-color: #005AD7;
+    }
     /* GIF 圖片加陰影效果 */
     img[src$=".gif"] {
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
