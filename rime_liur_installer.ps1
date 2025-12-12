@@ -7,105 +7,46 @@ $ErrorActionPreference = "Stop"
 # GitHub 相關設定
 $GITHUB_REPO = "ryanwuson/rime-liur"
 $GITHUB_BRANCH = "main"
+$GITHUB_API = "https://api.github.com/repos/$GITHUB_REPO/git/trees/$GITHUB_BRANCH`?recursive=1"
 $GITHUB_RAW = "https://raw.githubusercontent.com/$GITHUB_REPO/$GITHUB_BRANCH"
 
 # 設定路徑
 $RIME_FOLDER = "$env:APPDATA\Rime"
 $FONT_FOLDER = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
 
-# 需要下載的檔案清單
-$FILES = @(
-    "allbpm.dict.yaml"
-    "allbpm.schema.yaml"
-    "default.custom.yaml"
-    "easy_en.custom.yaml"
-    "easy_en.dict.yaml"
-    "easy_en.schema.yaml"
-    "easy_en.yaml"
-    "essay-zh-hant-onion.txt"
-    "installation.yaml"
-    "liur.custom.yaml"
-    "liur.extended.dict.yaml"
-    "liur.schema.yaml"
-    "liur_symbols.dict.yaml"
-    "liur_symbols.schema.yaml"
-    "Mount_bopomo.extended.dict.yaml"
-    "Mount_bopomo.schema.yaml"
-    "openxiami_CustomWord.dict.yaml"
-    "openxiami_TCJP.dict.yaml"
-    "openxiami_TradExt.dict.yaml"
-    "rime.lua"
-    "squirrel.custom.yaml"
-    "terra_pinyin_onion.dict.yaml"
-    "terra_pinyin_onion_add.dict.yaml"
-    "weasel.custom.yaml"
+# 排除清單（正則表達式）
+$EXCLUDE_PATTERNS = @(
+    "^docs/"
+    "^README\.md$"
+    "^LICENSE$"
+    "^\.gitignore$"
+    "^rime_liur_installer\.sh$"
+    "^rime_liur_installer\.ps1$"
 )
 
-# Lua 檔案
-$LUA_FILES = @(
-    "lua/easy_en.lua"
-    "lua/liu_charset_filter.lua"
-    "lua/liu_code_decoder.lua"
-    "lua/liu_common.lua"
-    "lua/liu_completion_translator.lua"
-    "lua/liu_datetime.lua"
-    "lua/liu_extended_backspace.lua"
-    "lua/liu_extended_data.lua"
-    "lua/liu_extended_filter.lua"
-    "lua/liu_extended_segmentor.lua"
-    "lua/liu_fancy_filter.lua"
-    "lua/liu_fancy_processor.lua"
-    "lua/liu_fancy_translator.lua"
-    "lua/liu_help_filter.lua"
-    "lua/liu_help.lua"
-    "lua/liu_letter_variants.lua"
-    "lua/liu_phonetic_hint_processor.lua"
-    "lua/liu_phonetic_override.lua"
-    "lua/liu_phonetic_suffix.lua"
-    "lua/liu_quick_hint.lua"
-    "lua/liu_quick_mode_processor.lua"
-    "lua/liu_remove_trad_in_w2c.lua"
-    "lua/liu_symbol_data.lua"
-    "lua/liu_symbols_hint.lua"
-    "lua/liu_symbols_hint_filter.lua"
-    "lua/liu_symbols_number_processor.lua"
-    "lua/liu_symbols_processor.lua"
-    "lua/liu_tilde_processor.lua"
-    "lua/liu_vrsf_hint.lua"
-    "lua/liu_w2c_sorter.lua"
-    "lua/liu_wildcard_code_hint.lua"
-    "lua/liu_wildcard_filter.lua"
-    "lua/liu_wildcard_processor.lua"
-)
-
-# Lua lunar_calendar 檔案
-$LUA_LUNAR_FILES = @(
-    "lua/lunar_calendar/lunar_calendar_1.lua"
-    "lua/lunar_calendar/lunar_calendar_2.lua"
-    "lua/lunar_calendar/lunar_time.lua"
-)
-
-# OpenCC 檔案
-$OPENCC_FILES = @(
-    "opencc/liu_phonetic.json"
-    "opencc/liu_phonetic.txt"
-    "opencc/liu_phonetic_simp.txt"
-    "opencc/liu_w2c.json"
-    "opencc/liu_w2c.txt"
-    "opencc/liu_w2cExt.txt"
-)
-
-# 字體檔案
-$FONT_FILES = @(
-    "fonts/MapleMonoNormal-Regular.ttf"
-    "fonts/PlangothicP1-Regular.ttf"
-    "fonts/PlangothicP2-Regular.ttf"
-)
-
-# Windows 額外字體
-$FONT_FILES_WIN = @(
-    "fonts/Windows Only/SourceHanSansTC-Regular.otf"
-)
+# 進度條函數
+function Show-Progress {
+    param(
+        [int]$Current,
+        [int]$Total,
+        [string]$FileName
+    )
+    
+    $width = 20
+    $percent = [math]::Floor($Current * 100 / $Total)
+    $filled = [math]::Floor($Current * $width / $Total)
+    $empty = $width - $filled
+    
+    $bar = "█" * $filled + "░" * $empty
+    
+    # 截斷過長的檔名（保留空間給 [skip]）
+    if ($FileName.Length -gt 40) {
+        $FileName = $FileName.Substring(0, 37) + "..."
+    }
+    
+    $status = "  [$bar] $("{0,3}" -f $Current)/$Total  $($FileName.PadRight(45))"
+    Write-Host "`r$status" -NoNewline
+}
 
 Write-Host ""
 Write-Host "======================================" -ForegroundColor Cyan
@@ -120,12 +61,85 @@ Write-Host "※ 若有自訂設定尚未備份，請按 Ctrl+C 終止" -Foregrou
 Write-Host ""
 
 for ($i = 5; $i -ge 1; $i--) {
-    Write-Host "將在 $i 秒後開始..."
+    Write-Host "`r將在 $i 秒後開始..." -NoNewline
     Start-Sleep -Seconds 1
 }
+Write-Host ""  # 換行
 
 Write-Host ""
-Write-Host "[ Step 1: 下載蝦米輸入方案檔案 ]" -ForegroundColor Green
+Write-Host "[ Step 1: 取得檔案清單 ]" -ForegroundColor Green
+
+# 從 GitHub API 取得檔案清單
+Write-Host "正在從 GitHub 取得檔案清單..."
+try {
+    $response = Invoke-RestMethod -Uri $GITHUB_API -Method Get
+} catch {
+    Write-Host "[錯誤] GitHub API 連線失敗" -ForegroundColor Red
+    Write-Host "       請檢查網路連線，或稍後再試"
+    Write-Host "       若持續失敗，請至 GitHub 手動下載："
+    Write-Host "       https://github.com/$GITHUB_REPO"
+    exit 1
+}
+
+if (-not $response.tree) {
+    Write-Host "[錯誤] 無法解析檔案清單" -ForegroundColor Red
+    Write-Host "       請稍後再試，或至 GitHub 手動下載："
+    Write-Host "       https://github.com/$GITHUB_REPO"
+    exit 1
+}
+
+# 過濾檔案函數
+function Test-ShouldExclude {
+    param([string]$FilePath)
+    foreach ($pattern in $EXCLUDE_PATTERNS) {
+        if ($FilePath -match $pattern) {
+            return $true
+        }
+    }
+    return $false
+}
+
+# 分類檔案
+$ROOT_FILES = @()
+$LUA_FILES = @()
+$LUA_LUNAR_FILES = @()
+$OPENCC_FILES = @()
+$FONT_FILES = @()
+$FONT_FILES_WIN = @()
+
+foreach ($item in $response.tree) {
+    # 只處理檔案（blob），跳過資料夾（tree）
+    if ($item.type -ne "blob") { continue }
+    
+    $filePath = $item.path
+    
+    # 檢查是否要排除
+    if (Test-ShouldExclude $filePath) { continue }
+    
+    # 根據路徑分類
+    if ($filePath -match "^lua/lunar_calendar/") {
+        $LUA_LUNAR_FILES += $filePath
+    } elseif ($filePath -match "^lua/") {
+        $LUA_FILES += $filePath
+    } elseif ($filePath -match "^opencc/") {
+        $OPENCC_FILES += $filePath
+    } elseif ($filePath -match "^fonts/Windows Only/") {
+        $FONT_FILES_WIN += $filePath
+    } elseif ($filePath -match "^fonts/") {
+        $FONT_FILES += $filePath
+    } elseif ($filePath -notmatch "/") {
+        # 根目錄檔案（不含子資料夾）
+        $ROOT_FILES += $filePath
+    }
+}
+
+# 計算總檔案數
+$TOTAL_FILES = $ROOT_FILES.Count + $LUA_FILES.Count + $LUA_LUNAR_FILES.Count + $OPENCC_FILES.Count
+$TOTAL_FONTS = $FONT_FILES.Count + $FONT_FILES_WIN.Count
+Write-Host "找到 $TOTAL_FILES 個方案檔案、$TOTAL_FONTS 個字體"
+
+Write-Host ""
+Write-Host "[ Step 2: 下載蝦米輸入方案檔案 ]" -ForegroundColor Green
 
 # 建立資料夾
 New-Item -ItemType Directory -Force -Path $RIME_FOLDER | Out-Null
@@ -133,73 +147,82 @@ New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\lua" | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\lua\lunar_calendar" | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\opencc" | Out-Null
 
+$current = 0
+
 # 下載主要檔案
-Write-Host "下載主要設定檔..."
-foreach ($file in $FILES) {
-    Write-Host "  下載 $file"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\$file"
+foreach ($file in $ROOT_FILES) {
+    $current++
+    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $file
+    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\$file" | Out-Null
 }
 
 # 下載 Lua 檔案
-Write-Host "下載 Lua 腳本..."
 foreach ($file in $LUA_FILES) {
+    $current++
     $filename = Split-Path $file -Leaf
-    Write-Host "  下載 $filename"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\lua\$filename"
+    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $filename
+    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\lua\$filename" | Out-Null
 }
 
 # 下載 Lua lunar_calendar 檔案
-Write-Host "下載 lunar_calendar 腳本..."
 foreach ($file in $LUA_LUNAR_FILES) {
+    $current++
     $filename = Split-Path $file -Leaf
-    Write-Host "  下載 $filename"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\lua\lunar_calendar\$filename"
+    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $filename
+    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\lua\lunar_calendar\$filename" | Out-Null
 }
 
 # 下載 OpenCC 檔案
-Write-Host "下載 OpenCC 設定..."
 foreach ($file in $OPENCC_FILES) {
+    $current++
     $filename = Split-Path $file -Leaf
-    Write-Host "  下載 $filename"
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\opencc\$filename"
+    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $filename
+    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\opencc\$filename" | Out-Null
 }
 
+Write-Host ""  # 換行
+
 Write-Host ""
-Write-Host "[ Step 2: 安裝字體 ]" -ForegroundColor Green
+Write-Host "[ Step 3: 安裝字體 ]" -ForegroundColor Green
 
 New-Item -ItemType Directory -Force -Path $FONT_FOLDER | Out-Null
 
+$fontCurrent = 0
+
 # 下載共用字體
-Write-Host "下載字體檔案..."
 foreach ($file in $FONT_FILES) {
+    $fontCurrent++
     $filename = Split-Path $file -Leaf
     if (Test-Path "$FONT_FOLDER\$filename") {
-        Write-Host "  [skip] $filename"
+        Show-Progress -Current $fontCurrent -Total $TOTAL_FONTS -FileName "$filename [skip]"
     } else {
-        Write-Host "  安裝 $filename"
-        Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$FONT_FOLDER\$filename"
+        Show-Progress -Current $fontCurrent -Total $TOTAL_FONTS -FileName $filename
+        Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$FONT_FOLDER\$filename" | Out-Null
     }
 }
 
 # Windows 額外字體
 foreach ($file in $FONT_FILES_WIN) {
+    $fontCurrent++
     $filename = Split-Path $file -Leaf
     if (Test-Path "$FONT_FOLDER\$filename") {
-        Write-Host "  [skip] $filename"
+        Show-Progress -Current $fontCurrent -Total $TOTAL_FONTS -FileName "$filename [skip]"
     } else {
         $encodedPath = $file -replace " ", "%20"
-        Write-Host "  安裝 $filename"
-        Invoke-WebRequest -Uri "$GITHUB_RAW/$encodedPath" -OutFile "$FONT_FOLDER\$filename"
+        Show-Progress -Current $fontCurrent -Total $TOTAL_FONTS -FileName $filename
+        Invoke-WebRequest -Uri "$GITHUB_RAW/$encodedPath" -OutFile "$FONT_FOLDER\$filename" | Out-Null
     }
 }
 
+Write-Host ""  # 換行
+
 Write-Host ""
-Write-Host "[ Step 3: 完成 ]" -ForegroundColor Green
+Write-Host "[ Step 4: 完成 ]" -ForegroundColor Green
 Write-Host ""
 Write-Host "請手動重新部署小狼毫（右鍵點擊系統匣圖示 → 重新部署）" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "======================================" -ForegroundColor Cyan
-Write-Host "  蝦米輸入方案 安裝完成 ✨" -ForegroundColor Cyan
+Write-Host "  蝦米輸入方案 安裝完成 可開始使用 ✨" -ForegroundColor Cyan
 Write-Host "======================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Rime 資料夾：$RIME_FOLDER"
