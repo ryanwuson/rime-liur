@@ -34,32 +34,9 @@ local function processor(key, env)
       return 2  -- kNoop
     end
     
-    -- 檢查是否在造詞模式（多種方式判斷）
-    local is_mkst = false
-    -- 方式1：輸入已經包含 ~（表示已經在造詞中）
-    if input:find("~") then
-      is_mkst = true
-    end
-    -- 方式2：檢查 preedit 是否包含「造詞」
-    if not is_mkst then
-      local preedit = context:get_preedit()
-      if preedit and preedit.text and preedit.text:find("造詞") then
-        is_mkst = true
-      end
-    end
-    -- 方式3：檢查 segment tag
-    if not is_mkst then
-      local composition = context.composition
-      if composition and not composition:empty() then
-        for i = 0, composition:size() - 1 do
-          local seg = composition:at(i)
-          if seg and seg:has_tag("mkst") then
-            is_mkst = true
-            break
-          end
-        end
-      end
-    end
+    -- 檢查是否在造詞模式
+    -- 最簡單的判斷：輸入以 ; 開頭（但不是 ;; 讀音查詢、不是 ;' 注音直出）
+    local is_mkst = input:match("^;[^;']") or input:match("^;$")
     
     if is_mkst then
       -- 造詞模式：把 ` 轉換成 ~（delimiter）
