@@ -1,21 +1,68 @@
 - [蝦米輸入方案功能說明](user-guide.md)
-- **安裝與基本**
-  - [一、安裝方式](user-guide.md#一、安裝方式)
-  - [二、基本輸入](user-guide.md#二、基本輸入)
-  - [三、造詞功能](user-guide.md#三、造詞功能)
-  - [四、同音選字](user-guide.md#四、同音選字)
-- **注音與符號**
-  - [五、注音相關](user-guide.md#五、注音相關)
-  - [六、符號相關](user-guide.md#六、符號相關)
-  - [七、變體英數](user-guide.md#七、變體英數)
-  - [八、擴充模式](user-guide.md#八、擴充模式)
-- **進階功能**
-  - [九、快打模式](user-guide.md#九、快打模式)
-  - [十、萬用字元查詢](user-guide.md#十、萬用字元查詢)
-  - [十一、查碼模式](user-guide.md#十一、查碼模式)
-  - [十二、按鍵說明](user-guide.md#十二、按鍵說明)
-- **快速參考**
-  - [十三、快捷鍵總覽](user-guide.md#十三、快捷鍵總覽)
-  - [十四、引導鍵總覽](user-guide.md#十四、引導鍵總覽)
-- **設定**
-  - [十五、主題與字體設定](user-guide.md#十五、主題與字體設定)
+- **一、安裝方式**
+  - [安裝需求](user-guide.md#安裝需求)
+  - [手動安裝步驟](user-guide.md#手動安裝步驟)
+  - [指令安裝步驟](user-guide.md#指令安裝步驟)
+- **二、基本輸入**
+  - [蝦米字碼及英文混合輸入](user-guide.md#蝦米字碼及英文混合輸入)
+  - [英文輸入模式](user-guide.md#英文輸入模式)
+- **三、造詞功能**
+  - [臨時造詞](user-guide.md#臨時造詞)
+  - [直接編輯造詞](user-guide.md#直接編輯造詞)
+- **四、同音選字**
+  - [功能說明](user-guide.md#功能說明)
+  - [應用場景](user-guide.md#應用場景)
+  - [使用範例](user-guide.md#使用範例)
+- **五、注音相關**
+  - [讀音查詢](user-guide.md#讀音查詢)
+  - [注音直出](user-guide.md#注音直出)
+  - [注音輸入](user-guide.md#注音輸入)
+- **六、符號相關**
+  - [符號清單](user-guide.md#符號清單)
+  - [字母變體](user-guide.md#字母變體)
+- **七、變體英數**
+  - [變體Aa（首字母大寫）](user-guide.md#變體aa（首字母大寫）)
+  - [變體aa（全小寫）](user-guide.md#變體aa（全小寫）)
+  - [變體AA（全大寫）](user-guide.md#變體aa（全大寫）)
+  - [變體數字 - 連打](user-guide.md#變體數字-連打)
+  - [變體數字 - 單選](user-guide.md#變體數字-單選)
+- **八、擴充模式**
+  - [擴充模式選單](user-guide.md#擴充模式選單)
+  - [日期時間選單](user-guide.md#日期時間選單)
+  - [日期時間分類](user-guide.md#日期時間分類)
+  - [小寫字母變化形](user-guide.md#小寫字母變化形)
+  - [大寫字母變化形](user-guide.md#大寫字母變化形)
+- **九、快打模式**
+  - [功能說明](user-guide.md#功能說明-1)
+  - [功能特色](user-guide.md#功能特色)
+  - [提示格式](user-guide.md#提示格式)
+  - [使用範例](user-guide.md#使用範例-1)
+  - [注意事項](user-guide.md#注意事項)
+- **十、萬用字元查詢**
+  - [功能說明](user-guide.md#功能說明-2)
+  - [使用範例](user-guide.md#使用範例-2)
+- **十一、查碼模式**
+  - [功能說明](user-guide.md#功能說明-3)
+  - [功能特色](user-guide.md#功能特色-1)
+  - [提示格式](user-guide.md#提示格式-1)
+  - [使用範例](user-guide.md#使用範例-3)
+  - [注意事項](user-guide.md#注意事項-1)
+- **十二、按鍵說明**
+  - [功能說明](user-guide.md#功能說明-4)
+  - [顯示內容](user-guide.md#顯示內容)
+- **十三、快捷鍵總覽**
+  - [模式切換](user-guide.md#模式切換)
+  - [翻頁操作](user-guide.md#翻頁操作)
+  - [選字操作](user-guide.md#選字操作)
+- **十四、引導鍵總覽**
+  - [基本輸入](user-guide.md#基本輸入)
+  - [注音相關](user-guide.md#注音相關)
+  - [符號清單](user-guide.md#符號清單-1)
+  - [變體英數](user-guide.md#變體英數)
+  - [擴充模式](user-guide.md#擴充模式)
+- **十五、主題與字體設定**
+  - [主題說明](user-guide.md#主題說明)
+  - [設定檔位置](user-guide.md#設定檔位置)
+  - [字體大小調整](user-guide.md#字體大小調整)
+  - [字體安裝](user-guide.md#字體安裝)
+  - [字體說明](user-guide.md#字體說明)
