@@ -1,0 +1,85 @@
+# Rime schema settings
+# encoding: utf-8
+# 地球拼音洋蔥版 - 用於生成 prism 供其他方案引用
+
+schema:
+  schema_id: terra_pinyin_onion
+  name: 地球拼音洋蔥版
+  version: "202510"
+  author:
+    - 洋蔥
+  description: |
+    地球拼音洋蔥版，針對台灣用語調整
+  dependencies:
+    - terra_pinyin_onion_add
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba12345
+  delimiter: " '"
+  algebra:
+    - erase/^xx$/
+    - xform/^r5$/er5/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    - derive/^([nl])ve$/$1ue/
+    - derive/^([jqxy])u/$1v/
+    - derive/un$/uen/
+    - derive/ui$/uei/
+    - derive/iu$/iou/
+    - derive/([aeiou])ng$/$1gn/
+    - derive/ong$/on/
+    - derive/ao$/oa/
+    - derive/([iu])a(o|n)$/$1$2a/
+    # 不輸入聲調 = 一聲或全部
+    - derive/^([a-z]+)\d$/$1/
+    # 數字聲調：1=一聲, 2=二聲, 3=三聲, 4=四聲, 5=輕聲
+    # 字典中用 1234 表示聲調，直接保留即可
+    # 同時支援符號聲調（相容舊習慣）
+    - 'derive/1$/-/'
+    - 'derive/2$/\//'
+    - 'derive/3$/</'
+    - "derive/4$/'/"
+    - 'derive/1$/;/'
+    - 'derive/3$/,/'
+
+translator:
+  dictionary: terra_pinyin_onion
+  prism: terra_pinyin_onion
+  spelling_hints: 5
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  comment_format:
+    - xform/([a-z]+)\d/$1/
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default

@@ -11,7 +11,7 @@ schema:
   description: |
     蝦米-拼音-注音輸入法
   dependencies:
-    # - luna_pinyin  # 漢語拼音，目前未使用
+    - terra_pinyin_onion  # 漢語拼音（地球拼音-洋蔥版）
     - bopomofo_tw
     - Mount_bopomo
     - allbpm
@@ -75,7 +75,7 @@ engine:
     - abc_segmentor
     - affix_segmentor@mkst
     - affix_segmentor@liurqry
-    # - affix_segmentor@pinyin  # pinyin 區塊已註解，暫時停用
+    - affix_segmentor@pinyin  # 漢語拼音（;' 引導）
     - affix_segmentor@phonetic
     # - affix_segmentor@reverse2_lookup  # 未定義，暫時註解
     - affix_segmentor@all_bpm
@@ -98,7 +98,7 @@ engine:
     - table_translator@fixed
     - table_translator@liurqry
     - table_translator
-    # - script_translator@pinyin  # pinyin 區塊已註解，暫時停用
+    - script_translator@pinyin  # 漢語拼音（;' 引導）
     - script_translator@phonetic
     - table_translator@symbols
 
@@ -133,7 +133,7 @@ liu_w2c:
   opencc_config: liu_w2c.json
   option_name: liu_w2c
   show_in_comment: true
-  tags: [ abc, mkst, phonetic, symbols, lua, fancy_title, fancy_lower, fancy_upper, fancy_number ]  # 包含 symbols、lua、fancy 以支持符號清單和變體模式反查（extended_mode 不反查）
+  tags: [ abc, mkst, phonetic, pinyin, symbols, lua, fancy_title, fancy_lower, fancy_upper, fancy_number ]  # 包含 symbols、lua、fancy 以支持符號清單和變體模式反查（extended_mode 不反查）
   tips: all
   
 
@@ -240,19 +240,25 @@ all_bpm:
     - xform/\|//
     - xform/`//
 
-# 漢語拼音反查（目前未使用）
-#pinyin:
-#  tag: pinyin
-#  dictionary: luna_pinyin
-#  prefix: "`"
-#  suffix: "'"
-#  preedit_format: &pinyin
-#    - xform/([nl])v/$1ü/
-#    - xform/([nl])ue/$1üe/
-#    - xform/([jqxy])v/$1u/
-#  tips: 【拼音】
-#  closing_tips: 【蝦米】
-#  initial_quality: 0.2
+# 漢語拼音輸入（;' 引導）- 使用地球拼音洋蔥版字典
+pinyin:
+  tag: pinyin
+  dictionary: terra_pinyin_onion
+  prism: terra_pinyin_onion
+  prefix: ";'"
+  suffix: "'"
+  enable_completion: true
+  enable_sentence: false
+  enable_user_dict: true
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+    - xform/~/⋮/
+    - xform/^/《拼音輸入》/
+  tips: "《拼音輸入》▸"
+  closing_tips: "◂《拼音輸入》"
+  initial_quality: 0.2
 
 phonetic:
   tag: phonetic
@@ -297,11 +303,13 @@ recognizer:
     email: ^[a-z][-_.0-9a-z]*@.*$
     url: ^(www[.]|https?:|ftp:|mailto:).*$
     phonetic: "^';[-.,;/0-9a-z`|]*'?$"
+    pinyin: "^;'[a-z0-9;,/<'-]*'?$"
     all_bpm: "^';'[-a-z0-9.,/;']*$"
 # 讀音查詢引導鍵（;;）
-    mkst: "^;[a-z,.'~]*$"
-#造詞引導
-    liurqry: ";;[a-z']*'?$"
+    liurqry: "^;;[a-z']*'?$"
+# 拼音引導鍵（;'）- 必須在 mkst 之前
+# 造詞引導（;）- 排除 ;' 和 ;; 開頭
+    mkst: "^;(?![';])[a-z,.'~]*$"
 # 擴充模式引導鍵（``）- 雙反引號
 # ``a = 小寫變化形（ā á...），``A = 大寫變化形（Ā Á...）
 # ``/ = 日期時間選單，``/01~``/10 = 日期時間分類
