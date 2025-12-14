@@ -48,7 +48,7 @@
     html[data-theme="dark"] .markdown-section h6 {
       color: #ffffff !important;
     }
-    /* 標題內的連結也要白色 */
+    /* 標題內的連結也要白色，且無底線 */
     html[data-theme="dark"] .markdown-section h1 a,
     html[data-theme="dark"] .markdown-section h2 a,
     html[data-theme="dark"] .markdown-section h3 a,
@@ -56,6 +56,17 @@
     html[data-theme="dark"] .markdown-section h5 a,
     html[data-theme="dark"] .markdown-section h6 a {
       color: #ffffff !important;
+      text-decoration: none !important;
+    }
+    
+    /* 亮色模式標題連結也無底線 */
+    .markdown-section h1 a,
+    .markdown-section h2 a,
+    .markdown-section h3 a,
+    .markdown-section h4 a,
+    .markdown-section h5 a,
+    .markdown-section h6 a {
+      text-decoration: none !important;
     }
     html[data-theme="dark"] .markdown-section h2 {
       border-bottom-color: #3a3a5a;
