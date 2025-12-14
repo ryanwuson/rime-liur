@@ -38,7 +38,7 @@
       background-color: #1a1a2e;
     }
     html[data-theme="dark"] .markdown-section {
-      color: #e0e0e0;
+      color: #f5f5f5;
     }
     html[data-theme="dark"] .markdown-section h1,
     html[data-theme="dark"] .markdown-section h2,
@@ -46,6 +46,15 @@
     html[data-theme="dark"] .markdown-section h4,
     html[data-theme="dark"] .markdown-section h5,
     html[data-theme="dark"] .markdown-section h6 {
+      color: #ffffff;
+    }
+    html[data-theme="dark"] .markdown-section p,
+    html[data-theme="dark"] .markdown-section li,
+    html[data-theme="dark"] .markdown-section td,
+    html[data-theme="dark"] .markdown-section th {
+      color: #f0f0f0;
+    }
+    html[data-theme="dark"] .markdown-section strong {
       color: #ffffff;
     }
     html[data-theme="dark"] .markdown-section a {
@@ -89,6 +98,26 @@
     }
     html[data-theme="dark"] .app-nav {
       background-color: #16213e;
+    }
+    /* 手機版底部導航列 */
+    html[data-theme="dark"] .sidebar-toggle {
+      background-color: #16213e;
+    }
+    html[data-theme="dark"] .sidebar-toggle span {
+      background-color: #5B9FFF;
+    }
+    html[data-theme="dark"] body .sidebar-toggle {
+      background-color: #16213e;
+      border-color: #3a3a5a;
+    }
+    /* 手機版 Sidebar 背景 */
+    @media screen and (max-width: 768px) {
+      html[data-theme="dark"] body {
+        background-color: #1a1a2e;
+      }
+      html[data-theme="dark"] .sidebar-toggle {
+        background-color: #1a1a2e;
+      }
     }
     
     /* 連結顏色 */
