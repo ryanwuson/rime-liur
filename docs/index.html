@@ -6,35 +6,96 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="蝦米輸入方案功能說明">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- 亮暗色主題 CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
   <style>
     /* 主題色改為藍色 #005AD7 */
     :root {
       --theme-color: #005AD7;
+      --base-background-color: #fff;
+      --sidebar-background: #f8f8f8;
+    }
+    /* 深色模式 */
+    [data-theme="dark"] {
+      --theme-color: #5B9FFF;
+      --base-background-color: #1e1e1e;
+      --base-color: #e0e0e0;
+      --sidebar-background: #252525;
+      --code-theme-background: #2d2d2d;
+      --code-inline-background: #3a3a3a;
     }
     /* 連結顏色 */
     a {
-      color: #005AD7;
+      color: var(--theme-color);
     }
     /* Sidebar 選中項目 */
     .sidebar-nav li.active > a {
-      color: #005AD7;
-      border-color: #005AD7;
+      color: var(--theme-color);
+      border-color: var(--theme-color);
     }
     /* 搜尋框 focus */
     .search input:focus {
-      border-color: #005AD7;
+      border-color: var(--theme-color);
     }
     /* GIF 圖片加陰影效果 */
     img[src$=".gif"] {
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
     }
+    /* 亮暗色切換按鈕樣式 */
+    .theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 60px;
+      z-index: 100;
+      background: var(--sidebar-background);
+      border: 1px solid var(--theme-color);
+      border-radius: 20px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: var(--theme-color);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
+  <!-- 亮暗色切換按鈕 -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="切換亮暗色主題">🌙</button>
+  
   <div id="app">載入中...</div>
   <script>
+    // 亮暗色切換功能
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.querySelector('.theme-toggle');
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        btn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // 載入時檢查儲存的主題偏好
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.addEventListener('DOMContentLoaded', function() {
+          const btn = document.querySelector('.theme-toggle');
+          if (btn) btn.textContent = '☀️';
+        });
+      }
+    })();
+
     window.$docsify = {
       name: '蝦米輸入方案',
       repo: 'ryanwuson/rime-liur',
