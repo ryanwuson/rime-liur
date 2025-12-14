@@ -226,6 +226,17 @@
       border-color: #5B9FFF;
       color: #fff;
     }
+    /* 手機版：亮暗色按鈕移到左上角，縮小 */
+    @media screen and (max-width: 768px) {
+      .theme-toggle {
+        top: 8px;
+        right: auto;
+        left: 50px;
+        padding: 5px 8px;
+        font-size: 14px;
+        border-radius: 15px;
+      }
+    }
     
     /* 程式碼區塊容器 */
     .markdown-section pre {
