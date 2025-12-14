@@ -40,26 +40,24 @@
     html[data-theme="dark"] .markdown-section {
       color: #f5f5f5;
     }
-    html[data-theme="dark"] .markdown-section h1,
-    html[data-theme="dark"] .markdown-section h2,
-    html[data-theme="dark"] .markdown-section h3,
-    html[data-theme="dark"] .markdown-section h4,
-    html[data-theme="dark"] .markdown-section h5,
-    html[data-theme="dark"] .markdown-section h6 {
-      color: #ffffff !important;
-    }
-    /* 標題內的連結也要白色，且無底線 */
-    html[data-theme="dark"] .markdown-section h1 a,
-    html[data-theme="dark"] .markdown-section h2 a,
-    html[data-theme="dark"] .markdown-section h3 a,
-    html[data-theme="dark"] .markdown-section h4 a,
-    html[data-theme="dark"] .markdown-section h5 a,
-    html[data-theme="dark"] .markdown-section h6 a {
+    /* 深色模式標題 - 使用最強選擇器 */
+    html[data-theme="dark"] body .markdown-section h1,
+    html[data-theme="dark"] body .markdown-section h2,
+    html[data-theme="dark"] body .markdown-section h3,
+    html[data-theme="dark"] body .markdown-section h4,
+    html[data-theme="dark"] body .markdown-section h5,
+    html[data-theme="dark"] body .markdown-section h6,
+    html[data-theme="dark"] body .markdown-section h1 *,
+    html[data-theme="dark"] body .markdown-section h2 *,
+    html[data-theme="dark"] body .markdown-section h3 *,
+    html[data-theme="dark"] body .markdown-section h4 *,
+    html[data-theme="dark"] body .markdown-section h5 *,
+    html[data-theme="dark"] body .markdown-section h6 * {
       color: #ffffff !important;
       text-decoration: none !important;
     }
     
-    /* 亮色模式標題連結也無底線 */
+    /* 亮色模式標題連結無底線 */
     .markdown-section h1 a,
     .markdown-section h2 a,
     .markdown-section h3 a,
