@@ -46,7 +46,19 @@
     html[data-theme="dark"] .markdown-section h4,
     html[data-theme="dark"] .markdown-section h5,
     html[data-theme="dark"] .markdown-section h6 {
-      color: #ffffff;
+      color: #ffffff !important;
+    }
+    /* 標題內的連結也要白色 */
+    html[data-theme="dark"] .markdown-section h1 a,
+    html[data-theme="dark"] .markdown-section h2 a,
+    html[data-theme="dark"] .markdown-section h3 a,
+    html[data-theme="dark"] .markdown-section h4 a,
+    html[data-theme="dark"] .markdown-section h5 a,
+    html[data-theme="dark"] .markdown-section h6 a {
+      color: #ffffff !important;
+    }
+    html[data-theme="dark"] .markdown-section h2 {
+      border-bottom-color: #3a3a5a;
     }
     html[data-theme="dark"] .markdown-section p,
     html[data-theme="dark"] .markdown-section li,
@@ -57,8 +69,12 @@
     html[data-theme="dark"] .markdown-section strong {
       color: #ffffff;
     }
+    /* 一般連結用亮藍色 */
     html[data-theme="dark"] .markdown-section a {
-      color: #5B9FFF;
+      color: #7CB9FF !important;
+    }
+    html[data-theme="dark"] .markdown-section a:hover {
+      color: #a8d4ff !important;
     }
     html[data-theme="dark"] .markdown-section code {
       background-color: #2d3748;
