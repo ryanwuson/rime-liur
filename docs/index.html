@@ -266,25 +266,30 @@
       }
     });
     
-    // 動態修正深色模式搜尋框背景
-    function fixSearchBackground() {
+    // 動態修正深色模式元素背景
+    function fixDarkModeElements() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      // 搜尋框區塊
       const searchEl = document.querySelector('.sidebar .search');
       if (searchEl) {
-        searchEl.style.backgroundColor = isDark ? '#1a1a2e' : '';
-        searchEl.style.background = isDark ? '#1a1a2e' : '';
+        searchEl.style.setProperty('background-color', isDark ? '#1a1a2e' : '', 'important');
+        searchEl.style.setProperty('background', isDark ? '#1a1a2e' : '', 'important');
+      }
+      // 手機版底部導航列
+      const toggleEl = document.querySelector('.sidebar-toggle');
+      if (toggleEl) {
+        toggleEl.style.setProperty('background-color', isDark ? '#1a1a2e' : '', 'important');
       }
     }
     
-    // 監聽 docsify 載入完成
-    window.$docsify = window.$docsify || {};
-    window.$docsify.plugins = (window.$docsify.plugins || []).concat(function(hook) {
-      hook.ready(function() {
-        fixSearchBackground();
-        // 監聽主題切換
-        const observer = new MutationObserver(fixSearchBackground);
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    // 頁面載入後執行
+    window.addEventListener('load', function() {
+      setTimeout(fixDarkModeElements, 100);
+      // 監聽主題切換
+      const observer = new MutationObserver(function() {
+        setTimeout(fixDarkModeElements, 50);
       });
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     });
 
     window.$docsify = {
