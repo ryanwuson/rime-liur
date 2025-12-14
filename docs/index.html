@@ -226,6 +226,40 @@
       border-color: #5B9FFF;
       color: #fff;
     }
+    
+    /* 程式碼複製按鈕樣式 - 類似 GitHub */
+    .docsify-copy-code-button {
+      font-size: 0 !important;
+      width: 28px !important;
+      height: 28px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 1px solid #d0d7de !important;
+      border-radius: 6px !important;
+      opacity: 1 !important;
+      cursor: pointer;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+    .docsify-copy-code-button::after {
+      content: "📋";
+      font-size: 14px;
+    }
+    .docsify-copy-code-button:hover {
+      background: #f3f4f6 !important;
+    }
+    .docsify-copy-code-button.success::after {
+      content: "✓";
+      color: #22c55e;
+    }
+    /* 深色模式複製按鈕 */
+    html[data-theme="dark"] .docsify-copy-code-button {
+      border-color: #4a5568 !important;
+    }
+    html[data-theme="dark"] .docsify-copy-code-button:hover {
+      background: #3a3a5a !important;
+    }
   </style>
 </head>
 <body>
