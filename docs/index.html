@@ -230,10 +230,22 @@
       border-color: #5B9FFF;
       color: #fff;
     }
-    /* Sidebar 標題區域固定 */
+    /* Sidebar 標題區域 - 統一亮暗色樣式 */
+    .sidebar .app-name {
+      display: flex;
+      align-items: center;
+      line-height: 1.5;
+      padding: 0;
+      margin: 0;
+    }
     .sidebar .app-name-link {
       display: inline-flex;
       align-items: center;
+    }
+    html[data-theme="dark"] .sidebar .app-name {
+      line-height: 1.5;
+      padding: 0;
+      margin: 0;
     }
     
     /* 程式碼區塊容器 */
