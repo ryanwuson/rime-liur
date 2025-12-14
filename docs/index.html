@@ -199,15 +199,20 @@
     }
     /* 亮暗色切換按鈕樣式 - 放在 sidebar 標題旁 */
     .theme-toggle {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       margin-left: 8px;
       vertical-align: middle;
       background: #f0f0f0;
       border: 1px solid #ccc;
       border-radius: 12px;
-      padding: 4px 8px;
+      width: 28px;
+      height: 28px;
+      padding: 0;
       cursor: pointer;
       font-size: 14px;
+      line-height: 1;
       transition: all 0.3s ease;
     }
     .theme-toggle:hover {
