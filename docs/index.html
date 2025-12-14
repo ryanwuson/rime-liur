@@ -197,18 +197,17 @@
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
     }
-    /* 亮暗色切換按鈕樣式 */
+    /* 亮暗色切換按鈕樣式 - 放在 sidebar 標題旁 */
     .theme-toggle {
-      position: fixed;
-      top: 15px;
-      right: 60px;
-      z-index: 100;
+      display: inline-block;
+      margin-left: 8px;
+      vertical-align: middle;
       background: #f0f0f0;
       border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 8px 12px;
+      border-radius: 12px;
+      padding: 4px 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
       transition: all 0.3s ease;
     }
     .theme-toggle:hover {
@@ -217,7 +216,7 @@
       border-color: var(--theme-color);
     }
     html[data-theme="dark"] .theme-toggle {
-      background: #2d3748;
+      background: #3a3a5a;
       border-color: #4a5568;
       color: #e0e0e0;
     }
@@ -226,16 +225,10 @@
       border-color: #5B9FFF;
       color: #fff;
     }
-    /* 手機版：亮暗色按鈕移到左上角，縮小 */
-    @media screen and (max-width: 768px) {
-      .theme-toggle {
-        top: 8px;
-        right: auto;
-        left: 50px;
-        padding: 5px 8px;
-        font-size: 14px;
-        border-radius: 15px;
-      }
+    /* Sidebar 標題區域固定 */
+    .sidebar .app-name-link {
+      display: inline-flex;
+      align-items: center;
     }
     
     /* 程式碼區塊容器 */
@@ -291,9 +284,6 @@
   </style>
 </head>
 <body>
-  <!-- 亮暗色切換按鈕 -->
-  <button class="theme-toggle" onclick="toggleTheme()" title="切換亮暗色主題">🌙</button>
-  
   <div id="app">載入中...</div>
   <script>
     // 亮暗色切換功能
@@ -320,12 +310,22 @@
       }
     })();
     
-    // DOM 載入後更新按鈕圖示
-    document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.querySelector('.theme-toggle');
-      if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        btn.textContent = '☀️';
+    // 把亮暗色按鈕插入到 sidebar 標題旁邊
+    function insertThemeToggle() {
+      const appName = document.querySelector('.app-name-link');
+      if (appName && !document.querySelector('.theme-toggle')) {
+        const btn = document.createElement('button');
+        btn.className = 'theme-toggle';
+        btn.title = '切換亮暗色主題';
+        btn.onclick = toggleTheme;
+        btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+        appName.parentNode.insertBefore(btn, appName.nextSibling);
       }
+    }
+    
+    // 頁面載入後插入按鈕
+    window.addEventListener('load', function() {
+      setTimeout(insertThemeToggle, 200);
     });
     
     // 動態修正深色模式元素背景
