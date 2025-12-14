@@ -39,25 +39,32 @@
     html[data-theme="dark"] .sidebar-nav li.active > a {
       color: #7CB9FF !important;
     }
-    /* Sidebar 搜尋框區塊 */
+    /* Sidebar 搜尋框區塊 - 全面覆蓋 */
+    html[data-theme="dark"] .search,
     html[data-theme="dark"] .sidebar .search,
-    html[data-theme="dark"] body .sidebar .search {
+    html[data-theme="dark"] body .sidebar .search,
+    html[data-theme="dark"] .sidebar > .search,
+    html[data-theme="dark"] .sidebar-nav ~ .search {
+      background: #1a1a2e !important;
       background-color: #1a1a2e !important;
       border-bottom: none !important;
+      border: none !important;
       margin-bottom: 0;
       padding: 10px;
     }
+    html[data-theme="dark"] .search input,
     html[data-theme="dark"] .sidebar .search input,
     html[data-theme="dark"] body .sidebar .search input {
+      background: #252542 !important;
       background-color: #252542 !important;
       color: #f0f0f0 !important;
       border: 1px solid #3a3a5a !important;
       border-radius: 6px;
     }
-    html[data-theme="dark"] .sidebar .search input::placeholder {
+    html[data-theme="dark"] .search input::placeholder {
       color: #888 !important;
     }
-    html[data-theme="dark"] .sidebar .search input:focus {
+    html[data-theme="dark"] .search input:focus {
       border-color: #5B9FFF !important;
       box-shadow: 0 0 3px rgba(91, 159, 255, 0.3);
     }
