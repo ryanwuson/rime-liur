@@ -39,12 +39,16 @@
     html[data-theme="dark"] .sidebar-nav li.active > a {
       color: #7CB9FF !important;
     }
-    /* Sidebar 搜尋框 */
-    html[data-theme="dark"] .sidebar .search {
-      background-color: transparent;
-      border-bottom: 1px solid #3a3a5a;
+    /* Sidebar 搜尋框區塊 */
+    html[data-theme="dark"] .sidebar .search,
+    html[data-theme="dark"] body .sidebar .search {
+      background-color: #1a1a2e !important;
+      border-bottom: none !important;
+      margin-bottom: 0;
+      padding: 10px;
     }
-    html[data-theme="dark"] .sidebar .search input {
+    html[data-theme="dark"] .sidebar .search input,
+    html[data-theme="dark"] body .sidebar .search input {
       background-color: #252542 !important;
       color: #f0f0f0 !important;
       border: 1px solid #3a3a5a !important;
