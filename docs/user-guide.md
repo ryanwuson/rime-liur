@@ -170,7 +170,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ---
 
-## 五、注音及拼音相關
+## 五、注音拼音
 
 ### 讀音查詢
 
@@ -202,14 +202,11 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 ### 拼音輸入
 
 - **引導鍵**：`;'`
-
 - **提示**：《拼音輸入》▸
-
 - **說明**：使用漢語拼音輸入中文，支援數字0~5鍵入聲調，可連續輸入
-
 - **舉例**：`;'binfenye2danwan2taibei` → 繽紛耶誕玩台北
 
-  ![05.4拼音輸入](images/05.4拼音輸入.gif)
+![05.4拼音輸入](images/05.4拼音輸入.gif)
 
 
 
@@ -388,7 +385,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 ---
 
-## 十、萬用字元查詢
+## 十、萬用查字
 
 ### 功能說明
 
