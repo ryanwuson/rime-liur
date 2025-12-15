@@ -51,7 +51,7 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 
 腳本會自動下載所需檔案並安裝字體
 
-![readme-win](docs/images/readme-win.jpg)
+![readme-win](docs/images/readme-win.png)
 
 ### 基本使用
 
