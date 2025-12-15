@@ -38,6 +38,10 @@
 curl -fsSL https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_installer.sh | bash
 ```
 
+腳本會自動下載所需檔案並安裝字體
+
+![readme-mac](docs/images/readme-mac.png)
+
 #### Windows
 
 打開 PowerShell，輸入以下指令：
@@ -46,6 +50,8 @@ irm https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_install
 ```
 
 腳本會自動下載所需檔案並安裝字體
+
+![readme-win](docs/images/readme-win.jpg)
 
 ### 基本使用
 
