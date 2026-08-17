@@ -220,7 +220,7 @@ CUSTOM_FILES=("openxiami_CustomWord.dict.yaml" "default.custom.yaml" "squirrel.c
 
 # 下載主要檔案
 for file in "${ROOT_FILES[@]}"; do
-    ((CURRENT++))
+    CURRENT=$((CURRENT + 1))
     # 檢查是否為自定義設定檔且選擇保留
     if [[ " ${CUSTOM_FILES[*]} " =~ " ${file} " ]] && [ "$KEEP_CUSTOM_FILES" = true ] && [ -f "$RIME_FOLDER/$file" ]; then
         show_progress $CURRENT $TOTAL_FILES "$file [保留]"
@@ -232,7 +232,7 @@ done
 
 # 下載 Lua 檔案
 for file in "${LUA_FILES[@]}"; do
-    ((CURRENT++))
+    CURRENT=$((CURRENT + 1))
     filename=$(basename "$file")
     show_progress $CURRENT $TOTAL_FILES "$filename"
     curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/lua/$filename"
@@ -240,7 +240,7 @@ done
 
 # 下載 Lua lunar_calendar 檔案
 for file in "${LUA_LUNAR_FILES[@]}"; do
-    ((CURRENT++))
+    CURRENT=$((CURRENT + 1))
     filename=$(basename "$file")
     show_progress $CURRENT $TOTAL_FILES "$filename"
     curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/lua/lunar_calendar/$filename"
@@ -248,7 +248,7 @@ done
 
 # 下載 OpenCC 檔案
 for file in "${OPENCC_FILES[@]}"; do
-    ((CURRENT++))
+    CURRENT=$((CURRENT + 1))
     filename=$(basename "$file")
     show_progress $CURRENT $TOTAL_FILES "$filename"
     curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/opencc/$filename"
@@ -256,7 +256,7 @@ done
 
 # 下載 Configs 檔案
 for file in "${CONFIGS_FILES[@]}"; do
-    ((CURRENT++))
+    CURRENT=$((CURRENT + 1))
     filename=$(basename "$file")
     show_progress $CURRENT $TOTAL_FILES "$filename"
     curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/configs/$filename"
@@ -290,7 +290,7 @@ FONT_TOTAL=${#FONT_FILES[@]}
 FONT_CURRENT=0
 
 for file in "${FONT_FILES[@]}"; do
-    ((FONT_CURRENT++))
+    FONT_CURRENT=$((FONT_CURRENT + 1))
     filename=$(basename "$file")
     if [ -f "$FONT_FOLDER/$filename" ]; then
         show_progress $FONT_CURRENT $FONT_TOTAL "$filename [skip]"
