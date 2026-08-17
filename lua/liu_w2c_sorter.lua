@@ -230,9 +230,9 @@ local function liu_w2c_sorter(input, env)
                         local codes = {}
                         -- 先將 \⟩ 替換為臨時標記
                         local temp_group = group_str:gsub("\\⟩", "\x01")
-                        for code in temp_group:gmatch("⟨([^⟩]+)⟩") do
+                        for raw_code in temp_group:gmatch("⟨([^⟩]+)⟩") do
                             -- 將臨時標記還原為 ⟩
-                            code = code:gsub("\x01", "⟩")
+                            local code = raw_code:gsub("\x01", "⟩")
                             table.insert(codes, code)
                         end
                         
@@ -262,9 +262,9 @@ local function liu_w2c_sorter(input, env)
                     local codes = {}
                     -- 先將 \⟩ 替換為臨時標記
                     local temp_comment = comment:gsub("\\⟩", "\x01")
-                    for code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
+                    for raw_code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
                         -- 將臨時標記還原為 ⟩
-                        code = code:gsub("\x01", "⟩")
+                        local code = raw_code:gsub("\x01", "⟩")
                         table.insert(codes, code)
                     end
                     

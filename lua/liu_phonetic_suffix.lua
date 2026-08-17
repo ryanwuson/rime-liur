@@ -80,8 +80,8 @@ local function parse_codes(codes_str)
     local secondary = {}
     
     local temp_str = codes_str:gsub("\\⟩", "\x01")
-    for code in temp_str:gmatch("⟨([^⟩]+)⟩") do
-        code = code:gsub("\x01", "⟩"):upper()
+    for raw_code in temp_str:gmatch("⟨([^⟩]+)⟩") do
+        local code = raw_code:gsub("\x01", "⟩"):upper()
         if code:match("%^[VRSF]") then
             secondary[#secondary + 1] = code
         else

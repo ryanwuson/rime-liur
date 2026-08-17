@@ -51,9 +51,9 @@ local function liu_remove_trad_in_w2c(input, env)
                     local codes = {}
                     -- 先將 \⟩ 替換為臨時標記
                     codes_str = codes_str:gsub("\\⟩", "\x01")
-                    for code in codes_str:gmatch("⟨([^⟩]+)⟩") do
+                    for raw_code in codes_str:gmatch("⟨([^⟩]+)⟩") do
                         -- 將臨時標記還原為 ⟩
-                        code = code:gsub("\x01", "⟩")
+                        local code = raw_code:gsub("\x01", "⟩")
                         table.insert(codes, "⟨" .. code .. "⟩")
                     end
                     if #codes > 0 then
@@ -73,9 +73,9 @@ local function liu_remove_trad_in_w2c(input, env)
                 local codes = {}
                 -- 先將 \⟩ 替換為臨時標記
                 local temp_comment = comment:gsub("\\⟩", "\x01")
-                for code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
+                for raw_code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
                     -- 將臨時標記還原為 ⟩
-                    code = code:gsub("\x01", "⟩")
+                    local code = raw_code:gsub("\x01", "⟩")
                     table.insert(codes, code)
                 end
                 

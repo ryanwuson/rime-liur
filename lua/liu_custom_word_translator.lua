@@ -92,9 +92,9 @@ local function load_custom_words()
         local file = io.open(path, "r")
         if file then
             local in_data = false
-            for line in file:lines() do
+            for raw_line in file:lines() do
                 -- 移除 Windows 換行符 \r
-                line = line:gsub("\r$", "")
+                local line = raw_line:gsub("\r$", "")
                 if line == "..." then
                     in_data = true
                 elseif in_data and #line > 0 and line:byte(1) ~= 35 then  -- 35 = '#'

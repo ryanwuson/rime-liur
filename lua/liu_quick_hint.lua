@@ -34,8 +34,8 @@ local function find_shortest_codes(codes_str, max_len)
     -- 解析 ⟨code⟩ 格式的編碼
     -- 先處理跳脫的 ⟩
     codes_str = codes_str:gsub("\\⟩", "\x01")
-    for code in codes_str:gmatch("⟨([^⟩]+)⟩") do
-        code = code:gsub("\x01", "⟩")
+    for raw_code in codes_str:gmatch("⟨([^⟩]+)⟩") do
+        local code = raw_code:gsub("\x01", "⟩")
         
         -- 只考慮「第一候選」的編碼（沒有 ^ 的）
         -- 有 ^ 的是選字輔碼，不算簡碼

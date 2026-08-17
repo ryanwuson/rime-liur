@@ -42,18 +42,18 @@ switches:
 engine:
   processors:
     - ascii_composer
-    - lua_processor@liu_schema_switch_processor      # 方案切換狀態保持（必須在 key_binder 之前攔截 Ctrl+/）
-    - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
-    - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
-    - lua_processor@liu_extended_backspace           # `` 擴充模式（必須在 recognizer 之前攔截 ` 鍵）
-    - lua_processor@liu_symbols_number_processor     # 符號清單數字選字及字母變化形（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@*liu_schema_switch_processor      # 方案切換狀態保持（必須在 key_binder 之前攔截 Ctrl+/）
+    - lua_processor@*liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
+    - lua_processor@*liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@*liu_extended_backspace           # `` 擴充模式（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@*liu_symbols_number_processor     # 符號清單數字選字及字母變化形（必須在 recognizer 之前攔截 ` 鍵）
     - recognizer
-    - lua_processor@liu_wildcard_processor           # 萬用字元開關（關閉時 ? 直接輸出）
-    - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
-    - lua_processor@liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'
-    - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'
-    - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
-    - lua_processor@liu_gc_processor                 # 上屏後小步垃圾回收
+    - lua_processor@*liu_wildcard_processor           # 萬用字元開關（關閉時 ? 直接輸出）
+    - lua_processor@*liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
+    - lua_processor@*liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'
+    - lua_processor@*liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'
+    - lua_processor@*liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
+    - lua_processor@*liu_gc_processor                 # 上屏後小步垃圾回收
     - key_binder
     - speller
 #    - punctuator
@@ -64,7 +64,7 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
-    - lua_segmentor@liu_extended_segmentor  # 擴充模式 ``（lua segmentor 處理空輸入）
+    - lua_segmentor@*liu_extended_segmentor  # 擴充模式 ``（lua segmentor 處理空輸入）
     - affix_segmentor@extended_mode  # 擴充模式 ``（必須在 fancy 之前）
     - affix_segmentor@fancy_number  # 變體數字 `/'
     - affix_segmentor@fancy_upper   # 變體AA `///
@@ -87,19 +87,19 @@ engine:
 #    - echo_translator
 #    - punct_translator
 #    - script_translator
-    - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
-    - lua_translator@liu_symbols_hint  # 符號清單提示
-    - lua_translator@liu_letter_variants  # 擴充模式字母變化形（``a 小寫，``A 大寫）
-    - lua_translator@liu_datetime  # 擴充模式日期時間（``/01~``/10）
-    - lua_translator@liu_fancy_translator  # 變體英數轉換器（`/ `// `/// `/'）
-    - lua_translator@date_translator  # 符號清單變體（`a 字母變體，`01 數字變體）
-    - lua_translator@liu_phonetic_suffix_translator  # 同音字翻譯器（選中後按 '）
-    - lua_translator@liu_code_decoder_translator  # 編碼解碼器（,,x 模式）
+    - lua_translator@*liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
+    - lua_translator@*liu_symbols_hint_translator  # 符號清單提示
+    - lua_translator@*liu_letter_variants  # 擴充模式字母變化形（``a 小寫，``A 大寫）
+    - lua_translator@*liu_datetime  # 擴充模式日期時間（``/01~``/10）
+    - lua_translator@*liu_fancy_translator  # 變體英數轉換器（`/ `// `/// `/'）
+    - lua_translator@*liu_date_translator  # 符號清單變體（`a 字母變體，`01 數字變體）
+    - lua_translator@*liu_phonetic_suffix_translator  # 同音字翻譯器（選中後按 '）
+    - lua_translator@*liu_code_decoder_translator  # 編碼解碼器（,,x 模式）
     - script_translator@all_bpm
     - table_translator@mkst
     - table_translator@fixed
     - table_translator@liurqry
-    - lua_translator@liu_custom_word_translator  # 自定詞翻譯器（在 table_translator 之前）
+    - lua_translator@*liu_custom_word_translator  # 自定詞翻譯器（在 table_translator 之前）
     - table_translator
     - table_translator@easy_en  # 英文輸入（獨立翻譯器）
     - script_translator@pinyin  # 漢語拼音（;' 引導）
@@ -107,27 +107,27 @@ engine:
     - table_translator@symbols
 
   filters:
-    - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
-    - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
-    - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元
-    - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼
+    - lua_filter@*liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
+    - lua_filter@*liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
+    - lua_filter@*liu_wildcard_filter	#查碼模式下禁用萬用字元
+    - lua_filter@*liu_wildcard_code_hint	#萬用字元查詢時顯示編碼
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
     - reverse_lookup_filter@phonetic_reverse_lookup	#讀音查詢（必須在 simplifier 之前以查詢繁體字）
     - simplifier
-    - lua_filter@liu_extended_filter	#擴充模式處理（禁用反查和簡體）- 必須在 simplifier 之後
-    - lua_filter@liu_remove_trad_in_w2c	#查碼模式下移除繁體標記
-    - lua_filter@liu_w2c_sorter	#字碼排序及簡體模式優化
-    - lua_filter@liu_vrsf_hint	#VRSF 選字提示（▸ ⟨v⟩ 等）- 必須在 liu_w2c_sorter 之後
-    - lua_filter@liu_quick_hint	#快打模式：提示可用簡碼（必須在 liu_w2c_sorter 之後以覆蓋繁體標記）
-    - lua_filter@liu_phonetic_suffix_filter	#嘸蝦米同音字（選中後按 '）- 必須在 simplifier 之後
+    - lua_filter@*liu_extended_filter	#擴充模式處理（禁用反查和簡體）- 必須在 simplifier 之後
+    - lua_filter@*liu_remove_trad_in_w2c	#查碼模式下移除繁體標記
+    - lua_filter@*liu_w2c_sorter	#字碼排序及簡體模式優化
+    - lua_filter@*liu_vrsf_hint	#VRSF 選字提示（▸ ⟨v⟩ 等）- 必須在 liu_w2c_sorter 之後
+    - lua_filter@*liu_quick_hint	#快打模式：提示可用簡碼（必須在 liu_w2c_sorter 之後以覆蓋繁體標記）
+    - lua_filter@*liu_phonetic_suffix_filter	#嘸蝦米同音字（選中後按 '）- 必須在 simplifier 之後
     - simplifier@zh_tw
     # - reverse_lookup_filter@ovff_reverse_lookup  # 未定義，暫時註解
-    - lua_filter@liu_phonetic_override	#讀音查詢模式下移除編碼和繁體標記（必須在最後）
-    - lua_filter@liu_symbols_hint_filter	#符號清單提示處理（必須在所有 simplifier 之後，uniquifier 之前）
-    - lua_filter@liu_help_filter	#按鍵說明處理（必須在所有 simplifier 之後）
-    - lua_filter@liu_fancy_filter	#變體英數模式 preedit 處理
-    - lua_filter@liu_english_case_filter	#英文大小寫轉換（word] → Word，word]] → WORD）
-    - lua_filter@liu_english_filter	#移除英文候選的補全提示（必須在 uniquifier 之前）
+    - lua_filter@*liu_phonetic_override	#讀音查詢模式下移除編碼和繁體標記（必須在最後）
+    - lua_filter@*liu_symbols_hint_filter	#符號清單提示處理（必須在所有 simplifier 之後，uniquifier 之前）
+    - lua_filter@*liu_help_filter	#按鍵說明處理（必須在所有 simplifier 之後）
+    - lua_filter@*liu_fancy_filter	#變體英數模式 preedit 處理
+    - lua_filter@*liu_english_case_filter	#英文大小寫轉換（word] → Word，word]] → WORD）
+    - lua_filter@*liu_english_filter	#移除英文候選的補全提示（必須在 uniquifier 之前）
     - uniquifier	#過濾重複的候選字（必須在所有 filter 之後）
     # - single_char_filter  #單字優先
 
