@@ -10,6 +10,16 @@ __patch:
         - Control+grave
         - Control+Shift+grave
 
+  # 每條獨立一則 patch，才能四次都插入清單最前（同一 map 重複鍵會只留最後一條）
+  - patch:
+      "key_binder/bindings/@before 0": { accept: period, send: period, when: paging }
+  - patch:
+      "key_binder/bindings/@before 0": { accept: period, send: period, when: has_menu }
+  - patch:
+      "key_binder/bindings/@before 0": { accept: comma, send: comma, when: paging }
+  - patch:
+      "key_binder/bindings/@before 0": { accept: comma, send: comma, when: has_menu }
+
   - patch/+:
       schema_list:
         - schema: liur
@@ -35,7 +45,11 @@ __patch:
     - { when: always, accept: "Control+colon", select: liu_pinyin }
     - { when: always, accept: "Control+Alt+semicolon", select: liu_pinyin }  # Ctrl+Alt+; 替代
     - { when: always, accept: "Control+slash", toggle: liu_w2c }             # Ctrl+/  → 查碼
-    - { accept: period, send: period, when: has_menu }      # 輸入.
+    # 小狼毫預設選單中 ,／. 為翻頁；蝦米碼含這兩鍵（s.＝？、v.＝！、..＝：、.＝。）
+    - { accept: comma, send: comma, when: has_menu }
+    - { accept: comma, send: comma, when: paging }
+    - { accept: period, send: period, when: has_menu }
+    - { accept: period, send: period, when: paging }
     - { accept: "Control+period", toggle: simplification, when: always }    #進行簡繁切換
     - { accept: "Control+comma", toggle: extended_charset, when: always}
     - { accept: "Shift+space", toggle: full_shape, when: always}
