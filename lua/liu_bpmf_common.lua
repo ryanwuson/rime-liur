@@ -92,9 +92,8 @@ function M.keys_to_bpmf(input)
     return table.concat(parts)
 end
 
--- U+2009 thin space + ⁞ + U+2009（十進位 UTF-8，相容 Lua 5.1）
-local THIN_SPACE = "\226\128\137"
-local SEP = THIN_SPACE .. "⁞" .. THIN_SPACE
+-- 手動分節預輸入：半形中點 U+FF65（字體自帶留白，不加 ASCII 空白）
+local SEP = "･"
 
 local function is_segment_delimiter(ch)
     -- ~ = 自動分節；' = 手動分節；\ = 舊手動；空白＝一聲（不是分節）
@@ -237,7 +236,7 @@ local function split_syllables(code)
     return syllables
 end
 
--- 預輸入：自動分節 → 空白；手動分節 '／\ →  ⁞ 
+-- 預輸入：自動分節 → 空白；手動分節 '/\ → ･
 function M.keys_to_bpmf_preedit(input)
     if not input or input == "" then
         return ""

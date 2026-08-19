@@ -1,5 +1,5 @@
 -- liu_pinyin_preedit_filter.lua
--- 組字區：沿用 Rime 音節切分，加聲調；自動分節空白、手動分節  ⁞ 
+-- 組字區：沿用 Rime 音節切分，加聲調；自動分節空白、手動分節 ･
 -- 字母變化形／日期時間等擴充候選的 preedit（如《G變化》G）不可再格式化
 
 local common = require("liu_pinyin_common")

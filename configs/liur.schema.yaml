@@ -192,7 +192,7 @@ simplifier:
 
 speller:
   alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[];',.?~›"
-  # ~ = 造詞分節（行內拼音／注音自動分節顯示空白）；\ = 行內手動分節（顯示  ⁞ （U+2009 撐開））
+  # ~ = 造詞分節（行內拼音／注音自動分節顯示空白）；\ = 行內手動分節（顯示「･」）
   delimiter: "~\\"
   algebra:
     - derive/^.+$/\L$0/
@@ -314,7 +314,7 @@ pinyin:
     - xform/([nl])ue/$1üe/
     - xform/([jqxy])v/$1u/
     - "xform/~/ /"
-    - 'xform/\\/ ⁞ /'
+    - 'xform/\\/･/'
     - xform/^/《拼音輸入》/
   tips: "《拼音輸入》▸"
   closing_tips: "◂《拼音輸入》"
@@ -334,7 +334,7 @@ phonetic:
   preedit_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˊˇˋ˙|"
     - "xform/~/ /"
-    - 'xform/\\/ ⁞ /'
+    - 'xform/\\/･/'
     - xform/^/《注音輸入》/
     - xform/\|/  /
     - xform/`/  /

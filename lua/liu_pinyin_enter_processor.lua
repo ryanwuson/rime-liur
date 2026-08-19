@@ -39,7 +39,7 @@ local function commit_toned_pinyin(engine, context)
     if code:sub(1, 1) == "`" or code:sub(1, 2) == ",," then
         return false
     end
-    -- 帶音標；自動／手動分節都變空白（不輸出 ⁞）
+    -- 帶音標；自動／手動分節都變空白（不輸出 ･）
     local text = common.keys_to_pinyin_commit(code)
     if text ~= "" then
         engine:commit_text(text)

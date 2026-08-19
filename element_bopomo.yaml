@@ -1,5 +1,5 @@
 # 洋蔥 element_bopomo 精簡版（供 liu_bpmf __include）
-# preedit 作用於內碼字母（bpmf…），\ 顯示為 ⁞
+# preedit 作用於內碼字母（bpmf…），\ 顯示為 ·
 
 preedit_liu_bpmf:
     - xform|,|a@|
@@ -54,4 +54,4 @@ preedit_liu_bpmf:
     - xform/Q@/0/
     - xform/([0-9A-Zabcdef~])\\/$1 /
     - "xlit|ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef~1234567890|ᴀʙcᴅᴇꜰɢʜɪᴊᴋʟᴍɴoᴘǫʀsᴛᴜᴠᴡxʏz,.⸝-;⸋₁₂³⁴₅⁶⁷₈₉₀|"
-    - 'xform/\\/⁞/'
+    - 'xform/\\/･/'

@@ -105,7 +105,7 @@ style:
   inline_preedit: false
 
 # P0.1：use_space + 空白當一聲
-# delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 '（預輸入顯示  ⁞ ，U+2009 撐開）
+# delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 '（預輸入顯示「･」）
 speller:
   alphabet: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-3467 "
   initials: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-"
@@ -114,10 +114,10 @@ speller:
   use_space: true
   auto_select: false
   preedit_format:
-    # 大千鍵 → 注音；空白鍵一聲 → ˉ；~ → 空白；' →  ⁞ 
+    # 大千鍵 → 注音；空白鍵一聲 → ˉ；~ → 空白；' → ･
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
     - "xform/~/ /"
-    - "xform/'/ ⁞ /"
+    - "xform/'/･/"
   algebra:
     - xform/[)(]//
     - xform/iu/iU/
@@ -177,7 +177,7 @@ lookup:
   preedit_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
     - "xform/~/ /"
-    - "xform/'/ ⁞ /"
+    - "xform/'/･/"
 
 zh_tw:
   opencc_config: t2tw.json

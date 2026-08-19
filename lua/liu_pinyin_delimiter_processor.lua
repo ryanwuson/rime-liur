@@ -1,5 +1,5 @@
 -- liu_pinyin_delimiter_processor.lua
--- 手動分節符 ' 由 Lua 插入，預輸入顯示 U+2009+⁞+U+2009
+-- 手動分節符 ' 由 Lua 插入，預輸入顯示「･」
 
 local function refresh(context)
     if context.refresh_non_confirmed_composition then

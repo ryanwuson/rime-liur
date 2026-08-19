@@ -58,7 +58,7 @@ menu:
   page_size: 6
 
 # v2-P0.1：prism 與 liu_bpmf 對齊
-# delimiter 第一碼 ' = 自動分節顯示空白；第二碼 \ = 手動 ⁞
+# delimiter 第一碼 ' = 自動分節顯示空白；第二碼 \ = 手動 ·
 # 含剝聲調 abbrev + free_order；一聲＝空白
 speller:
   alphabet: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-3467 "
@@ -121,10 +121,10 @@ translator:
 #  enable_charset_filter: true #是否開啓字符集過濾
   preedit_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347'|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙ |"
-    - 'xform/\\/⁞/'
+    - 'xform/\\/･/'
   comment_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347'|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙ |"
-    - 'xform/\\/⁞/'
+    - 'xform/\\/･/'
 
 #reverse_lookup:
 #  dictionary: tconly.extended

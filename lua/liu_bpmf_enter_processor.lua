@@ -24,7 +24,7 @@ local function commit_zhuyin_text(engine, context)
     if code:sub(1, 1) == "`" or code:sub(1, 2) == ",," then
         return false
     end
-    -- 直出已打內容；自動／手動分節都變空白（不輸出 ⁞）
+    -- 直出已打內容；自動／手動分節都變空白（不輸出 ･）
     local text = common.keys_to_bpmf_commit(code)
     if text ~= "" then
         engine:commit_text(text)

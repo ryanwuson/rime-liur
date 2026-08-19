@@ -1,13 +1,12 @@
 -- liu_pinyin_common.lua
--- 拼音鍵位 → 顯示（自動分節空白、手動分節  ⁞ ；Enter 直出用空白）
+-- 拼音鍵位 → 顯示（自動分節空白、手動分節 ･；Enter 直出用空白）
 
 local M = {}
 
 local AUTO_DELIM = " "
 local MANUAL_MARK = "MANUAL"
--- U+2009 thin space（十進位 UTF-8，相容 Lua 5.1）；U+205E ⁞
-local THIN_SPACE = "\226\128\137"
-local MANUAL_DISPLAY = THIN_SPACE .. "⁞" .. THIN_SPACE
+-- 手動分節預輸入：半形中點 U+FF65（字體自帶留白，不加 ASCII 空白）
+local MANUAL_DISPLAY = "･"
 
 local TONE_CHARS = {
     a = { "ā", "á", "ǎ", "à", "a" },
@@ -126,7 +125,7 @@ local function parts_to_display(parts, default_tone, manual_as_space)
         if item == AUTO_DELIM then
             display[#display + 1] = AUTO_DELIM
         elseif item == MANUAL_MARK then
-            -- 預輸入：手動 ' 顯示  ⁞ ；上屏：空白
+            -- 預輸入：手動 ' 顯示 ･；上屏：空白
             display[#display + 1] = manual_as_space and AUTO_DELIM or MANUAL_DISPLAY
         else
             local tone = item.tone
@@ -166,7 +165,7 @@ function M.keys_to_pinyin(input)
     return parts_to_display(parse_syllables_with_delim(normalized), nil, false)
 end
 
--- Enter 上滑上屏：自動／手動分節一律空白（不輸出 ⁞）
+-- Enter 上滑上屏：自動／手動分節一律空白（不輸出 ･）
 -- 連續音節（ni3hao3）在聲調數字後補虛擬空白，對齊預輸入顯示
 function M.keys_to_pinyin_commit(input)
     if not input or input == "" then
