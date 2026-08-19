@@ -1,25 +1,23 @@
 -- liu_wildcard_code_hint.lua
 -- 萬用字元查詢時顯示候選字的編碼
--- 優化：關閉萬用查字模式時釋放 OpenCC 實例
+-- 優化：Opencc 實例統一由 liu_data 管理，上屏後自動釋放
 
-local opencc_liu_w2c = nil
+local liu_data = require("liu_data")
 local last_wildcard_mode = false  -- 追蹤萬用查字模式狀態
 
-local function get_opencc()
-    if not opencc_liu_w2c then
-        opencc_liu_w2c = Opencc("liu_w2c.json")
-    end
-    return opencc_liu_w2c
+local function get_opencc(is_simplified)
+    return liu_data.get_opencc_w2c(is_simplified)
 end
 
--- 清除 OpenCC 快取
+-- 清除 OpenCC 快取（模式關閉時）- 現在由 liu_data 統一管理，此函數保留為空
 local function clear_opencc_cache()
-    opencc_liu_w2c = nil
+    -- Opencc 由 liu_data 管理，不需要在這裡釋放
 end
 
 local function liu_wildcard_code_hint(input, env)
     local context = env.engine.context
     local wildcard_mode = context:get_option("wildcard_mode")
+    local is_simplified = context:get_option("simplification")
     local input_code = context.input
     
     -- 檢測萬用查字模式是否剛關閉，如果是則釋放快取
@@ -40,7 +38,7 @@ local function liu_wildcard_code_hint(input, env)
         return
     end
     
-    local opencc = get_opencc()
+    local opencc = get_opencc(is_simplified)
     
     for cand in input:iter() do
         if opencc then

@@ -13,13 +13,30 @@ __patch:
   - patch/+:
       schema_list:
         - schema: liur
+        - schema: liu_bpmf
+          name: "注音輸入法"
+        - schema: liu_pinyin
+          name: "拼音輸入法"
         - schema: easy_en
       switcher/fix_schema_list_order: true
   - patch/key_binder/bindings/+:
-    - { when: always, accept: 'Control+slash', select: liur }
+    # 絕對跳轉（任一方案按此鍵都到指定方案）
+    # ' 族＝蝦／注；; 族＝英／拼；/＝查碼
+    - { when: always, accept: "Control+apostrophe", select: liur }           # Ctrl+'  → 嘸蝦米
+    # 注音：Ctrl+Shift+' —— Shift 會把 ' 變成 "，鼠鬚管／小狼毫送法不同，故全綁
+    - { when: always, accept: "Control+Shift+apostrophe", select: liu_bpmf }
+    - { when: always, accept: "Control+Shift+quotedbl", select: liu_bpmf }
+    - { when: always, accept: "Control+quotedbl", select: liu_bpmf }
+    - { when: always, accept: "Control+Alt+apostrophe", select: liu_bpmf }   # Ctrl+Alt+' 替代
+    - { when: always, accept: "Control+semicolon", select: easy_en }         # Ctrl+;  → Easy English
+    # 拼音：Ctrl+Shift+; —— Shift 會把 ; 變成 :
+    - { when: always, accept: "Control+Shift+semicolon", select: liu_pinyin }
+    - { when: always, accept: "Control+Shift+colon", select: liu_pinyin }
+    - { when: always, accept: "Control+colon", select: liu_pinyin }
+    - { when: always, accept: "Control+Alt+semicolon", select: liu_pinyin }  # Ctrl+Alt+; 替代
+    - { when: always, accept: "Control+slash", toggle: liu_w2c }             # Ctrl+/  → 查碼
     - { accept: period, send: period, when: has_menu }      # 輸入.
     - { accept: "Control+period", toggle: simplification, when: always }    #進行簡繁切換
-    - { accept: "Control+apostrophe", toggle: liu_w2c, when: always }   #顯示字碼
     - { accept: "Control+comma", toggle: extended_charset, when: always}
     - { accept: "Shift+space", toggle: full_shape, when: always}
     # 數字小鍵盤選字（從 0 開始，與主鍵盤一致）

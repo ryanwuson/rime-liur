@@ -3,14 +3,11 @@
 -- 適用場景：反查模式（Ctrl+'）、萬用字元查詢
 -- 注：讀音查詢模式（;;）由 liu_phonetic_override 單獨處理
 
--- 全局緩存
-local opencc_liu_w2c = nil
+-- Opencc 實例統一由 liu_data 管理
+local liu_data = require("liu_data")
 
-local function get_opencc_liu_w2c()
-    if not opencc_liu_w2c then
-        opencc_liu_w2c = Opencc("liu_w2c.json")
-    end
-    return opencc_liu_w2c
+local function get_opencc_liu_w2c(is_simplified)
+    return liu_data.get_opencc_w2c(is_simplified)
 end
 
 local function liu_remove_trad_in_w2c(input, env)
@@ -29,10 +26,18 @@ local function liu_remove_trad_in_w2c(input, env)
         end
         return
     end
+
+    -- 平常打碼（非萬用、非簡體查碼）：直接放行
+    if not has_wildcard and not (is_simplified and is_w2c) then
+        for cand in input:iter() do
+            yield(cand)
+        end
+        return
+    end
     
     -- 萬用字元查詢：移除 ~ 符號（無論簡繁），並為沒有編碼的字查找編碼和排序
     if has_wildcard then
-        local opencc = get_opencc_liu_w2c()
+        local opencc = get_opencc_liu_w2c(is_simplified)
         
         for cand in input:iter() do
             local comment = cand.comment or ""

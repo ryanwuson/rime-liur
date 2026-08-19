@@ -1,15 +1,4 @@
 $	~⟨,SI^F⟩⟨,DOL^R⟩
-0	~⟨,O⟩
-1	~⟨,E⟩
-2	~⟨,R⟩
-3	~⟨,S⟩
-4	~⟨,F⟩
-5	~⟨,W⟩
-6	~⟨,L⟩
-7	~⟨,C⟩
-8	~⟨,B⟩
-9	~⟨,K⟩
-ve.	~⟨ヹ⟩
 ¢	~⟨,CEN⟩⟨,CI^R⟩⟨,CP^V⟩
 £	~⟨,POU⟩⟨,LE^S⟩
 ¤	~⟨,BOB⟩
@@ -1085,7 +1074,7 @@ ve.	~⟨ヹ⟩
 ン	~⟨M.⟩⟨N.⟩⟨MN.⟩⟨NG.⟩⟨NN.⟩
 ヴ	~⟨VU.⟩
 ヴィ	~⟨VYI.⟩
-ヴェ	~⟨VE.⟩⟨VYE.⟩
+ヴェ	~⟨VYE.⟩
 ヴャ	~⟨VYA.⟩
 ヴュ	~⟨VYU.⟩
 ヴョ	~⟨VYO.⟩
@@ -1093,6 +1082,7 @@ ve.	~⟨ヹ⟩
 ヶ	~⟨GEV.⟩⟨KEV.⟩⟨LKE.⟩⟨XKE.⟩⟨GE.^V⟩
 ヷ	~⟨VA.⟩
 ヸ	~⟨VI.⟩
+ヹ	~⟨VE.⟩
 ヺ	~⟨VO.⟩
 ー	~⟨EE,⟩⟨EE.⟩
 ヾ	~⟨,SA⟩
@@ -1491,13 +1481,13 @@ ve.	~⟨ヹ⟩
 両	~⟨ENE^V⟩⟨ENU^R⟩⟨TNE^S⟩⟨TNU^R⟩
 丢	~⟨KUA⟩⟨KUA^R⟩
 丣	~⟨OI^R⟩⟨ERFF^V⟩
-两	~⟨EB⟩⟨EBA⟩⟨EBN⟩⟨EBP⟩⟨ENBB⟩⟨TNBB⟩⟨ENBB^R⟩
+两	~⟨EB⟩⟨EBA⟩⟨EBN⟩⟨EBP⟩⟨ENBB⟩⟨TNBB⟩⟨ENBBR⟩
 严	~⟨OX⟩⟨OPP⟩⟨OOLP⟩⟨EFL^V⟩⟨SLIP^V⟩
 並	~⟨BE⟩⟨BOE⟩⟨BEFE⟩⟨BKJ^V⟩
 丧	~⟨JKV⟩⟨WKN⟩⟨JOOK⟩⟨JBK^R⟩
 丨	~⟨,I^S⟩⟨II^R⟩
 丩	~⟨GIW⟩
-个	~⟨PO⟩⟨VII⟩⟨POJO⟩⟨ZOJO⟩⟨SI^V⟩⟨BII^R⟩
+个	~⟨PO⟩⟨VII⟩⟨POJO⟩⟨ZOJO⟩⟨SI^V⟩⟨BII^V⟩⟨BII^R⟩
 丫	~⟨BII⟩⟨YI^V⟩
 丬	~⟨,GI^V⟩
 中	~⟨CI⟩⟨CJ^V⟩
@@ -1524,7 +1514,7 @@ ve.	~⟨ヹ⟩
 乆	~⟨GNN^R⟩⟨LBN^F⟩⟨UNN^V⟩
 乇	~⟨GL^V⟩
 么	~⟨LW⟩⟨PUA⟩⟨LTTU⟩⟨LTTW⟩⟨WA^R⟩⟨LPU^V⟩⟨PUA^V⟩⟨LTTU^S⟩⟨LTTW^V⟩
-义	~⟨BX⟩⟨BKI⟩⟨BX^R⟩⟨AXX^S⟩
+义	~⟨BX⟩⟨BKI⟩⟨BX^R⟩⟨AXX^V⟩⟨AXX^S⟩
 乊	~⟨EBA^V⟩⟨EBP^V⟩⟨PBA^S⟩⟨PBP^V⟩
 之	~⟨AZ⟩⟨AZN⟩
 乌	~⟨WFA⟩
@@ -1535,7 +1525,7 @@ ve.	~⟨ヹ⟩
 乑	~⟨PWN^V⟩
 乒	~⟨KEP⟩⟨KTP⟩⟨POP⟩
 乓	~⟨KEA⟩⟨POA^V⟩
-乔	~⟨EDOO⟩⟨GNOO⟩⟨PDOO⟩⟨GI^S⟩⟨GO^V⟩⟨GNR^V⟩⟨PDR^F⟩
+乔	~⟨EDOO⟩⟨GNOO⟩⟨PDOO⟩⟨GI^V⟩⟨GI^S⟩⟨GO^V⟩⟨GNR^V⟩⟨PDR^F⟩
 乖	~⟨GFF⟩
 乗	~⟨GRS⟩⟨GRT⟩⟨GJJS⟩⟨GJJT⟩⟨GYYS⟩⟨GS^V⟩
 乘	~⟨GS⟩⟨GFFS⟩
@@ -1626,7 +1616,7 @@ ve.	~⟨ヹ⟩
 亯	~⟨LDO^R⟩⟨LOD^R⟩
 亰	~⟨LDS⟩
 亱	~⟨LX^V⟩⟨LPU^R⟩⟨LPDE^V⟩
-亲	~⟨LL⟩⟨LTMR⟩⟨LTN^S⟩
+亲	~⟨LL⟩⟨LTMR⟩⟨LTN^V⟩⟨LTN^S⟩
 亳	~⟨LGV⟩⟨LNG⟩⟨LHNG⟩⟨LONG⟩
 亴	~⟨LNQK⟩⟨LNYK⟩⟨LONK⟩
 亵	~⟨LJZK⟩⟨LJZX⟩⟨LYBK⟩⟨LYKK⟩⟨LYRK⟩⟨LYZK⟩
@@ -1644,7 +1634,7 @@ ve.	~⟨ヹ⟩
 仂	~⟨PDX^R⟩
 仃	~⟨PTI⟩
 仄	~⟨LBN⟩
-仅	~⟨PRC⟩⟨PUV⟩⟨PUX^R⟩
+仅	~⟨PRC⟩⟨PUV⟩⟨PUX^V⟩⟨PUX^R⟩
 仆	~⟨PPA⟩⟨PVN⟩⟨PFED⟩⟨PFB^V⟩
 仇	~⟨PKL⟩⟨PKX⟩⟨PKZ⟩
 仈	~⟨PBN^V⟩
@@ -1653,7 +1643,7 @@ ve.	~⟨ヹ⟩
 介	~⟨VR⟩⟨BRV⟩⟨BRI^V⟩
 仌	~⟨BBN^R⟩
 仍	~⟨PRP⟩
-从	~⟨MZ⟩⟨BBN⟩⟨MIBZ⟩⟨BBN^S⟩
+从	~⟨MZ⟩⟨BBN⟩⟨BBNS⟩⟨MIBZ⟩
 仏	~⟨PUA^S⟩
 仐	~⟨BJJ^R⟩
 仑	~⟨AMJ⟩⟨BFL⟩⟨EAM⟩
@@ -1724,9 +1714,9 @@ ve.	~⟨ヹ⟩
 伕	~⟨PQN⟩
 伖	~⟨PXU^R⟩
 众	~⟨BBB⟩⟨FMK⟩⟨FQN⟩⟨PFQ⟩⟨FNBB⟩⟨FPBB⟩⟨PFMK⟩⟨PFPB⟩⟨PFPW⟩⟨BBB^V⟩⟨PFQ^V⟩⟨PFMK^V⟩⟨PFPB^V⟩
-优	~⟨PYX⟩⟨PTDP⟩⟨PTMP⟩⟨PAK^R⟩
+优	~⟨PYX⟩⟨PTDP⟩⟨PTMP⟩⟨PAK^V⟩⟨PAK^R⟩
 伙	~⟨PFN⟩⟨QTCC⟩
-会	~⟨AD⟩⟨AQD⟩⟨BTA⟩⟨AD^V⟩⟨ADA^R⟩⟨BTA^R⟩
+会	~⟨AD⟩⟨AQD⟩⟨BTA⟩⟨AD^V⟩⟨ADA^V⟩⟨ADA^R⟩⟨BTA^R⟩
 伛	~⟨PFX⟩⟨PFOO⟩
 伜	~⟨PKJ⟩
 伝	~⟨PTA^V⟩
@@ -1931,7 +1921,7 @@ ve.	~⟨ヹ⟩
 俨	~⟨POOP⟩⟨PSLP⟩⟨POP^V⟩⟨POX^V⟩
 俩	~⟨PEB⟩⟨PENB⟩⟨PTNB⟩
 俪	~⟨PLLB⟩⟨PLA^V⟩
-俫	~⟨PLN^S⟩
+俫	~⟨PLN^R⟩⟨PLN^S⟩
 俬	~⟨PHU^V⟩
 俭	~⟨PAC⟩⟨PAE⟩⟨POA⟩⟨PAOB⟩⟨PASE⟩
 修	~⟨PP⟩⟨PIPM⟩⟨PIPU⟩
@@ -1963,7 +1953,7 @@ ve.	~⟨ヹ⟩
 倈	~⟨PLN^R⟩
 倉	~⟨ADO⟩⟨BPL⟩
 倊	~⟨PBUH⟩
-個	~⟨PO⟩⟨VII⟩⟨POJO⟩⟨BII^V⟩
+個	~⟨PO⟩⟨VII⟩⟨POJO⟩⟨SI^V⟩⟨BII^V⟩⟨BII^R⟩
 倌	~⟨PNB⟩
 倍	~⟨PLO⟩
 倎	~⟨PROB⟩⟨PFB^R⟩
@@ -2312,10 +2302,11 @@ ve.	~⟨ヹ⟩
 兦	~⟨BLL^R⟩
 內	~⟨NBN⟩⟨NBP⟩
 全	~⟨BK⟩⟨BKE⟩
-兩	~⟨EB⟩⟨EBA⟩⟨EBN⟩⟨EBP⟩⟨ENBB⟩⟨TNBB⟩
+兩	~⟨EB⟩⟨EBA⟩⟨EBN⟩⟨EBP⟩⟨ENBB⟩⟨TNBB⟩⟨ENBBR⟩
 兪	~⟨AUR^S⟩
 八	~⟨B⟩
 公	~⟨BUA⟩
+公噸	~⟨OEL^R⟩
 六	~⟨L⟩
 兮	~⟨AKK⟩⟨BKK⟩
 兰	~⟨BSE⟩⟨RMN⟩⟨RMCS⟩⟨RMJS⟩
@@ -2374,7 +2365,7 @@ ve.	~⟨ヹ⟩
 冦	~⟨NRRU^V⟩
 冧	~⟨NTT⟩
 冨	~⟨NEOQ^F⟩
-冪	~⟨NRDN⟩
+冪	~⟨NDDN⟩⟨NRDN⟩
 冫	~⟨,BE⟩
 冬	~⟨PBA⟩⟨PBE⟩⟨YDJB⟩⟨YOBB⟩
 冭	~⟨DBE⟩⟨DBA^S⟩
@@ -2382,8 +2373,8 @@ ve.	~⟨ヹ⟩
 冯	~⟨BMF⟩
 冰	~⟨BWN⟩⟨AWN^S⟩
 冱	~⟨BDE^V⟩
-冲	~⟨MT⟩⟨BCI⟩⟨WCI⟩⟨WCJ⟩⟨MIGI⟩⟨MIGT⟩⟨BCI^V⟩⟨BCJ^R⟩
-决	~⟨WJN⟩⟨BJN^R⟩
+冲	~⟨MT⟩⟨BCI⟩⟨WCI⟩⟨WCJ⟩⟨MIGI⟩⟨MIGT⟩⟨BCI^V⟩⟨BCJ^V⟩⟨BCJ^R⟩
+决	~⟨WJN⟩⟨BJN^V⟩⟨BJN^R⟩
 冴	~⟨BYP⟩⟨BXP^V⟩
 况	~⟨WOR⟩⟨BOR^R⟩
 冶	~⟨BUO⟩
@@ -2423,7 +2414,7 @@ ve.	~⟨ヹ⟩
 凘	~⟨BKBK⟩
 凙	~⟨BFYG⟩⟨BFY^R⟩
 凚	~⟨BTTS⟩
-凛	~⟨BLOH⟩⟨BLOH^V⟩⟨BLOS^R⟩
+凛	~⟨BLOH⟩⟨BLOH^V⟩⟨BLOS^V⟩⟨BLOS^R⟩
 凜	~⟨BLOH⟩⟨BLOS^V⟩
 凝	~⟨BZ⟩⟨BFVZ⟩
 凞	~⟨BIRF⟩⟨BROF⟩⟨GRPF⟩⟨GROF^V⟩
@@ -2432,7 +2423,7 @@ ve.	~⟨ヹ⟩
 凡	~⟨PRL⟩⟨PRZ⟩⟨RAA⟩
 凢	~⟨PRL^R⟩⟨PRZ^S⟩
 凣	~⟨ARL⟩⟨ARZ⟩
-凤	~⟨RNF⟩⟨RENF⟩⟨RUX^F⟩
+凤	~⟨RNF⟩⟨RENF⟩⟨RUX^V⟩⟨RUX^F⟩
 凥	~⟨CRL^R⟩⟨CRZ^V⟩
 凨	~⟨RTA^F⟩
 凫	~⟨NFR⟩⟨NRL^V⟩⟨NRZ^R⟩
@@ -2474,13 +2465,13 @@ ve.	~⟨ヹ⟩
 刏	~⟨KRI^R⟩
 刐	~⟨NLR⟩⟨NAER⟩
 刑	~⟨KRI⟩
-划	~⟨ER⟩⟨EQER⟩⟨TQUR⟩⟨AR^V⟩⟨AQR^V⟩
+划	~⟨ER⟩⟨EQER⟩⟨TQUR⟩⟨AR^V⟩⟨AQR^V⟩⟨AQR^R⟩
 刓	~⟨RRR^V⟩
 刔	~⟨JRI^V⟩
 刕	~⟨DDD^R⟩
 刖	~⟨URI^V⟩
 列	~⟨DRI⟩
-刘	~⟨OAR⟩⟨WRV⟩⟨DDAR⟩⟨WRI^F⟩
+刘	~⟨OAR⟩⟨WRV⟩⟨DDAR⟩⟨WRI^V⟩⟨WRI^F⟩
 则	~⟨MBR⟩
 刚	~⟨NR⟩⟨NXR⟩⟨NBER⟩
 创	~⟨AR⟩⟨BPR⟩⟨ADOR⟩
@@ -2610,7 +2601,7 @@ ve.	~⟨ヹ⟩
 劚	~⟨CWFR⟩
 力	~⟨DX⟩⟨DY⟩
 劜	~⟨DLL⟩
-劝	~⟨RDX⟩⟨RDY⟩⟨VDX⟩⟨VDY⟩⟨ROOD⟩⟨UDX^R⟩⟨UDY^R⟩
+劝	~⟨RDX⟩⟨RDY⟩⟨VDX⟩⟨VDY⟩⟨ROOD⟩⟨UDX^V⟩⟨UDX^R⟩⟨UDY^V⟩⟨UDY^R⟩
 办	~⟨DBA⟩⟨LDL⟩⟨DBA^V⟩⟨LRL^R⟩⟨LYL^V⟩
 功	~⟨IDX⟩⟨IDY⟩
 加	~⟨DOO⟩
@@ -2621,7 +2612,7 @@ ve.	~⟨ヹ⟩
 劥	~⟨LRD^S⟩
 劦	~⟨DDD^V⟩
 劧	~⟨HDX^R⟩⟨HDY^V⟩
-动	~⟨GD⟩⟨GQD⟩⟨TDX^S⟩⟨TDY^S⟩
+动	~⟨GD⟩⟨GQD⟩⟨TDX^V⟩⟨TDX^S⟩⟨TDY^V⟩⟨TDY^S⟩
 助	~⟨MDX⟩⟨MDY⟩
 努	~⟨GUD⟩
 劫	~⟨YUD⟩
@@ -2782,7 +2773,7 @@ ve.	~⟨ヹ⟩
 卌	~⟨FJ^R⟩
 卍	~⟨KZJ⟩⟨ZKJ⟩⟨ZZJ⟩⟨,ZKJ⟩⟨,ZZJ⟩
 华	~⟨AJ⟩⟨PFJ⟩⟨RRQ⟩⟨RJJQ⟩⟨RRJ^V⟩
-协	~⟨JQ⟩⟨JDDD⟩⟨JDB^F⟩
+协	~⟨JQ⟩⟨JDDD⟩⟨JDB^V⟩⟨JDB^F⟩
 卐	~⟨,ZZ⟩⟨KZJ^V⟩⟨ZZJ^R⟩
 卑	~⟨PQG⟩⟨PGJ^V⟩
 卒	~⟨JJJ⟩
@@ -2806,7 +2797,7 @@ ve.	~⟨ヹ⟩
 卤	~⟨WZOA⟩⟨WZOF⟩⟨WZOX⟩⟨ZOXA⟩⟨ZOXF⟩
 卥	~⟨ZOQ⟩
 卦	~⟨YYP⟩
-卧	~⟨RBN⟩⟨RBN^V⟩⟨RPA^F⟩
+卧	~⟨RBN⟩⟨RBN^V⟩⟨RPA^R⟩⟨RPA^F⟩
 卨	~⟨ZQO^R⟩
 卩	~⟨PI^R⟩⟨,PI^V⟩
 卪	~⟨PAA^V⟩
@@ -2825,7 +2816,7 @@ ve.	~⟨ヹ⟩
 卷	~⟨PL⟩⟨BNP⟩⟨JPL⟩⟨JBNL⟩⟨JBNP⟩
 卸	~⟨WZP⟩
 卹	~⟨PFP^R⟩
-卺	~⟨WEFL⟩⟨WEOL⟩⟨WEP^R⟩
+卺	~⟨WEFL⟩⟨WEOL⟩⟨WEP^V⟩⟨WEP^R⟩
 卻	~⟨WPI⟩⟨YUP⟩⟨BBOP⟩
 卼	~⟨ERNP⟩
 卽	~⟨ADFP⟩⟨GI^F⟩⟨DUP^V⟩⟨PDFP^V⟩
@@ -2872,7 +2863,7 @@ ve.	~⟨ヹ⟩
 厦	~⟨LTMP⟩⟨LTMP^R⟩
 厧	~⟨LJB⟩⟨LJMB⟩
 厨	~⟨LDA⟩⟨LYDA⟩⟨LYOA⟩⟨LDA^V⟩
-厩	~⟨LADK⟩⟨LDUK⟩⟨LDUU⟩⟨LPDK⟩⟨LDL^F⟩⟨LDUK^V⟩
+厩	~⟨LADK⟩⟨LDUK⟩⟨LDUU⟩⟨LPDK⟩⟨LDL^R⟩⟨LDL^F⟩⟨LDUK^V⟩
 厪	~⟨LRC^R⟩
 厫	~⟨LHNP^V⟩⟨LYFP^V⟩
 厬	~⟨LDPO⟩
@@ -2897,7 +2888,7 @@ ve.	~⟨ヹ⟩
 县	~⟨MS⟩⟨MES⟩⟨MLS⟩⟨MSA⟩⟨MUA⟩⟨MBES⟩⟨MBPS⟩⟨MESS⟩⟨MLSS⟩⟨MSPS⟩⟨MBA^V⟩
 叀	~⟨JQU^V⟩
 叁	~⟨UDS^S⟩⟨USE^S⟩⟨UUUS^V⟩
-参	~⟨UM⟩⟨,DS⟩⟨RUM⟩⟨UDM⟩⟨UMP⟩⟨RUDM⟩⟨RUUM⟩⟨UUUM⟩⟨UUUMW⟩⟨UDM^V⟩⟨UDS^F⟩⟨UMP^F⟩
+参	~⟨UM⟩⟨,DS⟩⟨RUM⟩⟨UDM⟩⟨UMP⟩⟨RUDM⟩⟨RUUM⟩⟨UUUM⟩⟨UUUMW⟩⟨UDM^V⟩⟨UDS^V⟩⟨UDS^F⟩⟨UMP^F⟩
 參	~⟨UM⟩⟨,DS⟩⟨UDM⟩⟨UMP⟩⟨UUUM⟩⟨UDS^V⟩
 叄	~⟨USE^S⟩⟨UUUS^V⟩
 叅	~⟨UUUH⟩⟨UFA^R⟩⟨UHA^V⟩⟨UUUF^V⟩
@@ -2927,7 +2918,7 @@ ve.	~⟨ヹ⟩
 叝	~⟨YUPU⟩
 叞	~⟨CRSU⟩
 叟	~⟨GIU⟩⟨GUX^V⟩
-叠	~⟨QMV⟩⟨QNM⟩⟨QQQM⟩⟨UUUM^F⟩
+叠	~⟨QMV⟩⟨QNM⟩⟨QQQM⟩⟨UUUM^V⟩⟨UUUM^F⟩
 叡	~⟨ZNBU⟩⟨ZNEU⟩
 叢	~⟨BBE⟩⟨FRU⟩⟨FEBU⟩
 口	~⟨OO⟩
@@ -2949,7 +2940,7 @@ ve.	~⟨ヹ⟩
 右	~⟨XOO⟩
 叴	~⟨KOO⟩
 叵	~⟨FOO^V⟩
-叶	~⟨RST⟩⟨OJJ^F⟩
+叶	~⟨RST⟩⟨OJJ^V⟩⟨OJJ^F⟩
 号	~⟨OL⟩⟨OKK⟩⟨OKZR⟩⟨OKK^V⟩
 司	~⟨EO⟩⟨YEO⟩
 叹	~⟨ORC⟩⟨OUX⟩⟨RCI⟩⟨OUX^V⟩
@@ -2971,7 +2962,7 @@ ve.	~⟨ヹ⟩
 吋	~⟨OAA⟩
 同	~⟨NEO⟩⟨MINI⟩⟨MINT⟩
 名	~⟨COO⟩
-后	~⟨I⟩⟨FOO⟩⟨MIWP⟩
+后	~⟨I⟩⟨FOO⟩⟨FOOS⟩⟨MIWP⟩
 吏	~⟨JCX⟩⟨VXX⟩
 吐	~⟨OYE⟩
 向	~⟨DXI⟩⟨PNO⟩⟨DWAB⟩⟨WABO⟩⟨WADO⟩⟨WDUO⟩⟨WEDO⟩⟨XPMO⟩⟨XPNO⟩
@@ -2996,7 +2987,7 @@ ve.	~⟨ヹ⟩
 吥	~⟨OBA^V⟩
 否	~⟨BOO⟩
 吧	~⟨OCL⟩
-吨	~⟨OET⟩⟨OETB⟩⟨OEL^R⟩
+吨	~⟨OET⟩⟨OETB⟩⟨OEL^V⟩
 吩	~⟨OBD⟩
 吪	~⟨OPF⟩
 含	~⟨AYO⟩
@@ -3750,7 +3741,7 @@ ve.	~⟨ヹ⟩
 圠	~⟨YLL^V⟩
 圡	~⟨YAA^V⟩⟨YAE^V⟩
 圢	~⟨YTI⟩
-圣	~⟨ROK⟩⟨UYE^R⟩
+圣	~⟨ROK⟩⟨UYE^V⟩⟨UYE^R⟩
 圤	~⟨YPA⟩
 圥	~⟨YRL^V⟩
 在	~⟨XY⟩⟨XIY⟩
@@ -3799,7 +3790,7 @@ ve.	~⟨ヹ⟩
 坔	~⟨WYE^R⟩
 坕	~⟨EYE^V⟩
 坖	~⟨RRY⟩
-块	~⟨YVA⟩⟨YPQU⟩⟨YPRU⟩⟨YJN^R⟩
+块	~⟨YVA⟩⟨YPQU⟩⟨YPRU⟩⟨YJN^V⟩⟨YJN^R⟩
 坘	~⟨YDE^R⟩
 坙	~⟨ISY⟩
 坚	~⟨RUY⟩
@@ -4226,7 +4217,7 @@ ve.	~⟨ヹ⟩
 夁	~⟨YFOO^V⟩
 夂	~⟨PX^R⟩⟨,PX^V⟩
 夃	~⟨RUX^R⟩⟨WPX^V⟩
-处	~⟨ZV⟩⟨ZPR⟩⟨PBA^R⟩⟨PBN^R⟩⟨PPA^F⟩⟨PRZ^V⟩
+处	~⟨ZV⟩⟨ZPR⟩⟨PBA^R⟩⟨PBN^R⟩⟨PPA^V⟩⟨PPA^F⟩⟨PRZ^V⟩
 夅	~⟨PSJ^V⟩
 夆	~⟨PFJ^V⟩
 备	~⟨P⟩⟨PPQ⟩⟨PRLQ⟩⟨PRPQ⟩⟨PQO^V⟩
@@ -4235,7 +4226,7 @@ ve.	~⟨ヹ⟩
 夊	~⟨PX^S⟩⟨,PX^R⟩
 夋	~⟨UBP⟩⟨URP⟩⟨HX^V⟩
 夌	~⟨YBP⟩⟨YRP⟩⟨YX^V⟩
-复	~⟨VP⟩⟨MIV⟩⟨VVX⟩⟨MIVP⟩⟨VVDP⟩⟨VX^F⟩⟨VDP^F⟩
+复	~⟨VP⟩⟨MIV⟩⟨VVX⟩⟨MIVP⟩⟨VVDP⟩⟨VX^V⟩⟨VX^R⟩⟨VX^F⟩⟨VDP^V⟩⟨VDP^R⟩⟨VDP^F⟩
 夎	~⟨BBYP⟩
 夏	~⟨TMP⟩
 夐	~⟨NNXP⟩⟨NOXP⟩⟨NNBP^V⟩⟨NOBP^V⟩
@@ -4897,7 +4888,7 @@ ve.	~⟨ヹ⟩
 宦	~⟨NRE^V⟩⟨NRV^V⟩
 宨	~⟨NRBB⟩⟨NRA^V⟩
 宪	~⟨NH⟩⟨NSR⟩⟨NFFH⟩⟨NHFH⟩
-宫	~⟨NOV⟩⟨NOPO⟩⟨NOO^R⟩⟨NOV^R⟩
+宫	~⟨NOV⟩⟨NOPO⟩⟨NOO^V⟩⟨NOO^R⟩⟨NOV^R⟩
 宬	~⟨NAY⟩⟨NAQN⟩
 宭	~⟨NEO^V⟩
 宮	~⟨NOV⟩⟨NOPO⟩⟨NOO^V⟩
@@ -4974,20 +4965,20 @@ ve.	~⟨ヹ⟩
 寶	~⟨NKA⟩⟨NKNB⟩⟨NKVB⟩⟨NKWB⟩
 寷	~⟨NFD⟩⟨NFFD⟩
 寸	~⟨AA⟩
-对	~⟨A⟩⟨FAA⟩⟨WAA⟩⟨FEBA⟩⟨UAA^S⟩
+对	~⟨A⟩⟨FAA⟩⟨WAA⟩⟨FEBA⟩⟨UAA^V⟩⟨UAA^S⟩
 寺	~⟨YAA⟩
 寻	~⟨EAA⟩⟨EIOA⟩
 导	~⟨DH⟩⟨HWA⟩⟨BTMA⟩⟨OLA^V⟩
 寽	~⟨EAA^S⟩
 対	~⟨WAA^R⟩
-寿	~⟨FAV⟩⟨YYIA⟩⟨YA^V⟩⟨FAA^R⟩
+寿	~⟨FAV⟩⟨YYIA⟩⟨YA^V⟩⟨FAA^V⟩⟨FAA^R⟩
 尀	~⟨FOA⟩
 封	~⟨YYA⟩
 尃	~⟨AJNA⟩⟨IAA^V⟩
 射	~⟨SAA⟩
 尅	~⟨JORA⟩
-将	~⟨GEA⟩⟨GUA⟩⟨BIEA⟩⟨GCA^R⟩⟨GUA^V⟩
-將	~⟨GEA⟩⟨GUA⟩⟨GCA^V⟩
+将	~⟨GEA⟩⟨GUA⟩⟨BIEA⟩⟨GUAV⟩⟨GCA^V⟩⟨GCA^R⟩
+將	~⟨GEA⟩⟨GUA⟩⟨BIEA⟩⟨GUAV⟩⟨GCA^V⟩⟨GCA^R⟩
 專	~⟨XA⟩⟨CUA⟩⟨QAA⟩⟨JQUA⟩
 尉	~⟨CAA⟩⟨CRSA⟩
 尊	~⟨BEA⟩
@@ -5002,7 +4993,7 @@ ve.	~⟨ヹ⟩
 尔	~⟨RX⟩⟨NSA⟩⟨NSA^R⟩⟨VSA^V⟩
 尖	~⟨SDN⟩
 尗	~⟨FSA^V⟩
-尘	~⟨LBY⟩⟨SYE^S⟩
+尘	~⟨LBY⟩⟨SYE^V⟩⟨SYE^S⟩
 尚	~⟨SNO⟩
 尛	~⟨SSS^R⟩
 尜	~⟨SDS⟩
@@ -5049,8 +5040,8 @@ ve.	~⟨ヹ⟩
 屆	~⟨CYU⟩⟨CIQ^V⟩
 屇	~⟨CQO^V⟩
 屈	~⟨CEE⟩⟨CEU⟩
-屉	~⟨CMIS⟩⟨CSL^R⟩
-届	~⟨CYU⟩⟨CIQ^S⟩
+屉	~⟨CMIS⟩⟨CSL^V⟩⟨CSL^R⟩
+届	~⟨CYU⟩⟨CIQ^V⟩⟨CIQ^S⟩
 屋	~⟨CPE⟩
 屌	~⟨CON⟩
 屍	~⟨CDF⟩
@@ -5197,7 +5188,7 @@ ve.	~⟨ヹ⟩
 峢	~⟨EDR^S⟩
 峣	~⟨EYR⟩⟨EYYR⟩
 峤	~⟨EGNO⟩⟨EGNR⟩⟨EPDO⟩⟨EPDR⟩⟨EGI^V⟩⟨EGO^V⟩
-峥	~⟨ENE⟩⟨EEE^S⟩⟨ENE^R⟩
+峥	~⟨ENE⟩⟨EEE^V⟩⟨EEE^S⟩⟨ENE^R⟩
 峦	~⟨LFE⟩⟨ISSE⟩⟨SISE⟩⟨LFE^V⟩
 峧	~⟨ELX⟩
 峨	~⟨EIX⟩
@@ -5503,7 +5494,7 @@ ve.	~⟨ヹ⟩
 帕	~⟨NPD⟩
 帖	~⟨NZO⟩
 帗	~⟨NAX⟩⟨NAXX⟩
-帘	~⟨NRN⟩⟨ZLQ⟩⟨ZLBF⟩⟨ZLPQ⟩⟨NBN^S⟩
+帘	~⟨NRN⟩⟨ZLQ⟩⟨ZLBF⟩⟨ZLPQ⟩⟨NBN^R⟩⟨NBN^S⟩
 帙	~⟨NSN⟩
 帚	~⟨ENN⟩⟨EJ^R⟩
 帛	~⟨PDN⟩⟨PJ^R⟩
@@ -5592,7 +5583,7 @@ ve.	~⟨ヹ⟩
 幯	~⟨NZG⟩⟨NZP⟩⟨NZDP⟩⟨NRP^V⟩
 幰	~⟨NNFH⟩⟨NNHH⟩
 幱	~⟨NMCS⟩⟨NMJS⟩
-干	~⟨GV⟩⟨JG⟩⟨JBG⟩⟨JVZ⟩⟨JDJG⟩⟨JDJT⟩⟨JDJZ⟩⟨GJ^V⟩⟨JBT^V⟩
+干	~⟨GV⟩⟨JG⟩⟨JBG⟩⟨JVZ⟩⟨JDJG⟩⟨JDJT⟩⟨JDJZ⟩⟨GJ^V⟩⟨GJ^R⟩⟨JBT^V⟩
 平	~⟨PJ⟩
 年	~⟨VSJ⟩
 幵	~⟨KJ^V⟩⟨GGJ^R⟩
@@ -5615,13 +5606,13 @@ ve.	~⟨ヹ⟩
 庇	~⟨LBL^R⟩
 庈	~⟨LAY⟩
 庉	~⟨LEL⟩
-床	~⟨LTN⟩⟨GTN^V⟩
+床	~⟨LTN⟩⟨GTN^V⟩⟨GTN^R⟩
 庋	~⟨LJU^V⟩
 庌	~⟨LXP^R⟩⟨LYP^V⟩
 庍	~⟨LKI⟩
 庎	~⟨LBR^R⟩
 序	~⟨LUI⟩
-庐	~⟨LZQF⟩⟨LFP^S⟩
+庐	~⟨LZQF⟩⟨LFP^V⟩⟨LFP^S⟩
 庑	~⟨LEK⟩⟨LVFF⟩⟨LGL^V⟩
 庒	~⟨LYA^S⟩
 库	~⟨LCJ⟩
@@ -5811,8 +5802,8 @@ ve.	~⟨ヹ⟩
 彏	~⟨QMMU⟩
 彐	~⟨,EE^V⟩
 彑	~⟨,CE⟩⟨CEE^R⟩
-归	~⟨PQ⟩⟨PBZE⟩⟨PBZN⟩⟨RZEN⟩⟨REE^S⟩⟨YEE^S⟩
-当	~⟨SO⟩⟨OSE⟩⟨OSO⟩⟨OSNQ⟩⟨SNOQ⟩⟨NEE^R⟩⟨SEE^S⟩
+归	~⟨PQ⟩⟨PBZE⟩⟨PBZN⟩⟨RZEN⟩⟨REE^V⟩⟨REE^S⟩⟨YEE^V⟩⟨YEE^S⟩
+当	~⟨SO⟩⟨OSE⟩⟨OSO⟩⟨OSNQ⟩⟨SNOQ⟩⟨NEE^R⟩⟨SEE^R⟩⟨SEE^S⟩
 彔	~⟨CEW⟩
 录	~⟨AW⟩⟨CEW⟩⟨EWA⟩⟨ACEW⟩⟨EWNB⟩⟨AEW^V⟩⟨AEW^R⟩⟨CEW^V⟩⟨EWA^S⟩⟨EWN^V⟩⟨ACEW^V⟩
 彖	~⟨CEQ⟩
@@ -5868,7 +5859,7 @@ ve.	~⟨ヹ⟩
 徉	~⟨MIBH^V⟩
 徊	~⟨MIOO⟩
 律	~⟨MIE⟩
-後	~⟨I⟩⟨MIWP⟩⟨FOO^S⟩
+後	~⟨I⟩⟨FOO⟩⟨FOOS⟩⟨MIWP⟩
 徍	~⟨MIYY⟩
 徎	~⟨MIOK⟩
 徏	~⟨MIZS⟩
@@ -5886,7 +5877,7 @@ ve.	~⟨ヹ⟩
 徛	~⟨MIDO⟩⟨MIV^R⟩
 徜	~⟨MISO⟩
 徝	~⟨MIJE⟩⟨MIJL⟩⟨MIJM⟩
-從	~⟨MZ⟩⟨BBN⟩⟨MIBZ⟩
+從	~⟨MZ⟩⟨BBN⟩⟨BBNS⟩⟨MIBZ⟩
 徟	~⟨MIN⟩⟨MINO⟩
 徠	~⟨MIL⟩
 御	~⟨MPV⟩⟨MIVS⟩⟨MIWS⟩⟨MIWP^V⟩
@@ -5982,7 +5973,7 @@ ve.	~⟨ヹ⟩
 忻	~⟨HKI⟩
 忼	~⟨HLR^V⟩
 忽	~⟨NMH⟩
-忾	~⟨HKM⟩⟨HKZ⟩⟨HKL^S⟩⟨HKZ^V⟩
+忾	~⟨HKM⟩⟨HKZ⟩⟨HKL^V⟩⟨HKL^S⟩⟨HKZ^V⟩
 忿	~⟨BDH⟩
 怀	~⟨HK⟩⟨HBA⟩⟨HLFK⟩⟨HBA^V⟩⟨HJFK^V⟩
 态	~⟨UH⟩⟨UHA⟩⟨UUFH⟩⟨DAH^V⟩
@@ -6150,7 +6141,7 @@ ve.	~⟨ヹ⟩
 患	~⟨CCH⟩
 悤	~⟨POCH⟩⟨POPH⟩
 悥	~⟨IHA^V⟩
-悦	~⟨HF⟩⟨HR^V⟩⟨HBOR^R⟩
+悦	~⟨HF⟩⟨HR^V⟩⟨HBOR^V⟩⟨HBOR^R⟩
 悧	~⟨HHR⟩
 您	~⟨PHV⟩⟨PNSH⟩
 悩	~⟨HSI⟩⟨HSO^S⟩⟨HSXU^V⟩
@@ -6541,7 +6532,7 @@ ve.	~⟨ヹ⟩
 戬	~⟨EFEQ⟩⟨EUUQ⟩⟨ODAQ⟩
 戭	~⟨NAQ⟩⟨NEQQ⟩
 戮	~⟨EEBQ⟩⟨EMAQ⟩
-戯	~⟨ZFEQ^V⟩
+戯	~⟨ZFEQ^V⟩⟨ZFEQ^R⟩
 戰	~⟨OQ⟩⟨OAQ⟩⟨BQJQ⟩⟨OOQQ⟩⟨ZOAQ⟩
 戱	~⟨ZFEQ^R⟩
 戲	~⟨ZQ⟩⟨UAQ⟩⟨ZDAQ⟩⟨ZFEQ⟩
@@ -6596,7 +6587,7 @@ ve.	~⟨ヹ⟩
 扤	~⟨JER^V⟩
 扥	~⟨JQL⟩
 扦	~⟨JGJ^V⟩
-执	~⟨YZ⟩⟨JZA⟩⟨JZX⟩⟨YZA⟩⟨YZX⟩⟨YBGA⟩⟨YBGX⟩⟨YBGZ⟩⟨JKA^F⟩⟨JZX^V⟩⟨YKA^V⟩
+执	~⟨YZ⟩⟨JZA⟩⟨JZX⟩⟨YZA⟩⟨YZX⟩⟨YBGA⟩⟨YBGX⟩⟨YBGZ⟩⟨JKA^V⟩⟨JKA^F⟩⟨JZX^V⟩⟨YKA^V⟩
 扨	~⟨JDN⟩
 扩	~⟨JLK⟩⟨JLRB⟩⟨JLP^V⟩⟨JLU^V⟩
 扪	~⟨JMI⟩⟨JMY⟩
@@ -6688,7 +6679,7 @@ ve.	~⟨ヹ⟩
 拂	~⟨JVJ⟩
 拃	~⟨JVF^V⟩
 拄	~⟨JAK⟩
-担	~⟨JVO⟩⟨JNLI⟩⟨JDE^S⟩⟨JNBI^V⟩
+担	~⟨JVO⟩⟨JNLI⟩⟨JDE^V⟩⟨JDE^S⟩⟨JNBI^V⟩
 拆	~⟨JKA⟩
 拇	~⟨JOM⟩
 拈	~⟨JZO⟩
@@ -6774,7 +6765,7 @@ ve.	~⟨ヹ⟩
 挘	~⟨JSD⟩
 挙	~⟨SEBH⟩⟨EHJ^V⟩
 挚	~⟨YH⟩⟨JZH⟩⟨YZH⟩⟨YBGH⟩
-挛	~⟨LFH^S⟩⟨ISSH^V⟩⟨SISH^V⟩
+挛	~⟨LFH^V⟩⟨LFH^S⟩⟨ISSH^V⟩⟨SISH^V⟩
 挜	~⟨JOE⟩
 挝	~⟨JAW⟩⟨JQOW⟩
 挞	~⟨JDW⟩⟨JYW⟩⟨JYBW⟩
@@ -7484,7 +7475,7 @@ ve.	~⟨ヹ⟩
 旤	~⟨QOK⟩⟨ONBK⟩
 日	~⟨DO⟩
 旦	~⟨DE^V⟩⟨DEE^V⟩
-旧	~⟨RG⟩⟨RVG⟩⟨IDO^R⟩
+旧	~⟨RG⟩⟨RVG⟩⟨IDO^V⟩⟨IDO^R⟩
 旨	~⟨FDO⟩
 早	~⟨DJJ⟩
 旪	~⟨DJJ^S⟩
@@ -7499,7 +7490,7 @@ ve.	~⟨ヹ⟩
 旳	~⟨DNA⟩
 旴	~⟨DUJ⟩
 旵	~⟨DEI⟩
-时	~⟨H⟩⟨DYA⟩⟨DAA^F⟩
+时	~⟨H⟩⟨DYA⟩⟨DAA^S⟩⟨DAA^F⟩
 旷	~⟨DLK⟩⟨DLP⟩⟨DLRB⟩
 旸	~⟨DEP⟩⟨DDEM⟩⟨DDVM⟩
 旹	~⟨EED^V⟩
@@ -7582,7 +7573,7 @@ ve.	~⟨ヹ⟩
 晈	~⟨DLX⟩
 晉	~⟨EFED⟩⟨EUUD⟩⟨ODO^V⟩
 晊	~⟨DPE⟩
-晋	~⟨EFED⟩⟨EUUD⟩⟨ODO^R⟩⟨EFED^R⟩⟨EUUD^V⟩
+晋	~⟨EFED⟩⟨EUUD⟩⟨ODO^V⟩⟨ODO^R⟩⟨EFED^R⟩⟨EUUD^V⟩
 晌	~⟨DPNO⟩
 晍	~⟨DNEO⟩
 晎	~⟨DRB^V⟩
@@ -7818,7 +7809,7 @@ ve.	~⟨ヹ⟩
 朷	~⟨TDP^V⟩
 朸	~⟨TDX^R⟩⟨TDY^R⟩
 朹	~⟨TKZ⟩⟨TKL^V⟩⟨TKX^V⟩
-机	~⟨G⟩⟨TRZ⟩⟨TWB⟩⟨TWWB⟩⟨TRL^V⟩
+机	~⟨G⟩⟨TRZ⟩⟨TWB⟩⟨TWWB⟩⟨TRL^V⟩⟨TRL^R⟩
 朻	~⟨TGI^V⟩
 朼	~⟨TFL^V⟩
 朽	~⟨TKK⟩
@@ -7857,7 +7848,7 @@ ve.	~⟨ヹ⟩
 杞	~⟨TFL⟩
 束	~⟨JCS⟩⟨VSN⟩
 杠	~⟨TIE⟩⟨TIMB⟩
-条	~⟨PN⟩⟨PIPT⟩⟨PTN^S⟩
+条	~⟨PN⟩⟨PIPT⟩⟨PTN^V⟩⟨PTN^S⟩
 杤	~⟨TVY⟩
 来	~⟨LN⟩
 杧	~⟨TFL^R⟩
@@ -8067,7 +8058,7 @@ ve.	~⟨ヹ⟩
 栻	~⟨TAXI⟩
 格	~⟨TPO⟩
 栽	~⟨JT⟩⟨JAQT⟩
-栾	~⟨ISST⟩⟨SIST⟩⟨LFT^R⟩
+栾	~⟨ISST⟩⟨SIST⟩⟨LFT^V⟩⟨LFT^R⟩
 栿	~⟨TPAD⟩
 桀	~⟨CST^V⟩⟨CTN^V⟩
 桁	~⟨TMII⟩⟨TMIT⟩
@@ -8888,7 +8879,7 @@ ve.	~⟨ヹ⟩
 歽	~⟨DKI^V⟩
 歿	~⟨DNU⟩⟨DRU^V⟩
 殀	~⟨DPD⟩⟨DGN^V⟩
-殁	~⟨DNU⟩⟨DRU^S⟩
+殁	~⟨DNU⟩⟨DRU^V⟩⟨DRU^S⟩
 殂	~⟨DME⟩
 殃	~⟨DCV⟩⟨DCN^V⟩
 殄	~⟨DBM⟩
@@ -8983,7 +8974,7 @@ ve.	~⟨ヹ⟩
 毝	~⟨MMP^V⟩
 毞	~⟨BML⟩
 毠	~⟨DOM⟩
-毡	~⟨LOOM⟩⟨MZO^R⟩
+毡	~⟨LOOM⟩⟨MZO^V⟩⟨MZO^R⟩
 毢	~⟨MCO⟩
 毣	~⟨EEM⟩
 毤	~⟨BURM⟩
@@ -9132,7 +9123,7 @@ ve.	~⟨ヹ⟩
 汶	~⟨WWX⟩
 汷	~⟨WPX^R⟩
 汸	~⟨WFY^V⟩
-汹	~⟨WNXU⟩⟨WXU^F⟩
+汹	~⟨WNXU⟩⟨WXU^V⟩⟨WXU^F⟩
 決	~⟨WJN⟩⟨BJN^V⟩
 汻	~⟨WWJ⟩
 汼	~⟨WSJ^V⟩
@@ -9170,7 +9161,7 @@ ve.	~⟨ヹ⟩
 沜	~⟨WPY⟩⟨WPI^V⟩
 沝	~⟨WWN^S⟩
 沞	~⟨WEN^R⟩⟨WTN^V⟩
-沟	~⟨WJE⟩⟨WJNY⟩⟨WNU^R⟩
+沟	~⟨WJE⟩⟨WJNY⟩⟨WNU^V⟩⟨WNU^R⟩
 沠	~⟨WEI^V⟩⟨WEN^V⟩
 没	~⟨WNU⟩⟨WRU⟩⟨WRU^V⟩
 沣	~⟨WFD^V⟩⟨WFFD^V⟩⟨WROD^R⟩
@@ -9416,7 +9407,7 @@ ve.	~⟨ヹ⟩
 涘	~⟨WUVD⟩⟨WAN^V⟩
 涙	~⟨WMO^S⟩⟨WFAD^V⟩
 涚	~⟨WBOR⟩⟨WBOR^V⟩
-涛	~⟨WYYA⟩⟨WFA^S⟩
+涛	~⟨WYYA⟩⟨WFA^V⟩⟨WFA^S⟩
 涜	~⟨WYNR⟩
 涝	~⟨WFFD⟩⟨WRND⟩
 涞	~⟨WLN^V⟩
@@ -10141,7 +10132,7 @@ ve.	~⟨ヹ⟩
 灲	~⟨FRI^V⟩
 灳	~⟨NFN^R⟩
 灴	~⟨FIE⟩
-灵	~⟨EF⟩⟨UWV⟩⟨UOOW⟩⟨EF^V⟩⟨EFN^R⟩
+灵	~⟨EF⟩⟨UWV⟩⟨UOOW⟩⟨EF^V⟩⟨EFN^V⟩⟨EFN^R⟩
 灶	~⟨FYE⟩⟨NBYX⟩⟨NRYX⟩
 灷	~⟨FRJ⟩
 灸	~⟨NNF⟩
@@ -10208,7 +10199,7 @@ ve.	~⟨ヹ⟩
 炶	~⟨FZO^V⟩
 炷	~⟨FAK⟩
 炸	~⟨FVF⟩
-点	~⟨AO⟩⟨ZOD⟩⟨ZOF⟩⟨QFZO⟩⟨QZOF⟩⟨ZOF^R⟩
+点	~⟨AO⟩⟨ZOD⟩⟨ZOF⟩⟨QFZO⟩⟨QZOF⟩⟨ZOFR⟩
 為	~⟨BF⟩⟨BWF⟩⟨EWF⟩⟨UWF⟩⟨WA^V⟩
 炼	~⟨ACS⟩⟨FCS⟩⟨AJQS⟩⟨FJQS⟩
 炽	~⟨FOB⟩⟨FLAD⟩
@@ -10960,7 +10951,7 @@ ve.	~⟨ヹ⟩
 玬	~⟨KNL⟩⟨KNAE⟩
 玭	~⟨KBL^V⟩
 玮	~⟨KWJ⟩⟨KWOS⟩
-环	~⟨KK⟩⟨KON⟩⟨KFEK⟩⟨KBA^R⟩
+环	~⟨KK⟩⟨KON⟩⟨KFEK⟩⟨KBA^V⟩⟨KBA^R⟩
 现	~⟨KMR⟩
 玱	~⟨KBP⟩⟨KADO⟩
 玲	~⟨KAP⟩⟨KAT⟩
@@ -11349,7 +11340,7 @@ ve.	~⟨ヹ⟩
 甸	~⟨NQO⟩
 甹	~⟨IQK^V⟩
 町	~⟨QTI⟩
-画	~⟨EQE⟩⟨TQU⟩⟨EQU^R⟩
+画	~⟨EQE⟩⟨TQU⟩⟨EQU^V⟩⟨EQU^R⟩⟨EQU^S⟩
 甼	~⟨QTI^V⟩
 甽	~⟨QSI⟩
 甾	~⟨SQO^S⟩
@@ -11746,7 +11737,7 @@ ve.	~⟨ヹ⟩
 盓	~⟨WUF^R⟩
 盔	~⟨LFF⟩⟨XFF⟩
 盕	~⟨WRAF⟩
-盖	~⟨RCE⟩⟨RYUF⟩⟨BKF^R⟩
+盖	~⟨RCE⟩⟨RYUF⟩⟨BKF^V⟩⟨BKF^R⟩
 盗	~⟨BIF⟩⟨RIF⟩⟨WIF⟩⟨BIF^V⟩
 盘	~⟨ZF⟩⟨ZRUF⟩
 盙	~⟨IFE^V⟩⟨AJNF^R⟩
@@ -12152,7 +12143,7 @@ ve.	~⟨ヹ⟩
 硰	~⟨WSLO⟩
 硱	~⟨LOOT^V⟩
 硳	~⟨LOYF^R⟩
-硵	~⟨LOZF^R⟩⟨LOZO^S⟩⟨LOZX^R⟩
+硵	~⟨LOZF^R⟩⟨LOZO^V⟩⟨LOZO^S⟩⟨LOZX^V⟩⟨LOZX^R⟩
 硶	~⟨LOEY⟩
 硷	~⟨LOAB⟩
 硸	~⟨LOEG⟩
@@ -12477,7 +12468,7 @@ ve.	~⟨ヹ⟩
 禸	~⟨NUA^V⟩
 禹	~⟨PCNU⟩
 禺	~⟨QNU⟩
-离	~⟨LVE⟩⟨LXUU⟩⟨LXUV⟩⟨WUNU⟩⟨WUNV⟩⟨LA^R⟩
+离	~⟨LVE⟩⟨LXUU⟩⟨LXUV⟩⟨WUNU⟩⟨WUNV⟩⟨LA^V⟩⟨LA^R⟩
 禼	~⟨ZOXU⟩
 禽	~⟨BLA⟩⟨BLXU⟩⟨BWUU⟩
 禾	~⟨HN^V⟩
@@ -12495,7 +12486,7 @@ ve.	~⟨ヹ⟩
 秊	~⟨HGJ^R⟩
 秋	~⟨HFN⟩⟨RCHF⟩
 秌	~⟨FHN⟩
-种	~⟨HGQ⟩⟨HCI^R⟩⟨HCJ^R⟩
+种	~⟨HGQ⟩⟨HCI^V⟩⟨HCI^R⟩⟨HCJ^V⟩⟨HCJ^R⟩
 秎	~⟨HBD⟩
 秏	~⟨HML⟩
 秐	~⟨HTA⟩
@@ -12530,7 +12521,7 @@ ve.	~⟨ヹ⟩
 秭	~⟨HJP⟩
 秮	~⟨HUO^V⟩
 积	~⟨HB⟩⟨HOB⟩⟨HHMB⟩
-称	~⟨HY⟩⟨HNS⟩⟨HENY⟩⟨HNS^R⟩⟨HVS^R⟩
+称	~⟨HY⟩⟨HNS⟩⟨HENY⟩⟨HNS^R⟩⟨HVS^V⟩⟨HVS^R⟩
 秱	~⟨HNEO^V⟩
 秲	~⟨HYA^V⟩
 秳	~⟨HGO^S⟩
@@ -13885,7 +13876,7 @@ ve.	~⟨ヹ⟩
 罎	~⟨WUDT⟩
 罏	~⟨WUZF⟩
 罐	~⟨WUR^V⟩
-网	~⟨XF⟩⟨SNBF⟩⟨NXX^R⟩
+网	~⟨XF⟩⟨SNBF⟩⟨NXX^V⟩⟨NXX^R⟩
 罓	~⟨NXX^S⟩
 罔	~⟨NBF⟩⟨NBEF⟩⟨NBIL⟩⟨NBTF⟩
 罕	~⟨NBG⟩⟨NRG⟩
@@ -14117,7 +14108,7 @@ ve.	~⟨ヹ⟩
 耸	~⟨MIBR⟩⟨BBR^V⟩
 耹	~⟨RAY^V⟩
 耺	~⟨RTAW⟩
-耻	~⟨RHA⟩⟨RZE^R⟩
+耻	~⟨RHA⟩⟨RZE^V⟩⟨RZE^R⟩
 耼	~⟨RUE⟩
 耽	~⟨RKL⟩⟨RNR⟩
 耾	~⟨RXU^V⟩
@@ -14251,7 +14242,7 @@ ve.	~⟨ヹ⟩
 胁	~⟨DUV⟩⟨UDB⟩⟨DDDU⟩
 胂	~⟨UII⟩⟨UIQI⟩
 胃	~⟨QUV⟩⟨QUE^V⟩
-胄	~⟨IQU^V⟩
+胄	~⟨IQU^V⟩⟨IQU^R⟩
 胅	~⟨USN⟩
 胆	~⟨UDE⟩⟨UVO⟩⟨UNLI⟩⟨UDE^S⟩⟨UNBI^V⟩
 胇	~⟨UVJ⟩
@@ -14300,7 +14291,7 @@ ve.	~⟨ヹ⟩
 胳	~⟨UPO⟩
 胴	~⟨UNEO⟩
 胵	~⟨UPE⟩
-胶	~⟨UEM⟩⟨UEEM⟩⟨ULX^R⟩
+胶	~⟨UEM⟩⟨UEEM⟩⟨ULX^V⟩⟨ULX^R⟩
 胷	~⟨NXUU⟩
 胸	~⟨UNXU⟩
 胹	~⟨URI^R⟩⟨UTNR^V⟩
@@ -14571,7 +14562,7 @@ ve.	~⟨ヹ⟩
 舄	~⟨GKF⟩⟨GNF^S⟩
 舅	~⟨GDV⟩⟨GQD^V⟩
 舆	~⟨CB⟩⟨CGEB⟩⟨GCEB⟩
-與	~⟨EA⟩
+與	~⟨EA⟩⟨KEE^S⟩
 興	~⟨SEB⟩⟨POBB⟩
 舉	~⟨EQ⟩⟨EHJ⟩⟨EQJ⟩⟨SEBQ⟩
 舊	~⟨RG⟩⟨RVG⟩⟨IDO^V⟩
@@ -14791,7 +14782,7 @@ ve.	~⟨ヹ⟩
 苤	~⟨RBE⟩
 若	~⟨ROO⟩⟨RXO⟩⟨BIPO⟩⟨BGO^R⟩
 苦	~⟨RJO⟩
-苧	~⟨RNHT⟩⟨RNT^V⟩
+苧	~⟨RNHT⟩⟨RNT^V⟩⟨RNT^R⟩
 苨	~⟨RCF⟩
 苩	~⟨RPD^V⟩
 苪	~⟨RENB⟩⟨REN^R⟩
@@ -14828,7 +14819,7 @@ ve.	~⟨ヹ⟩
 茋	~⟨RXE⟩
 茌	~⟨RPY⟩
 茍	~⟨RNO^V⟩
-茎	~⟨RUI⟩⟨RESI⟩⟨RSI^V⟩⟨RUY^R⟩
+茎	~⟨RUI⟩⟨RESI⟩⟨RSI^V⟩⟨RUY^V⟩⟨RUY^R⟩
 茏	~⟨RAL⟩⟨RAKP⟩⟨RLUL⟩
 茐	~⟨RNQ^V⟩
 茑	~⟨RNF^S⟩
@@ -14910,7 +14901,7 @@ ve.	~⟨ヹ⟩
 荟	~⟨RAD⟩⟨RAQD⟩⟨RBT^V⟩
 荠	~⟨RWH⟩⟨RWR⟩
 荡	~⟨RWE⟩⟨WEF⟩⟨RWDM⟩⟨WDEF^V⟩⟨WDVF^V⟩
-荣	~⟨FT⟩⟨RNT⟩⟨FFNT⟩⟨RNT^F⟩⟨SNT^S⟩⟨FFNT^R⟩
+荣	~⟨FT⟩⟨RNT⟩⟨FFNT⟩⟨RNT^F⟩⟨SNT^V⟩⟨SNT^S⟩⟨FFNT^R⟩
 荤	~⟨RNC⟩
 荥	~⟨FFNW⟩
 荦	~⟨RNS^V⟩⟨FFNS^V⟩
@@ -15680,7 +15671,7 @@ ve.	~⟨ヹ⟩
 虨	~⟨ZTTM⟩
 虩	~⟨SDSR⟩⟨SPDR⟩
 虪	~⟨ZRPF⟩
-虫	~⟨CCC⟩⟨CA^V⟩
+虫	~⟨CCC⟩⟨CA^V⟩⟨CA^R⟩
 虬	~⟨CGI⟩⟨CLL^R⟩
 虭	~⟨CDP^V⟩
 虮	~⟨CRZ⟩⟨CWB⟩⟨CWWB⟩⟨CRL^V⟩
@@ -16234,7 +16225,7 @@ ve.	~⟨ヹ⟩
 袙	~⟨VPD^V⟩
 袚	~⟨VAX^V⟩⟨VAXX^V⟩
 袛	~⟨VXE⟩
-袜	~⟨VRFA⟩⟨VRFB⟩⟨VRFE⟩⟨VRFV⟩⟨VQB^V⟩⟨VYS^R⟩
+袜	~⟨VRFA⟩⟨VRFB⟩⟨VRFE⟩⟨VRFV⟩⟨VQB^V⟩⟨VYS^V⟩⟨VYS^R⟩
 袝	~⟨VPA^V⟩
 袞	~⟨LROK⟩
 袟	~⟨VSN^V⟩
@@ -17463,7 +17454,7 @@ ve.	~⟨ヹ⟩
 赳	~⟨YZG⟩
 赴	~⟨YZP⟩
 赵	~⟨YZSU⟩⟨YZX^V⟩
-赶	~⟨YG⟩⟨YZDG⟩⟨YZG^R⟩
+赶	~⟨YG⟩⟨YZDG⟩⟨YZG^V⟩⟨YZG^R⟩
 起	~⟨YL⟩⟨YZFL⟩⟨YZOL⟩
 赹	~⟨YZNB⟩⟨YZNR⟩
 赺	~⟨YZAY⟩
@@ -18006,7 +17997,7 @@ ve.	~⟨ヹ⟩
 辛	~⟨LJ⟩
 辜	~⟨JOL⟩
 辝	~⟨UOL^V⟩
-辞	~⟨EJ⟩⟨GOL^S⟩⟨ETNL^V⟩
+辞	~⟨EJ⟩⟨GOL^V⟩⟨GOL^S⟩⟨ETNL^V⟩
 辟	~⟨COL⟩⟨MPJ⟩⟨MCOL⟩⟨PJ^V⟩
 辠	~⟨PML⟩
 辡	~⟨LLJ^V⟩
@@ -18031,12 +18022,12 @@ ve.	~⟨ヹ⟩
 辴	~⟨OFK⟩⟨OOQK⟩
 辵	~⟨MZN⟩
 辶	~⟨,WN^V⟩
-边	~⟨MW⟩⟨DAW⟩⟨DWNW⟩⟨PMNW⟩⟨DAW^V⟩⟨DWN^R⟩
+边	~⟨MW⟩⟨DAW⟩⟨DAWV⟩⟨DWNW⟩⟨PMNW⟩⟨DWN^R⟩
 辽	~⟨LWN⟩⟨DBDW⟩⟨WWN^V⟩
 达	~⟨YWN⟩⟨DWNL⟩⟨YBGW⟩⟨YBHW⟩⟨DWN^S⟩
 辿	~⟨EWN^R⟩
 迀	~⟨GWN^S⟩
-迁	~⟨GW⟩⟨CDFW⟩⟨CDOW⟩⟨CDPW⟩⟨GW^V⟩⟨GWN^R⟩
+迁	~⟨GW⟩⟨CDFW⟩⟨CDOW⟩⟨CDPW⟩⟨GW^V⟩⟨GWN^V⟩⟨GWN^R⟩
 迂	~⟨UWN⟩
 迃	~⟨RKW^R⟩
 迄	~⟨VZW⟩
@@ -18059,7 +18050,7 @@ ve.	~⟨ヹ⟩
 迕	~⟨WWN^F⟩
 迖	~⟨ADW⟩
 迗	~⟨EDW⟩⟨GNW⟩⟨PDW^R⟩
-还	~⟨OWN⟩⟨FEOW⟩⟨BWN^S⟩
+还	~⟨OWN⟩⟨FEOW⟩⟨BWN^V⟩⟨BWN^S⟩
 这	~⟨IWN⟩⟨WWNW⟩⟨IWN^S⟩⟨WWN^R⟩
 进	~⟨JWN⟩⟨VWN⟩
 远	~⟨YW⟩⟨RRW⟩⟨YOKW⟩
@@ -18115,7 +18106,7 @@ ve.	~⟨ヹ⟩
 透	~⟨HRW⟩
 逐	~⟨EQW⟩
 逑	~⟨AJWW⟩⟨NWN^V⟩
-递	~⟨BQIW⟩⟨BQPW⟩⟨LQNW⟩⟨LZRW⟩⟨TWN^S⟩⟨BQIW^V⟩⟨BQPW^V⟩
+递	~⟨BQIW⟩⟨BQPW⟩⟨LQNW⟩⟨LZRW⟩⟨TWN^R⟩⟨TWN^S⟩⟨BQIW^V⟩⟨BQPW^V⟩
 逓	~⟨FJNW⟩⟨LQNW^V⟩
 途	~⟨BHW⟩⟨ATW^V⟩
 逕	~⟨SIW⟩⟨UIW⟩⟨UYW⟩⟨ESIW⟩
@@ -18235,7 +18226,7 @@ ve.	~⟨ヹ⟩
 邇	~⟨NSW⟩⟨RWN^V⟩
 邈	~⟨EQGW⟩⟨EQPW⟩⟨UQGW⟩⟨UQPW⟩
 邉	~⟨PMNW^V⟩
-邊	~⟨MW⟩⟨DAW⟩⟨PMNW⟩⟨DWN^R⟩
+邊	~⟨MW⟩⟨DAW⟩⟨DAWV⟩⟨DWNW⟩⟨PMNW⟩⟨DWN^R⟩
 邋	~⟨SOBW⟩⟨SOXW⟩⟨SWN^V⟩
 邌	~⟨HDBW^V⟩
 邍	~⟨PQCW⟩
@@ -18773,7 +18764,7 @@ ve.	~⟨ヹ⟩
 銫	~⟨ADC⟩⟨ANC⟩⟨ADCL⟩⟨ANCL⟩
 銬	~⟨ARK⟩⟨AYPK⟩
 銭	~⟨AAF^V⟩⟨AKX^R⟩
-銮	~⟨ISSA⟩⟨SISA⟩⟨LFA^R⟩
+銮	~⟨ISSA⟩⟨SISA⟩⟨LFA^V⟩⟨LFA^R⟩
 銯	~⟨ASA^V⟩
 銰	~⟨ARX^S⟩
 銱	~⟨AON^V⟩
@@ -19661,7 +19652,7 @@ ve.	~⟨ヹ⟩
 阰	~⟨BBL⟩
 阱	~⟨BJJ⟩
 防	~⟨BFY⟩
-阳	~⟨BM⟩⟨BEP⟩⟨BDEM⟩⟨BDVM⟩⟨BDO^R⟩
+阳	~⟨BM⟩⟨BEP⟩⟨BDEM⟩⟨BDVM⟩⟨BDO^V⟩⟨BDO^R⟩
 阴	~⟨BUE⟩⟨BAFU⟩⟨BAYT⟩⟨BAYU⟩⟨BBEU⟩⟨BUE^V⟩
 阵	~⟨BCJ⟩
 阶	~⟨BD⟩⟨BBR⟩⟨BBPD⟩
@@ -19792,7 +19783,7 @@ ve.	~⟨ヹ⟩
 隳	~⟨BXIF⟩⟨BXIH⟩
 隴	~⟨BAL⟩⟨BAKP⟩⟨BLUL⟩
 隵	~⟨BZDQ⟩
-隶	~⟨EWNL⟩⟨TRSW⟩⟨YRSW⟩⟨TW^V⟩⟨EWA^R⟩
+隶	~⟨EWNL⟩⟨TRSW⟩⟨YRSW⟩⟨TW^V⟩⟨EWA^V⟩⟨EWA^R⟩
 隷	~⟨YRSW^V⟩
 隸	~⟨TRSW⟩⟨YRSW⟩⟨TW^V⟩⟨EWA^V⟩
 隹	~⟨VE^V⟩
@@ -21811,7 +21802,7 @@ ve.	~⟨ヹ⟩
 黁	~⟨LTTD⟩
 黂	~⟨LTTB⟩
 黃	~⟨KA⟩⟨REQB⟩⟨RIQB⟩⟨RTQB⟩⟨RQB^V⟩
-黄	~⟨KA⟩⟨REQB⟩⟨RIQB⟩⟨RTQB⟩⟨RQB^R⟩
+黄	~⟨KA⟩⟨REQB⟩⟨RIQB⟩⟨RTQB⟩⟨RQB^V⟩⟨RQB^R⟩
 黅	~⟨REQY⟩⟨RTQY⟩⟨KAY^V⟩
 黆	~⟨KKL⟩⟨KNR^V⟩⟨REQK^V⟩⟨REQR^V⟩
 黇	~⟨REQO⟩⟨RIQO⟩⟨RQBO⟩⟨RTQO⟩⟨KZO^V⟩
@@ -21836,7 +21827,7 @@ ve.	~⟨ヹ⟩
 黛	~⟨PAXF⟩
 黜	~⟨QFEE⟩⟨QFEU⟩
 黝	~⟨QFWD⟩
-點	~⟨AO⟩⟨ZOD⟩⟨ZOF⟩⟨QFZO⟩⟨QZOF⟩
+點	~⟨AO⟩⟨ZOD⟩⟨ZOF⟩⟨QFZO⟩⟨QZOF⟩⟨ZOFR⟩
 黟	~⟨QFCC⟩
 黠	~⟨QFYO⟩⟨QYOF⟩
 黡	~⟨YQF⟩⟨LADF⟩⟨LDUF⟩
@@ -21868,7 +21859,7 @@ ve.	~⟨ヹ⟩
 黻	~⟨FAQS⟩⟨FEBQ⟩⟨FEBX⟩⟨FESX⟩⟨FRAX⟩⟨FRA^R⟩⟨FEBA^R⟩
 黼	~⟨FRI⟩⟨FEBI⟩⟨FESQ⟩⟨FRAQ⟩⟨FRIQ⟩⟨FESI^V⟩
 黽	~⟨XL^V⟩
-黾	~⟨OQL⟩⟨OIQL⟩⟨XL^R⟩
+黾	~⟨OQL⟩⟨OIQL⟩⟨XL^V⟩⟨XL^R⟩
 黿	~⟨RRX⟩
 鼀	~⟨YRX⟩
 鼁	~⟨YUX⟩
@@ -22119,6 +22110,16 @@ ve.	~⟨ヹ⟩
 －	~⟨..^S⟩
 ．	~⟨,.⟩⟨'^V⟩⟨,A^R⟩
 ／	~⟨,P⟩
+０	~⟨,O⟩
+１	~⟨,E⟩
+２	~⟨,R⟩
+３	~⟨,S⟩
+４	~⟨,F⟩
+５	~⟨,W⟩
+６	~⟨,L⟩
+７	~⟨,C⟩
+８	~⟨,B⟩
+９	~⟨,K⟩
 ：	~⟨..⟩
 ；	~⟨.,⟩
 ＜	~⟨,[B⟩⟨,,^S⟩

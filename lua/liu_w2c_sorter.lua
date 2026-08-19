@@ -3,22 +3,22 @@
 -- 1. 將帶 ^V ^R ^S ^F 的編碼排到後面
 -- 2. 簡體模式下不顯示繁體標記，但顯示編碼
 -- 3. 按碼長和字母排序編碼
--- 4. 支援詞組的編碼查詢（簡體模式下自動轉繁體查詢）
+-- 4. 支援詞組的編碼查詢
 -- 5. 日期時間候選項（datetime）直接輸出，不做反查
+--
+-- 簡繁分離版本：使用 liu_w2c_trad.txt 和 liu_w2c_simp.txt
+-- 不再需要複雜的過濾邏輯
 
 -- 全局緩存
--- 全局緩存
 local opencc_s2t_cache = nil
+local opencc_t2s_cache = nil
 local liu_data = require("liu_data")
 
 -- 載入編碼字典（從共用資料中心獲取）
-local function load_code_dict()
-    -- 直接調用 liu_data 獲取資料，liu_data 會負責快取管理
-    local raw_data = liu_data.get_w2c_data()
-    return raw_data
+local function load_code_dict(is_simplified)
+    -- 根據簡繁模式載入不同的資料文件
+    return liu_data.get_w2c_data(is_simplified)
 end
-
--- 獲取 OpenCC 實例（緩存）
 
 -- 獲取 OpenCC 實例（緩存）
 local function get_opencc_s2t()
@@ -26,6 +26,43 @@ local function get_opencc_s2t()
         opencc_s2t_cache = Opencc("s2t.json")
     end
     return opencc_s2t_cache
+end
+
+local function get_opencc_t2s()
+    if not opencc_t2s_cache then
+        opencc_t2s_cache = Opencc("t2s.json")
+    end
+    return opencc_t2s_cache
+end
+
+-- 單字查碼（含繁簡字形回退）：
+-- - 簡體模式：先查簡表；找不到再 s2t 後查同表
+-- - 繁體模式：先查繁表；找不到再 t2s 後查同表
+local function resolve_raw_codes(code_dict, char, is_simplified)
+    local raw_codes = code_dict and code_dict[char]
+    if raw_codes then
+        return raw_codes
+    end
+
+    if is_simplified then
+        local opencc = get_opencc_s2t()
+        if opencc then
+            local trad_char = opencc:convert(char)
+            if trad_char and trad_char ~= char then
+                return code_dict and code_dict[trad_char]
+            end
+        end
+    else
+        local opencc = get_opencc_t2s()
+        if opencc then
+            local simp_char = opencc:convert(char)
+            if simp_char and simp_char ~= char then
+                return code_dict and code_dict[simp_char]
+            end
+        end
+    end
+
+    return nil
 end
 
 local function liu_w2c_sorter(input, env)
@@ -36,6 +73,18 @@ local function liu_w2c_sorter(input, env)
     
     -- 快速檢查萬用字元（使用 find 比 match 更快）
     local has_wildcard = input_text and input_text:find("?", 1, true)
+    
+    -- 行內注音（';...，排除注音直出 ';'...）／行內拼音（;'...）：
+    -- 強制顯示蝦米拆碼，不管 liu_w2c 開關，方便學習
+    local is_phonetic_input = input_text and (
+        (input_text:sub(1, 2) == "';" and input_text:sub(3, 3) ~= "'")  -- 行內注音；排除 ';（注音直出）
+        or input_text:sub(1, 2) == ";'"                                  -- 行內拼音
+    )
+    -- 保留原始 liu_w2c 狀態，用於決定是否顯示 ~ 前綴
+    local liu_w2c_original = liu_w2c_enabled
+    if is_phonetic_input then
+        liu_w2c_enabled = true  -- 強制走拆碼顯示邏輯
+    end
     
     -- 正常模式 + 繁體模式：不處理
     if not is_simplified and not liu_w2c_enabled then
@@ -81,15 +130,10 @@ local function liu_w2c_sorter(input, env)
                     goto continue
                 end
                 
-                -- 檢查是否需要重新查詢編碼
-                local has_codes = comment:match("⟨")
-                local has_tilde = comment:match("~")
-                local need_requery = liu_w2c_enabled and (is_simplified or (has_codes and not has_tilde) or not has_codes)
-                
-                if need_requery then
-                    local code_dict = load_code_dict()
+                -- 反查模式：總是重新查詢編碼（使用分離後的資料）
+                if liu_w2c_enabled then
+                    local code_dict = load_code_dict(is_simplified)  -- 傳入 is_simplified 參數
                     local text_len = utf8.len(cand.text)
-                    local opencc = is_simplified and get_opencc_s2t() or nil
                     
                     -- 處理詞組：為每個字查找編碼
                     if text_len and text_len > 1 then
@@ -101,16 +145,8 @@ local function liu_w2c_sorter(input, env)
                             local raw_codes = code_dict[char]
                             local codes = {}
                             
-                            -- 簡體模式：如果找不到編碼，嘗試查找繁體字編碼
-                            if opencc and not raw_codes then
-                                local trad_char = opencc:convert(char)
-                                if trad_char ~= char then
-                                    raw_codes = code_dict[trad_char]
-                                end
-                            end
-                            
+                            -- 直接使用分離後的資料（已經根據簡繁模式處理好了）
                             if raw_codes then
-                                -- 解析原始編碼字串 "⟨xxx⟩⟨yyy⟩"
                                 local temp_str = raw_codes:gsub("\\⟩", "\x01")
                                 for code in temp_str:gmatch("⟨([^⟩]+)⟩") do
                                     codes[#codes + 1] = code:gsub("\x01", "⟩")
@@ -126,6 +162,11 @@ local function liu_w2c_sorter(input, env)
                         end
                         
                         if has_all_codes and #char_codes > 0 then
+                            -- 注音輸入+無反查：詞組不顯示字根（與繁體模式行為一致）
+                            if is_phonetic_input and not liu_w2c_original then
+                                yield(cand:to_shadow_candidate(cand.type, cand.text, ""))
+                                goto continue
+                            end
                             -- 構建詞組的編碼註釋
                             local code_parts = {}
                             for _, codes in ipairs(char_codes) do
@@ -146,19 +187,11 @@ local function liu_w2c_sorter(input, env)
                     end
                     
                     -- 處理單字
-                    local raw_codes = code_dict[cand.text]
+                    local raw_codes = resolve_raw_codes(code_dict, cand.text, is_simplified)
                     local codes = {}
                     
-                    -- 簡體模式：如果找不到編碼，嘗試查找繁體字編碼
-                    if opencc and not raw_codes then
-                        local trad_text = opencc:convert(cand.text)
-                        if trad_text ~= cand.text then
-                            raw_codes = code_dict[trad_text]
-                        end
-                    end
-                    
+                    -- 直接使用分離後的資料（已經根據簡繁模式處理好了）
                     if raw_codes then
-                         -- 解析原始編碼字串 "⟨xxx⟩⟨yyy⟩"
                         local temp_str = raw_codes:gsub("\\⟩", "\x01")
                         for code in temp_str:gmatch("⟨([^⟩]+)⟩") do
                             codes[#codes + 1] = code:gsub("\x01", "⟩")
@@ -166,8 +199,9 @@ local function liu_w2c_sorter(input, env)
                     end
                     
                     if #codes > 0 then
-                        -- 直接使用 liu_w2c.txt 中的順序（已排序）
-                        local new_comment = "~"
+                        -- 直接使用資料文件中的順序（已排序）
+                        -- 注音輸入+無反查：不加 ~（與繁體模式行為一致）
+                        local new_comment = (not is_phonetic_input or liu_w2c_original) and "~" or ""
                         for i, code in ipairs(codes) do
                             if i > 1 then
                                 new_comment = new_comment .. " "
@@ -178,6 +212,10 @@ local function liu_w2c_sorter(input, env)
                         yield(cand:to_shadow_candidate(cand.type, cand.text, new_comment))
                         goto continue
                     end
+                    
+                    -- 如果沒有找到編碼，直接輸出原始候選項
+                    yield(cand)
+                    goto continue
                 end
                 
                 -- 有編碼：處理排序
@@ -230,9 +268,9 @@ local function liu_w2c_sorter(input, env)
                         local codes = {}
                         -- 先將 \⟩ 替換為臨時標記
                         local temp_group = group_str:gsub("\\⟩", "\x01")
-                        for code in temp_group:gmatch("⟨([^⟩]+)⟩") do
+                        for raw_code in temp_group:gmatch("⟨([^⟩]+)⟩") do
                             -- 將臨時標記還原為 ⟩
-                            code = code:gsub("\x01", "⟩")
+                            local code = raw_code:gsub("\x01", "⟩")
                             table.insert(codes, code)
                         end
                         
@@ -262,9 +300,9 @@ local function liu_w2c_sorter(input, env)
                     local codes = {}
                     -- 先將 \⟩ 替換為臨時標記
                     local temp_comment = comment:gsub("\\⟩", "\x01")
-                    for code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
+                    for raw_code in temp_comment:gmatch("⟨([^⟩]+)⟩") do
                         -- 將臨時標記還原為 ⟩
-                        code = code:gsub("\x01", "⟩")
+                        local code = raw_code:gsub("\x01", "⟩")
                         table.insert(codes, code)
                     end
                     
@@ -284,6 +322,29 @@ local function liu_w2c_sorter(input, env)
                     yield(new_cand)
                 end
             else
+                -- comment 為空：行內音碼或反查模式下主動查碼（仿同音字做法）
+                if (is_phonetic_input or liu_w2c_enabled) and utf8.len(cand.text) == 1 then
+                    local code_dict = load_code_dict(is_simplified)
+                    local raw_codes = resolve_raw_codes(code_dict, cand.text, is_simplified)
+                    
+                    if raw_codes then
+                        local codes = {}
+                        local temp_str = raw_codes:gsub("\\⟩", "\x01")
+                        for code in temp_str:gmatch("⟨([^⟩]+)⟩") do
+                            codes[#codes + 1] = code:gsub("\x01", "⟩")
+                        end
+                        if #codes > 0 then
+                            -- ctrl+/ 開啟時加 ~，未開啟時不加（與同音字行為一致）
+                            local new_comment = liu_w2c_original and "~" or ""
+                            for i, code in ipairs(codes) do
+                                if i > 1 then new_comment = new_comment .. " " end
+                                new_comment = new_comment .. "⟨" .. code .. "⟩"
+                            end
+                            yield(cand:to_shadow_candidate(cand.type, cand.text, new_comment))
+                            goto continue
+                        end
+                    end
+                end
                 yield(cand)
             end
             

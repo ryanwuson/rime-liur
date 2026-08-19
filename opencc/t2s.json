@@ -1,0 +1,16 @@
+{
+  "name": "Traditional Chinese to Simplified Chinese",
+  "segmentation": {
+    "type": "mmseg",
+    "dict": {
+      "type": "text",
+      "file": "t2s.txt"
+    }
+  },
+  "conversion_chain": [{
+    "dict": {
+      "type": "text",
+      "file": "t2s.txt"
+    }
+  }]
+}

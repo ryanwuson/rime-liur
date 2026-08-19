@@ -3,12 +3,13 @@
 # 《完全注音 設定頁》
 schema:
   schema_id: allbpm
-  name: ❃注音直出❃
+  name: 〔依賴方案〕注音符號
   version: "202102"
   author:
     - 『洋蔥』
   description: |
-    包含一般和特殊注音符號
+    注音符號／直出碼表（依賴用，非獨立輸入方案）
+    字音資料源自洋蔥注音相關方案
 
 switches:
   - name: ascii_mode

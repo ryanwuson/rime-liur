@@ -119,13 +119,13 @@ local style_names_upper = {"圈圈", "負圈", "方框", "負框", "括號", "�
 local style_names_digits = {"圈圈", "負圈", "方框", "負框", "括號", "點數", "全形", "下標", "上標", "粗體", "雙線", "等寬", "無襯線", "無襯線粗", "圈漢", "括漢"}  -- 花式數字用（16種）
 
 
--- 轉換字符（花式AA用，13種樣式）
+-- 轉換字元（花式AA用，13種樣式）
 local function convert_char_upper(char, idx)
   local up = string.upper(char)
   return fancy_upper[up] and fancy_upper[up][idx] or char
 end
 
--- 轉換字符（花式Aa/aa用，10種樣式）
+-- 轉換字元（花式Aa/aa用，10種樣式）
 local function convert_char_title(char, idx, is_upper)
   local up = string.upper(char)
   local lo = string.lower(char)

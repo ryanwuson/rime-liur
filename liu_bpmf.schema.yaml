@@ -1,0 +1,320 @@
+# Rime schema
+# encoding: utf-8
+# 獨立注音 v2（洋蔥架構 P0）：空白＝一聲；Enter＝中文上屏；Shift+Enter＝注音文（桌面）
+
+schema:
+  schema_id: liu_bpmf
+  name: "注音輸入法"
+  version: "2.0.2-desktop"
+  author:
+    - 元書
+  description: |
+    獨立注音（洋蔥骨架）：空白補一聲／上屏，Enter 中文上屏
+    桌面：Shift+Enter＝注音文；Ctrl+'／Ctrl+Shift+' 絕對跳轉
+    2.0.2：符號清單（`）與擴充模式（``），同 Easy English
+  dependencies:
+    - Mount_bopomo
+    - allbpm
+    - liur_symbols
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 英文 ]
+  - name: full_shape
+    states: [ 半形, 全形 ]
+  - name: simplification
+    # 不設 reset：與 liur 一致，跨方案切換保留簡繁（避免工具列「繁」與實際繁體不同步）
+    states: [ 繁體, 简体 ]
+  - name: liu_w2c
+    reset: 0
+    states: [ 正常, 查碼 ]
+  - name: zh_tw
+    reset: 1
+
+# 小狼毫切換提示（Windows 專用；鼠鬚管與手機端會忽略這個鍵）
+# 寫在方案內，切換方案時小狼毫會讀本方案的設定並覆蓋全域值，
+# 所以不管使用者套用哪一套小狼毫主題／weasel.custom.yaml 都有效。
+# 規則一：名單含 schema 才會顯示方案名稱「注音輸入法」。
+# 規則二：切換方案時 librime 會依序重設每個帶 reset 的開關並各發一則通知，
+#         小狼毫只顯示最後一則；名單外的開關靜默，不會蓋掉方案名稱。
+#         本方案最後一個帶 reset 的是 zh_tw，它無 states 本來就靜默，故安全。
+show_notifications:
+  - schema
+  - ascii_mode
+  - full_shape
+  - simplification
+  - liu_w2c
+
+engine:
+  processors:
+    - ascii_composer
+    - lua_processor@select_character
+    - lua_processor@liu_extended_backspace          # `` 擴充模式（須在 recognizer 之前）
+    - lua_processor@liu_symbols_number_processor    # 符號清單數字選字（須在聲調鍵之前）
+    - lua_processor@liu_calculator_shortcut         # Ctrl+= → ,,=
+    - lua_processor@liu_bpmf_tone_processor
+    - lua_processor@liu_bpmf_backspace_processor
+    - lua_processor@liu_bpmf_enter_processor
+    - recognizer
+    - key_binder
+    - lua_processor@liu_bpmf_delimiter_processor
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+    - lua_processor@liu_bpmf_refresh_processor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - lua_segmentor@liu_extended_segmentor           # 擴充模式 ``
+    - affix_segmentor@extended_mode
+    - affix_segmentor@symbols                        # 符號清單 `
+    - affix_segmentor@calculator
+    - abc_segmentor
+    - fallback_segmentor
+  translators:
+    - lua_translator@liu_calculator
+    - lua_translator@liu_symbols_hint                # 符號清單提示
+    - lua_translator@liu_letter_variants             # ``a / ``A 字母變化形
+    - lua_translator@liu_datetime                    # ``/01~10 日期時間
+    - lua_translator@date_translator                 # `a 字母變體
+    - table_translator@symbols                       # 符號清單 `01~`50
+    - script_translator@lookup
+    - punct_translator
+  filters:
+    - lua_filter@liu_extended_filter
+    - lua_filter@liu_symbols_hint_filter
+    - lua_filter@liu_bpmf_symbol_filter
+    - simplifier
+    - simplifier@zh_tw
+    # 必須在 simplifier 之後：簡體 tips〔繁〕會蓋掉拆碼；對齊原始 '; 注音的 liu_w2c_sorter
+    - lua_filter@liu_phonetic_w2c_hint
+    - lua_filter@liu_emoji_filter
+    - uniquifier
+
+abc_segmentor:
+  extra_tags:
+    - bpmf
+
+menu:
+  page_size: 5
+
+style:
+  inline_preedit: false
+
+# P0.1：use_space + 空白當一聲
+# delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 '（預輸入顯示  ⁞ ，U+2009 撐開）
+speller:
+  alphabet: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-3467 "
+  initials: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-"
+  finals: " 6347"
+  delimiter: "~'"
+  use_space: true
+  auto_select: false
+  preedit_format:
+    # 大千鍵 → 注音；空白鍵一聲 → ˉ；~ → 空白；' →  ⁞ 
+    - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
+    - "xform/~/ /"
+    - "xform/'/ ⁞ /"
+  algebra:
+    - xform/[)(]//
+    - xform/iu/iU/
+    - xform/ui/uI/
+    - xform/ong/ung/
+    - xform/yi?/i/
+    - xform/wu?/u/
+    - xform/iu/v/
+    - xform/([jqx])u/$1v/
+    - xform/([iuv])n/$1en/
+    - xform/zhi?/Z/
+    - xform/chi?/C/
+    - xform/shi?/S/
+    - xform/([zcsr])i/$1/
+    - xform/ai/A/
+    - xform/ei/I/
+    - xform/ao/O/
+    - xform/ou/U/
+    - xform/ang/K/
+    - xform/eng/G/
+    - xform/an/M/
+    - xform/en/N/
+    - xform/er/R/
+    - xform/eh/E/
+    - xform/([iv])e/$1E/
+    # 頭碼／縮寫：必須用 derive，不可用 abbrev。
+    # 有自動分節 ' 時，音節被當成「完整音節」；abbrev 碼在此路徑下不會命中
+    # （故 ㄘㄕ 只剩 ci→xform 的「此時」，ce 頭碼「測試」出不來；ㄅㄓㄉ 同理）。
+    - derive/^([bpmfdtnlgkhjqxZCSrzcsiuvaoeEAIOUMNKGR]).+$/$1/
+    - derive/^([A-Za-z]+)\d$/$1/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcsiuv])([iuvaoeEAIOUMNKG])\d$/$1$2/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])([aoeEAIOUMNKG])\d$/$1$2$3/
+    - derive/^([bpmfdtnlgkhjqx]).+(\d)$/$1$2/
+    # free_order（信任洋蔥）
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])/$2$1/
+    - derive/^([iuv])([aoeEAIOUMNKG])/$2$1/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([aoeEAIOUMNKG])/$2$1/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])([aoeEAIOUMNKG])/$3$2$1/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])([aoeEAIOUMNKG])/$3$1$2/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])([aoeEAIOUMNKG])/$2$3$1/
+    - derive/^([bpmfdtnlgkhjqxZCSrzcs])([iuv])([aoeEAIOUMNKG])/$1$3$2/
+    # 一聲＝空白（xlit 中 1 → 空白）
+    - 'xlit|bpmfdtnlgkhjqxZCSrzcsiuvaoeEAIOUMNKGR12345|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|'
+    # P0.2：xlit 後剝聲調（含一聲空白），否則無聲調 ㄅㄧㄠ＝1ul 對不上 1ul 
+    - "derive/^(.+)[ 6347]$/$1/"
+
+lookup:
+  tag: bpmf
+  dictionary: Mount_bopomo.extended
+  prism: Mount_bopomo.extended
+  enable_completion: false
+  # P3：script_translator 預設為 true；洋蔥未關。false 會讓頭碼 ㄅㄓㄉ／ㄘㄕ 組不出詞
+  enable_sentence: true
+  enable_user_dict: true
+  encode_commit_history: false
+  initial_quality: 1
+  preedit_format:
+    - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
+    - "xform/~/ /"
+    - "xform/'/ ⁞ /"
+
+zh_tw:
+  opencc_config: t2tw.json
+  option_name: zh_tw
+  tags: [ bpmf ]
+
+simplifier:
+  option_name: simplification
+  tips: all
+  tags: [ bpmf ]
+
+key_binder:
+  import_preset: default
+  select_first_character: "bracketleft"
+  select_last_character: "bracketright"
+  bindings:
+    # 選字翻頁中空白改上屏，避免誤觸一聲（洋蔥同款）
+    - { accept: space, send: Return, when: paging }
+    # 大千鍵位：逗號句號等勿被翻頁綁定吃掉
+    - { accept: comma, send: comma, when: has_menu }
+    - { accept: comma, send: comma, when: paging }
+    - { accept: period, send: period, when: has_menu }
+    - { accept: period, send: period, when: paging }
+    - { accept: minus, send: minus, when: has_menu }
+    - { accept: minus, send: minus, when: paging }
+    - { accept: equal, send: equal, when: has_menu }
+    - { accept: equal, send: equal, when: paging }
+
+# P0：空白交給 speller（一聲）；Enter＝中文上屏
+# 禁止洋蔥 BackSpace↔整節刪對調；維持元書單碼刪
+editor:
+  bindings:
+    Return: confirm
+    KP_Enter: confirm
+    BackSpace: revert
+    Delete: delete
+    Control+BackSpace: back_syllable
+    Escape: cancel
+
+recognizer:
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    uppercase: ""
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    calculator: "^,,=.*$"
+    extended_mode: "^``[a-zA-Z/0-9:`']*`?$"
+    symbols: "^`([0-9]{0,2}|[a-z])`?$"
+
+# 符號清單（`）- 同 Easy English／嘸蝦米
+# 數字輸入由 lua_processor@liu_symbols_number_processor 處理
+symbols:
+  tag: symbols
+  dictionary: liur_symbols
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  prefix: "`"
+  alphabet: "abcdefghijklmnopqrstuvwxyz`"
+  tips: "《符號清單》▸"
+  closing_tips: ""
+  initial_quality: 1
+  comment_format:
+    - xform/^/~/
+  preedit_format:
+    - xform/^01/[01]一般/
+    - xform/^02/[02]括號/
+    - xform/^03/[03]引號/
+    - xform/^04/[04]豎標/
+    - xform/^05/[05]數學/
+    - xform/^06/[06]單位/
+    - xform/^07/[07]貨幣/
+    - xform/^08/[08]分數/
+    - xform/^09/[09]上標/
+    - xform/^10/[10]下標/
+    - xform/^11/[11]注音/
+    - xform/^12/[12]拼音/
+    - xform/^13/[13]音標/
+    - xform/^14/[14]平假/
+    - xform/^15/[15]片假/
+    - xform/^16/[16]韓文/
+    - xform/^17/[17]藏文/
+    - xform/^18/[18]希臘/
+    - xform/^19/[19]俄語/
+    - xform/^20/[20]合字/
+    - xform/^21/[21]部首/
+    - xform/^22/[22]月份/
+    - xform/^23/[23]日期/
+    - xform/^24/[24]時間/
+    - xform/^25/[25]性別/
+    - xform/^26/[26]圈英/
+    - xform/^27/[27]圈數/
+    - xform/^28/[28]圈漢/
+    - xform/^29/[29]圈日/
+    - xform/^30/[30]圈韓/
+    - xform/^31/[31]括英/
+    - xform/^32/[32]括數/
+    - xform/^33/[33]括漢/
+    - xform/^34/[34]括韓/
+    - xform/^35/[35]框英/
+    - xform/^36/[36]框數/
+    - xform/^37/[37]框漢/
+    - xform/^38/[38]點數/
+    - xform/^39/[39]羅馬/
+    - xform/^40/[40]箭頭/
+    - xform/^41/[41]線段/
+    - xform/^42/[42]框線/
+    - xform/^43/[43]圓形/
+    - xform/^44/[44]三角/
+    - xform/^45/[45]方形/
+    - xform/^46/[46]星星/
+    - xform/^47/[47]八卦/
+    - xform/^48/[48]易經/
+    - xform/^49/[49]音樂/
+    - xform/^50/[50]圖案/
+    - "xform/^`$/``/"
+
+# 擴充模式（``）- 字母變化形、日期時間
+extended_mode:
+  tag: extended_mode
+  prefix: "``"
+  suffix: ""
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:`'"
+  tips: "▸"
+
+# 計算機（,,= 引導）- 同拼音／蝦米 Ctrl+=
+calculator:
+  tag: calculator
+  prefix: ",,="
+  tips: "《計算機》▸"
+  closing_tips: "◂《計算機》"
+  alphabet: "0123456789+-*/().abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,'"
+  initial_quality: 50
+
+punctuator:
+  full_shape:
+    "<" : { commit: "，" }
+    ">" : { commit: "。" }
+  half_shape:
+    "<" : { commit: "，" }
+    ">" : { commit: "。" }

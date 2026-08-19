@@ -6,12 +6,17 @@
 local M = {}
 
 -- 私有數據存儲
-local _w2c_data = nil
+local _w2c_data_trad = nil
+local _w2c_data_simp = nil
 local _phonetic_data = {
     groups_trad = nil,
     groups_simp = nil,
     char_to_gids_trad = nil,
     char_to_gids_simp = nil
+}
+local _readings_data = {
+    trad = nil,
+    simp = nil
 }
 
 -- 清理回調函數（用於通知其他模組資料已被釋放）
@@ -51,28 +56,46 @@ end
 -- 用於：liu_w2c_sorter, liu_vrsf_hint, liu_phonetic_suffix
 -- ==========================================
 
-function M.get_w2c_data()
-    if _w2c_data then return _w2c_data end
-
-    local data = {}
-    local path = get_file_path("liu_w2c.txt")
-    
-    if path then
-        local content = read_file_content(path)
-        if content then
-             for line in content:gmatch("[^\r\n]+") do
-                local char, code_str = line:match("^([^\t]+)\t~(.+)$")
-                if char and code_str then
-                    -- 為了記憶體優化，我們不再這裡做過多解析，只存儲字串
-                    -- 需要的模組自己去解析
-                    data[char] = code_str
-                end
+local function load_w2c_file_into(data, filename, only_if_missing)
+    local path = get_file_path(filename)
+    if not path then
+        return
+    end
+    local content = read_file_content(path)
+    if not content then
+        return
+    end
+    for line in content:gmatch("[^\r\n]+") do
+        local char, code_str = line:match("^([^\t]+)\t~(.+)$")
+        if char and code_str then
+            -- only_if_missing=true 時只補缺碼字，不覆蓋既有反查
+            if not only_if_missing or data[char] == nil then
+                -- 為了記憶體優化，這裡只存儲字串；解析由各模組自行處理
+                data[char] = code_str
             end
         end
     end
-    
-    _w2c_data = data
-    return _w2c_data
+end
+
+function M.get_w2c_data(is_simplified)
+    -- 載入順序：
+    -- 1) 主反查表（既有規則）
+    -- 2) hint 補助表（只補主表缺字，不覆蓋既有反查）
+    if is_simplified then
+        if _w2c_data_simp then return _w2c_data_simp end
+        local data = {}
+        load_w2c_file_into(data, "liu_w2c_simp.txt", false)
+        load_w2c_file_into(data, "liu_w2c_hint_simp.txt", true)
+        _w2c_data_simp = data
+        return _w2c_data_simp
+    end
+
+    if _w2c_data_trad then return _w2c_data_trad end
+    local data = {}
+    load_w2c_file_into(data, "liu_w2c_trad.txt", false)
+    load_w2c_file_into(data, "liu_w2c_hint_trad.txt", true)
+    _w2c_data_trad = data
+    return _w2c_data_trad
 end
 
 -- ==========================================
@@ -132,6 +155,121 @@ function M.get_phonetic_data(is_simplified)
 end
 
 -- ==========================================
+-- 3. 單字讀音表（;; 讀音查詢注音來源）
+-- 繁：liu_readings.txt｜簡：liu_readings_simp.txt
+-- ==========================================
+
+local function load_readings_table(is_simplified)
+    local data = {}
+    local filename = is_simplified and "liu_readings_simp.txt" or "liu_readings.txt"
+    local path = get_file_path(filename)
+    if not path then
+        return data
+    end
+    local content = read_file_content(path)
+    if not content then
+        return data
+    end
+    for line in content:gmatch("[^\r\n]+") do
+        if not line:match("^%s*#") then
+            local char, readings = line:match("^([^\t]+)\t(.+)$")
+            if char and readings and #char > 0 then
+                data[char] = readings
+            end
+        end
+    end
+    return data
+end
+
+function M.get_readings_data(is_simplified)
+    if is_simplified then
+        if not _readings_data.simp then
+            _readings_data.simp = load_readings_table(true)
+        end
+        return _readings_data.simp
+    end
+    if not _readings_data.trad then
+        _readings_data.trad = load_readings_table(false)
+    end
+    return _readings_data.trad
+end
+
+-- ==========================================
+-- 4. liu_w2c Opencc 實例統一管理
+-- 用於：liu_quick_hint, liu_quick_mode_processor,
+--       liu_remove_trad_in_w2c, liu_wildcard_code_hint
+-- 注意：只在上屏後（commit）釋放，不在週期性 GC 中釋放
+--       避免輸入中途 Opencc 被清除導致功能失效
+-- ==========================================
+
+local _opencc_w2c_trad = nil
+local _opencc_w2c_simp = nil
+
+function M.get_opencc_w2c(is_simplified)
+    if is_simplified then
+        if not _opencc_w2c_simp then
+            _opencc_w2c_simp = Opencc("liu_w2c_simp.json")
+        end
+        return _opencc_w2c_simp
+    else
+        if not _opencc_w2c_trad then
+            _opencc_w2c_trad = Opencc("liu_w2c_trad.json")
+        end
+        return _opencc_w2c_trad
+    end
+end
+
+-- 釋放 Opencc 實例（只由 liu_gc_processor 的 commit_notifier 呼叫）
+function M.free_opencc_w2c()
+    _opencc_w2c_trad = nil
+    _opencc_w2c_simp = nil
+end
+
+-- 快取有效按鍵表
+local _valid_keys_cache = {}
+
+function M.get_valid_keys_table(start_char)
+    -- 如果 start_char 為空或 nil，表示查找 _root（空前綴對應的表）
+    local key = start_char or "_root"
+    if key == "" then key = "_root" end
+    
+    -- 若快取已有，直接返回
+    if _valid_keys_cache[key] then
+        return _valid_keys_cache[key]
+    end
+    
+    -- 記憶體優化策略：
+    -- 我們假設打字時，同一時間通常只會用到一個首字母的表。
+    -- 當請求不同的首字母表時，清空舊的快取，只保留當前的。
+    -- 這樣可以確保記憶體佔用維持在最小（只載入一個小檔案）。
+    
+    -- 清空舊快取 (Single Slot Cache)
+    _valid_keys_cache = {}
+    
+    local data = {}
+    local filename = "liu_valid_keys/" .. key .. ".txt"
+    local path = get_file_path(filename)
+    
+    if path then
+        local file = io.open(path, "r")
+        if file then
+            for line in file:lines() do
+                -- 檔案格式：key<tab>valid_chars
+                local k, v = line:match("^([^\t]+)\t([^\t]+)$")
+                if k then
+                    data[k] = v
+                end
+            end
+            file:close()
+        end
+    end
+    
+    -- 存入快取
+    _valid_keys_cache[key] = data
+    return data
+end
+
+-- ==========================================
 -- 記憶體管理
 -- ==========================================
 
@@ -141,12 +279,14 @@ function M.register_cleanup_callback(callback)
 end
 
 -- 釋放所有大型資料
--- 由 liu_gc_processor 在記憶體壓力大或閒置時呼叫
-function M.free_data()
+-- force=true：上屏後呼叫，釋放全部（含 Opencc）
+-- force=false 或省略：週期性 GC，只釋放 table 資料，保留 Opencc
+function M.free_data(force)
     local freed = false
     
-    if _w2c_data then 
-        _w2c_data = nil 
+    if _w2c_data_trad or _w2c_data_simp then 
+        _w2c_data_trad = nil
+        _w2c_data_simp = nil
         freed = true
     end
     
@@ -157,6 +297,24 @@ function M.free_data()
             char_to_gids_trad = nil,
             char_to_gids_simp = nil
         }
+        freed = true
+    end
+
+    if _readings_data.trad or _readings_data.simp then
+        _readings_data = { trad = nil, simp = nil }
+        freed = true
+    end
+    
+    if next(_valid_keys_cache) then
+        _valid_keys_cache = {}
+        freed = true
+    end
+    
+    -- Opencc 實例只在上屏後（force=true）才釋放
+    -- 週期性 GC 不釋放，避免輸入中途功能失效
+    if force and (_opencc_w2c_trad or _opencc_w2c_simp) then
+        _opencc_w2c_trad = nil
+        _opencc_w2c_simp = nil
         freed = true
     end
     

@@ -1,110 +1,112 @@
 # Rime dictionary
 # encoding: utf-8
-# 《反查掛載專用 注音 字詞庫匯入頁》
-# 『洋蔥』製作
+# 《行內注音》擴充中文詞庫匯入頁
+# 202607：terra／add／chtp 對齊 13 大詞庫
+# 注音符號條目保留但權重極低：供 preedit／單碼辨識顯示 ㄅㄆ…（否則會露出 1q…）
+# 真正輸出注音文請用 ';（注音直出）；低權重避免搶「吃」等組詞
 ---
 name: Mount_bopomo.extended
-version: "202102"
+version: "202607-desktop-sym1"
 sort: by_weight
-vocabulary: essay-zh-hant-onion
+vocabulary: essay-zh-hant-mc-mixin
 #use_preset_vocabulary: true
 max_phrase_length: 7
-min_phrase_weight: 100
+# 不設門檻 100。essay 裡「意氣風發」權重僅 14，門檻過高會整詞濾掉
+min_phrase_weight: 1
 import_tables:
   - terra_pinyin_onion
   - terra_pinyin_onion_add
-#  - phrases.chtp
+  - terra_pinyin_onion_readings_patch  # Newlist 單字缺音（只補洋蔥既有字）
+  - phrases.chtp
 #  - phrases.chtpp
 #  - phrases.chtpv
 #  - phrases.cht
 ...
-##### 測試字（測試是否少掉台灣以外的用字） #####
-# 裏面	li3 mian4
-# 高峯	gao1 feng1
-##### 注音字碼補充 #####
-### 一般ㄅㄆㄇ！ ###
-ㄅ	b	150000
-ㄆ	p	150000
-ㄇ	m	150000
-ㄈ	f	150000
-ㄉ	d	150000
-ㄊ	t	150000
-ㄋ	n	150000
-ㄌ	l	150000
-ㄍ	g	150000
-ㄎ	k	150000
-ㄏ	h	150000
-ㄐ	j	150000
-ㄑ	q	150000
-ㄒ	x	150000
-ㄓ	zhi	150000
-ㄔ	chi	150000
-ㄕ	shi	150000
-ㄖ	ri	150000
-ㄗ	zi	150000
-ㄘ	ci	150000
-ㄙ	si	150000
-ㄧ	yi	150000
-ㄨ	wu	150000
-ㄩ	yu	150000
-ㄚ	a	150000
-ㄛ	o	150000
-ㄜ	e	150000
-ㄝ	eh	150000
-ㄞ	ai	150000
-ㄟ	ei	150000
-ㄠ	ao	150000
-ㄡ	ou	150000
-ㄢ	an	150000
-ㄣ	en	150000
-ㄤ	ang	150000
-ㄥ	eng	150000
-ㄦ	er	150000
+##### 注音符號（權重 1：只為顯示／辨識，不搶組詞）#####
+### 一般ㄅㄆㄇ ###
+ㄅ	b	1
+ㄆ	p	1
+ㄇ	m	1
+ㄈ	f	1
+ㄉ	d	1
+ㄊ	t	1
+ㄋ	n	1
+ㄌ	l	1
+ㄍ	g	1
+ㄎ	k	1
+ㄏ	h	1
+ㄐ	j	1
+ㄑ	q	1
+ㄒ	x	1
+ㄓ	zhi	1
+ㄔ	chi	1
+ㄕ	shi	1
+ㄖ	ri	1
+ㄗ	zi	1
+ㄘ	ci	1
+ㄙ	si	1
+ㄧ	yi	1
+ㄨ	wu	1
+ㄩ	yu	1
+ㄚ	a	1
+ㄛ	o	1
+ㄜ	e	1
+ㄝ	eh	1
+ㄞ	ai	1
+ㄟ	ei	1
+ㄠ	ao	1
+ㄡ	ou	1
+ㄢ	an	1
+ㄣ	en	1
+ㄤ	ang	1
+ㄥ	eng	1
+ㄦ	er	1
 ### 聲調 ###
-ˊ	2	150000
-ˇ	3	150000
-ˋ	4	150000
-˙	5	150000
+ˊ	2	1
+ˇ	3	1
+ˋ	4	1
+˙	5	1
 ### 延伸ㄅㄆㄇ ###
-ㄪ	f	140000
-ㄫ	eng	140000
-ㄫ	wu	140000
-ㄬ	g	140000
-ㄭ	yi	140000
-ㄮ	e	140000
-ㄮ	o	140000
-ㄯ	n	140000
-ㄯ	en	140000
+ㄪ	f	1
+ㄫ	eng	1
+ㄫ	wu	1
+ㄬ	g	1
+ㄭ	yi	1
+ㄮ	e	1
+ㄮ	o	1
+ㄯ	n	1
+ㄯ	en	1
 ### 其他特殊ㄅㄆㄇ ###
-ㆠ	b	140000
-ㆡ	zi	140000
-ㆢ	j	140000
-ㆣ	g	140000
-ㆤ	eh	140000
-ㆥ	eh	140000
-ㆦ	o	140000
-ㆧ	o	140000
-ㆨ	wu	140000
-ㆩ	a	140000
-ㆪ	yi	140000
-ㆫ	wu	140000
-ㆬ	m	140000
-ㆭ	eng	140000
-ㆭ	wu	140000
-ㆮ	ai	140000
-ㆯ	ao	140000
-ㆰ	a	140000
-ㆰ	m	140000
-ㆱ	o	140000
-ㆱ	m	140000
-ㆲ	wu	140000
-ㆲ	g	140000
-ㆳ	yi	140000
-ㆴ	b	140000
-ㆵ	d	140000
-ㆶ	k	140000
-ㆷ	h	140000
-ㆸ	h	140000
-ㆹ	l	140000
-ㆺ	x	140000
+ㆠ	b	1
+ㆡ	zi	1
+ㆢ	j	1
+ㆣ	g	1
+ㆤ	eh	1
+ㆥ	eh	1
+ㆦ	o	1
+ㆧ	o	1
+ㆨ	wu	1
+ㆩ	a	1
+ㆪ	yi	1
+ㆫ	wu	1
+ㆬ	m	1
+ㆭ	eng	1
+ㆭ	wu	1
+ㆮ	ai	1
+ㆯ	ao	1
+ㆰ	a	1
+ㆰ	m	1
+ㆱ	o	1
+ㆱ	m	1
+ㆲ	wu	1
+ㆲ	g	1
+ㆳ	yi	1
+ㆴ	b	1
+ㆵ	d	1
+ㆻ	g	1
+ㆶ	k	1
+ㆷ	h	1
+ㆸ	h	1
+ㆹ	l	1
+ㆺ	x	1
 #################

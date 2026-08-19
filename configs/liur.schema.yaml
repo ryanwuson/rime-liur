@@ -29,7 +29,10 @@ switches:
     states: [ 正常, 查碼 ]
   - name: quick_mode
     reset: 0
-    states: [ 正常, 快打 ]
+    states: [ 正常, 快打提示 ]
+  - name: force_quick_mode
+    reset: 0
+    states: [ 正常, 強制快打 ]
   - name: wildcard_mode
     reset: 0
     states: [ 正常, 萬用查字 ]
@@ -38,15 +41,42 @@ switches:
     reset: 0
   - name: zh_tw
     reset: 1
+  - name: prediction
+    states: [ 關閉預測, 開啟預測 ]
+    reset: 0
+  # 桌面不需要：聯想預設關閉，不提供 ,,clean 通知
+  # - name: user_predict_cleared
+  #   states: [ 清除聯想字記憶, 清除聯想字記憶 ]
+
+# 小狼毫切換提示（Windows 專用；鼠鬚管與手機端會忽略這個鍵）
+# 寫在方案內，切換方案時小狼毫會讀本方案的設定並覆蓋全域值，
+# 所以不管使用者套用哪一套小狼毫主題／weasel.custom.yaml 都有效。
+# 規則一：名單含 schema 才會顯示方案名稱。
+# 規則二：切換方案時 librime 會依序重設每個帶 reset 的開關並各發一則通知，
+#         小狼毫只顯示最後一則；名單外的開關靜默，不會蓋掉方案名稱。
+#         因此本方案最後一個帶 reset 的開關（prediction）必須留在名單外。
+show_notifications:
+  - schema
+  - ascii_mode
+  - full_shape
+  - simplification
+  - liu_w2c
+  - quick_mode
+  - force_quick_mode
+  - wildcard_mode
+  - extended_charset
+  # 桌面不需要：不提供 ,,clean 通知
+  # - user_predict_cleared
 
 engine:
   processors:
     - ascii_composer
-    - lua_processor@liu_schema_switch_processor      # 方案切換狀態保持（必須在 key_binder 之前攔截 Ctrl+/）
+    - lua_processor@liu_schema_switch_processor      # 方案切換狀態保持（必須在 key_binder 之前攔截跳轉鍵）
     - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
     - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
     - lua_processor@liu_extended_backspace           # `` 擴充模式（必須在 recognizer 之前攔截 ` 鍵）
     - lua_processor@liu_symbols_number_processor     # 符號清單數字選字及字母變化形（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@liu_calculator_shortcut
     - recognizer
     - lua_processor@liu_wildcard_processor           # 萬用字元開關（關閉時 ? 直接輸出）
     - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
@@ -54,6 +84,8 @@ engine:
     - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'
     - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
     - lua_processor@liu_gc_processor                 # 上屏後小步垃圾回收
+    # - predictor                                    # 桌面預設關閉聯想；啟用時須放回 predict.db
+    # - lua_processor@*liu_user_predict*P            # 啟用時須在 predictor 之後、speller 之前
     - key_binder
     - speller
 #    - punctuator
@@ -72,8 +104,8 @@ engine:
     - affix_segmentor@fancy_title   # 變體Aa `/
     - affix_segmentor@number_variant  # 數字變體 `'（必須在 symbols 之前）
     - affix_segmentor@symbols  # 符號清單必須在 abc_segmentor 之前，以支援 `A `a 字母變化形
-    - affix_segmentor@code_decode  # 編碼解碼模式 ,,x
     - affix_segmentor@help_mode  # 功能說明 ,,h
+    - affix_segmentor@calculator  # 計算機（,,= 引導）
     - abc_segmentor
     - affix_segmentor@mkst
     - affix_segmentor@liurqry
@@ -87,6 +119,9 @@ engine:
 #    - echo_translator
 #    - punct_translator
 #    - script_translator
+    # - predict_translator
+    # - lua_translator@*liu_user_predict*T
+    - lua_translator@liu_calculator  # 計算機（,,= 引導）- 必須在最前面
     - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
     - lua_translator@liu_symbols_hint  # 符號清單提示
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（``a 小寫，``A 大寫）
@@ -94,7 +129,6 @@ engine:
     - lua_translator@liu_fancy_translator  # 變體英數轉換器（`/ `// `/// `/'）
     - lua_translator@date_translator  # 符號清單變體（`a 字母變體，`01 數字變體）
     - lua_translator@liu_phonetic_suffix_translator  # 同音字翻譯器（選中後按 '）
-    - lua_translator@liu_code_decoder_translator  # 編碼解碼器（,,x 模式）
     - script_translator@all_bpm
     - table_translator@mkst
     - table_translator@fixed
@@ -107,8 +141,9 @@ engine:
     - table_translator@symbols
 
   filters:
+    # - lua_filter@liu_user_predict	#桌面預設關閉；啟用時把學過的詞排到固定詞前面
     - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
-    - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
+    - lua_filter@liu_charset_filter	#自定義字元集過濾（CJK Compatibility Forms 視為常用字集）
     - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元
     - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
@@ -121,6 +156,7 @@ engine:
     - lua_filter@liu_quick_hint	#快打模式：提示可用簡碼（必須在 liu_w2c_sorter 之後以覆蓋繁體標記）
     - lua_filter@liu_phonetic_suffix_filter	#嘸蝦米同音字（選中後按 '）- 必須在 simplifier 之後
     - simplifier@zh_tw
+    - lua_filter@liu_emoji_filter	#行內注音／拼音隨附 Emoji（'; / ;'；須在 simplifier 之後）
     # - reverse_lookup_filter@ovff_reverse_lookup  # 未定義，暫時註解
     - lua_filter@liu_phonetic_override	#讀音查詢模式下移除編碼和繁體標記（必須在最後）
     - lua_filter@liu_symbols_hint_filter	#符號清單提示處理（必須在所有 simplifier 之後，uniquifier 之前）
@@ -155,9 +191,13 @@ simplifier:
   tags: [ abc, mkst, phonetic, symbols, lua, fancy_title, fancy_lower, fancy_upper, fancy_number ]  # 排除 extended_mode
 
 speller:
-  alphabet: "abcdefghijklmnopqrstuvwxyz[];',.?~"
-  delimiter: "~"
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[];',.?~›"
+  # ~ = 造詞分節（行內拼音／注音自動分節顯示空白）；\ = 行內手動分節（顯示  ⁞ （U+2009 撐開））
+  delimiter: "~\\"
   algebra:
+    - derive/^.+$/\L$0/
+    - derive/^.+$/\U$0/
+    - derive/^./\U$0/
     # 萬用字元「?」支援 3-4 碼，最多 2 個 ?
     # 注意：查碼模式下會自動禁用萬用字元以確保效能
     # 3碼字
@@ -181,7 +221,7 @@ speller:
     - xform/^~(.*)$/$1
 #為了加強造詞準確性，在字典中，以「~」前綴標記非標準拆字，再透過拼寫語法去除「~」後，送入辭典查詢
 #萬用字元「?」使用 Shift+/ 輸入，支援 3-4 碼、最多 2 個 ? 的查詢
-#查碼模式（Ctrl+'）下會自動禁用萬用字元以確保效能
+#查碼模式（Ctrl+/）下會自動禁用萬用字元以確保效能
 
 translator:
   dictionary: liur.extended
@@ -257,13 +297,15 @@ all_bpm:
     - xform/\|//
     - xform/`//
 
-# 漢語拼音輸入（;' 引導）- 使用地球拼音洋蔥版字典
+# 漢語拼音輸入（;' 引導）- 擴充詞庫（拼音 prism 編譯；勿共用 Mount 注音表）
+# 暫不開整句（enable_sentence: false）
 pinyin:
   tag: pinyin
-  dictionary: terra_pinyin_onion
+  dictionary: terra_pinyin_onion.extended
   prism: terra_pinyin_onion
   prefix: ";'"
   suffix: "'"
+  alphabet: "abcdefghijklmnopqrstuvwxyz0123456789,.;/\\-"
   enable_completion: true
   enable_sentence: false
   enable_user_dict: true
@@ -271,7 +313,8 @@ pinyin:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
     - xform/([jqxy])v/$1u/
-    - xform/~/⋮/
+    - "xform/~/ /"
+    - 'xform/\\/ ⁞ /'
     - xform/^/《拼音輸入》/
   tips: "《拼音輸入》▸"
   closing_tips: "◂《拼音輸入》"
@@ -285,11 +328,13 @@ phonetic:
   enable_user_dict: true
   prefix: "';"
   suffix: "'"
+  alphabet: "abcdefghijklmnopqrstuvwxyz0123456789,.;/-`|\\"
   tips: "《注音輸入》▸"
   closing_tips: "◂《注音輸入》"
   preedit_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˊˇˋ˙|"
-    - xform/~/⋮/
+    - "xform/~/ /"
+    - 'xform/\\/ ⁞ /'
     - xform/^/《注音輸入》/
     - xform/\|/  /
     - xform/`/  /
@@ -298,6 +343,15 @@ phonetic_reverse_lookup:
   tags: [ liurqry ]
   dictionary: Mount_bopomo.extended
   overwrite_comment: true  # 覆蓋其他提示
+
+# 計算機配置（,,= 引導）- 與注音輸入保持統一的提示格式
+calculator:
+  tag: calculator
+  prefix: ",,="
+  tips: "《計算機》▸"
+  closing_tips: "◂《計算機》"
+  alphabet: "0123456789+-*/().abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,'"
+  initial_quality: 50
 
 # 快打模式使用 ReverseLookup("openxiami_TCJP") 進行反查
 # Rime 會自動從 openxiami_TCJP 字典建立反查索引
@@ -313,15 +367,19 @@ key_binder:
     - {accept: "Shift+Tab", send: Page_Up, when: has_menu}      # Shift+Tab向上翻頁
     - {accept: "Shift+Up", send: Page_Up, when: has_menu}       # Shift+上向上翻頁
     - {accept: "Shift+Down", send: Page_Down, when: has_menu}   # Shift+下向下翻頁
-    - {accept: "Control+slash", select: easy_en, when: always}  # Ctrl+/ 切換到 Easy English
+    - {accept: "Control+semicolon", select: easy_en, when: always}  # Ctrl+; → Easy English
 recognizer:
   import_preset: default
 
   patterns:
+    user_predict: "^(›)+$"  # 聯想佔位段落，只交給 liu_user_predict 的 T 翻譯
+    uppercase: ''  # 禁用大寫模式，讓數字鍵可以用於選字
     email: ^[a-z][-_.0-9a-z]*@.*$
     url: ^(www[.]|https?:|ftp:|mailto:).*$
-    phonetic: "^';[-.,;/0-9a-z`|]*'?$"
-    pinyin: "^;'[a-z0-9;,/<'-]*'?$"
+    calculator: "^,,=.*$"  # 計算機引導鍵（,,=）
+    phonetic: "^';[-.,;/0-9a-z`|\\\\]*'?$"
+    pinyin: "^;'[a-z0-9;,/<'-\\\\]*'?$"
+    pinyin: "^;'[a-z0-9;,/<'-\\\\]*'?$"
     all_bpm: "^';'[-a-z0-9.,/;']*$"
 # 讀音查詢引導鍵（;;）
     liurqry: "^;;[a-z']*'?$"
@@ -347,9 +405,6 @@ recognizer:
 # 允許結尾有 ` 以處理誤按情況（如 `01` 或 `a`）
 # 必須以 ` 開頭，避免 ix` 這種誤按觸發符號清單
     symbols: "^`([0-9]{0,2}|[a-z])`?$"
-# 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
-# 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
-    code_decode: "^,,x[a-z\\-;,']*$"
 # 功能說明引導鍵（,,h）
     help_mode: "^,,h$"
 
@@ -482,17 +537,28 @@ extended_mode:
   alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:`'"
   tips: "▸"
 
-# 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
-# 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
-code_decode:
-  tag: code_decode
-  prefix: ",,x"
-  suffix: ""
-  alphabet: "abcdefghijklmnopqrstuvwxyz-;,'"
-  tips: "《解碼》▸"
-
 # 功能說明（,,h）- 顯示所有功能的快捷鍵說明
 help_mode:
   tag: help_mode
   prefix: ",,h"
   tips: "《按鍵說明》▸"
+
+# 預測（聯想字）設定
+predictor:
+  db: predict.db
+  max_candidates: 24  # 預測候選數量
+
+# 聯想學習（只調 predict 列；桌面版預設關閉，需要時取消註解）
+# 設定與手機一致，但桌面掛載預設註解
+user_predict:
+  timeout_ms: 2000
+  max_commit_len: 4
+  max_user_items: 15
+  max_rounds: 3
+
+# 記憶體回收（與手機共用 liu_gc_processor.lua，此處用桌面參數）
+gc:
+  check_interval: 40
+  memory_threshold_kb: 102400      # 100MB
+  aggressive_threshold_kb: 153600  # 150MB
+  free_on_commit: false            # 上屏不清 w2c，避免下一碼重讀

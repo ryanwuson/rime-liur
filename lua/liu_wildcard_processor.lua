@@ -24,6 +24,15 @@ local function processor(key, env)
     end
     
     -- 萬用字元模式關閉：直接輸出 ? 符號
+    -- 如果 preedit 有內容，先上屏目前選中的候選，再輸出 ?
+    -- （與 liu_tilde_processor 的 ~ 處理邏輯相同）
+    local input = context.input
+    if input and #input > 0 then
+        if context:has_menu() then
+            context:confirm_current_selection()
+        end
+        context:commit()
+    end
     env.engine:commit_text(context:get_option("full_shape") and "？" or "?")
     return 1  -- kAccepted
 end

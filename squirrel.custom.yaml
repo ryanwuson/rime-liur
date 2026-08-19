@@ -50,7 +50,7 @@ patch:
       label_font_point: 14
       comment_font_face: "MapleMonoNormal-Regular"  # 注字體及大小
       comment_font_point: 18
-      candidate_format: "%c\u2005%@" # 編號 %c 和候選詞 %@ 前後的空間
+      candidate_format: "[label] [candidate]  [comment]" # 編號 %c 和候選詞 %@ 前後的空間
       candidate_list_layout: stacked   # 候選排布：層疊 stacked | 行 linear
       text_orientation: horizontal    # 行文向： 橫 horizontal | 縱 vertical
       inline_preedit: true            # 拼音位於： 候選框 false | 行內 true
@@ -91,7 +91,7 @@ patch:
       label_font_point: 14
       comment_font_face: "MapleMonoNormal-Regular"  # 注字體及大小
       comment_font_point: 18
-      candidate_format: "%c\u2005%@" # 編號 %c 和候選詞 %@ 前後的空間
+      candidate_format: "[label] [candidate]  [comment]" # 編號 %c 和候選詞 %@ 前後的空間
       candidate_list_layout: stacked   # 候選排布：層疊 stacked | 行 linear
       text_orientation: horizontal    # 行文向： 橫 horizontal | 縱 vertical
       inline_preedit: true            # 拼音位於： 候選框 false | 行內 true

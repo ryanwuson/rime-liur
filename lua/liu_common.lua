@@ -45,4 +45,18 @@ function M.is_kana(c)
            (c >= 0x30A0 and c <= 0x30FF)     -- 片假名
 end
 
+-- 檢查是否為純 ASCII 英文（只包含 ASCII 可打印字元且至少有一個字母）
+function M.is_pure_ascii(text)
+    if not text or text == "" then return false end
+    local has_alpha = false
+    for i = 1, #text do
+        local b = string.byte(text, i)
+        if b < 32 or b > 126 then return false end -- 非 ASCII
+        if (b >= 65 and b <= 90) or (b >= 97 and b <= 122) then
+            has_alpha = true
+        end
+    end
+    return has_alpha
+end
+
 return M

@@ -3,8 +3,10 @@
 
 schema:
   schema_id: liur_symbols
-  name: "嘸蝦米符號清單"
+  name: "〔依賴方案〕符號表"
   version: "1.0"
+  description: |
+    供嘸蝦米符號清單（`）掛載；非獨立輸入方案
 
 switches:
   - name: ascii_mode

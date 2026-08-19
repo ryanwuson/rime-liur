@@ -4,12 +4,13 @@
 
 schema:
   schema_id: terra_pinyin_onion
-  name: 地球拼音洋蔥版
+  name: 〔依賴方案〕拼音詞庫
   version: "202510"
   author:
     - 洋蔥
   description: |
-    地球拼音洋蔥版，針對台灣用語調整
+    拼音／讀音詞庫（依賴用，非獨立輸入方案）
+    字音資料源自洋蔥「地球拼音」方案，並針對台灣用語調整
   dependencies:
     # - terra_pinyin_onion_add  # 修復循環依賴問題
 
@@ -65,7 +66,8 @@ speller:
     - 'derive/3$/,/'
 
 translator:
-  dictionary: terra_pinyin_onion
+  # 行內拼音（liur pinyin）掛此擴充表；prism 名稱仍為 terra_pinyin_onion
+  dictionary: terra_pinyin_onion.extended
   prism: terra_pinyin_onion
   spelling_hints: 5
   preedit_format:

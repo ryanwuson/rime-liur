@@ -51,13 +51,20 @@ local function init(env)
 end
 
 local function enhance_filter(input, env)
-   local cands = {}
+   local context = env.engine.context
+   local input_text = context.input
+
+   -- 完全跳過自定義的特殊模式（以 ` 開頭的輸入），避免 preedit 被吃掉或被加上多餘的空白
+   if input_text and (input_text:match("^`") or input_text:match("^cal=")) then
+      for cand in input:iter() do yield(cand) end
+      return
+   end
 
    for cand in input:iter() do
       if (cand.comment:find("☯")) then
          if (is_split_sentence) then
-            sentence = wordninja_split(cand.text)
-            lower_sentence = string.lower(sentence)
+            local sentence = wordninja_split(cand.text)
+            local lower_sentence = string.lower(sentence)
 
             if (not (lower_sentence == sentence)) then
                yield(Candidate("sentence", cand.start, cand._end, lower_sentence .. " ", "💡"))

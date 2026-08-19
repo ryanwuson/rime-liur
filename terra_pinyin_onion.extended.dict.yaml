@@ -1,0 +1,20 @@
+# Rime dictionary
+# encoding: utf-8
+# 《獨立拼音／注音共用》中文詞庫匯入頁
+# 來源：地球拼音洋蔥 mix-in 20260712 的中文部分（不含日／韓／英／拉丁）
+# 與 Mount_bopomo.extended 掛同一組表，確保拼音＝注音詞庫厚度一致
+---
+name: terra_pinyin_onion.extended
+version: "202607-zh-only"
+sort: by_weight
+vocabulary: essay-zh-hant-mc-mixin
+#use_preset_vocabulary: true
+max_phrase_length: 7
+min_phrase_weight: 1
+import_tables:
+  - terra_pinyin_onion
+  - terra_pinyin_onion_add
+  - terra_pinyin_onion_readings_patch  # Newlist 單字缺音（只補洋蔥既有字）
+  - phrases.chtp
+...
+##### 以下可自行添加詞句 #####

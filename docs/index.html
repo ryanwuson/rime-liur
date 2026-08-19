@@ -31,6 +31,8 @@
     :root {
       --theme-color: #005AD7;
       --docsify-example-panels-left-panel-background: #f8f8f8;
+      --doc-font-size: 18px;
+      --doc-sidebar-size: 16px;
     }
     
     /* 深色模式 */
@@ -215,6 +217,42 @@
     .search input:focus {
       border-color: var(--theme-color);
     }
+
+    /* 整體字級：內文 18px、側欄 16px */
+    .markdown-section {
+      font-size: var(--doc-font-size);
+      line-height: 1.75;
+    }
+    .markdown-section p,
+    .markdown-section li,
+    .markdown-section td,
+    .markdown-section th,
+    .markdown-section blockquote {
+      font-size: inherit;
+      line-height: inherit;
+    }
+    .markdown-section h3 {
+      font-size: 1.35em;
+      margin-top: 1.4em;
+    }
+    .markdown-section h4 {
+      font-size: 1.15em;
+    }
+    .markdown-section code,
+    .markdown-section pre,
+    .markdown-section pre > code {
+      font-size: 0.92em;
+    }
+    .sidebar {
+      font-size: var(--doc-sidebar-size);
+    }
+    .sidebar ul li a {
+      font-size: inherit;
+    }
+    .search input {
+      font-size: 16px;
+    }
+
     /* GIF 圖片加陰影效果 */
     img[src$=".gif"] {
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
@@ -260,6 +298,7 @@
       line-height: 1.5;
       padding: 10px 15px;
       margin: 0;
+      font-size: 20px;
     }
     .sidebar .app-name-link {
       display: inline-flex;
@@ -418,9 +457,12 @@
     window.$docsify = {
       name: '蝦米輸入方案',
       repo: 'ryanwuson/rime-liur',
-      homepage: 'user-guide.md',
+      homepage: 'README.md',
       loadSidebar: true,
-      subMaxLevel: 0,
+      requestHeaders: {
+        'Cache-Control': 'no-cache'
+      },
+      subMaxLevel: 2,
       auto2top: true,
       search: {
         placeholder: '搜尋',
@@ -431,6 +473,8 @@
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 懶加載插件（圖檔多時加速載入） -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-lazy-load-images@latest/dist/docsify-lazy-load-images.min.js"></script>
   <!-- 搜尋插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <!-- 圖片縮放 -->

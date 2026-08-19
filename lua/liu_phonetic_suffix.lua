@@ -8,6 +8,13 @@
 local liu_data = require("liu_data")
 local opencc_s2t = nil
 
+local function get_opencc_s2t()
+    if not opencc_s2t then
+        opencc_s2t = Opencc("s2t.json")
+    end
+    return opencc_s2t
+end
+
 -- ============ 數據載入函數 ============
 
 -- 載入群組格式的同音字資料（優化版）
@@ -27,17 +34,92 @@ local function parse_gid_entries(str)
     return entries
 end
 
--- 即時查詢同音字
+-- 字 → 讀音集合（來自 liu_readings / liu_readings_simp）
+local function get_char_reading_set(char, is_simplified)
+    local table_ = liu_data.get_readings_data(is_simplified)
+    if not table_ then
+        return nil
+    end
+    local py = table_[char]
+    if (not py or py == "") and is_simplified then
+        -- 簡表缺字：試繁表／s2t（與 ;; 一致）
+        local trad_table = liu_data.get_readings_data(false)
+        if trad_table then
+            py = trad_table[char]
+        end
+        if (not py or py == "") then
+            local opencc = get_opencc_s2t()
+            if opencc and trad_table then
+                local trad = opencc:convert(char)
+                if trad and trad ~= char then
+                    py = trad_table[trad]
+                end
+            end
+        end
+    end
+    if not py or py == "" then
+        return nil
+    end
+    local set = {}
+    for r in py:gmatch("%S+") do
+        set[r] = true
+    end
+    return set
+end
+
+-- 推斷同音組代表讀音（單讀字優先，否則加權）
+local function infer_group_reading(group_str, readings_table)
+    if not readings_table or not group_str then
+        return nil
+    end
+    local exclusive = {}
+    local exclusive_n = 0
+    local weighted = {}
+    for w in group_str:gmatch("[^ ]+") do
+        local py = readings_table[w]
+        if py and py ~= "" then
+            local list = {}
+            for r in py:gmatch("%S+") do
+                list[#list + 1] = r
+            end
+            if #list == 1 then
+                local r = list[1]
+                exclusive[r] = (exclusive[r] or 0) + 1
+                exclusive_n = exclusive_n + 1
+            elseif #list > 0 then
+                local wgt = 1 / #list
+                for _, r in ipairs(list) do
+                    weighted[r] = (weighted[r] or 0) + wgt
+                end
+            end
+        end
+    end
+    local best, best_n = nil, -1
+    if exclusive_n > 0 then
+        for r, n in pairs(exclusive) do
+            if n > best_n or (n == best_n and best and r < best) then
+                best, best_n = r, n
+            end
+        end
+        return best
+    end
+    for r, n in pairs(weighted) do
+        if n > best_n or (n == best_n and best and r < best) then
+            best, best_n = r, n
+        end
+    end
+    return best
+end
+
+-- 即時查詢同音字（以讀音表過濾：避免簡表「乾→干」污染把前/潛併入干）
 local function get_phonetics_for_char(char, is_simplified)
     local groups, char_to_gids = load_phonetic_groups(is_simplified)
-    
+
     local gid_str = char_to_gids[char]
     if not gid_str then
         return nil
     end
-    
-    -- 解析並排序
-    -- 先按 pos 排序（位置小的優先），pos 相同時按 gid 排序（群組 ID 小的優先）
+
     local entries = parse_gid_entries(gid_str)
     table.sort(entries, function(a, b)
         if a.pos ~= b.pos then
@@ -45,23 +127,49 @@ local function get_phonetics_for_char(char, is_simplified)
         end
         return a.gid < b.gid
     end)
-    
-    -- 收集同音字
+
+    local char_readings = get_char_reading_set(char, is_simplified)
+    local readings_table = liu_data.get_readings_data(is_simplified)
+
     local result = {}
     local seen = {[char] = true}
-    
+
     for _, entry in ipairs(entries) do
         local group_str = groups[entry.gid]
         if group_str then
-            for w in group_str:gmatch("[^ ]+") do
-                if not seen[w] then
-                    seen[w] = true
-                    result[#result + 1] = w
+            local group_reading = infer_group_reading(group_str, readings_table)
+            -- 有讀音資料時：只收「組讀音 ∈ 該字讀音」的組
+            local group_ok = true
+            if char_readings and group_reading and not char_readings[group_reading] then
+                group_ok = false
+            end
+            if group_ok then
+                for w in group_str:gmatch("[^ ]+") do
+                    if not seen[w] then
+                        -- 組內再濾：成員須具該組讀音（無資料則保留，相容舊行為）
+                        local keep = true
+                        if group_reading and readings_table then
+                            local wpy = readings_table[w]
+                            if wpy and wpy ~= "" then
+                                keep = false
+                                for r in wpy:gmatch("%S+") do
+                                    if r == group_reading then
+                                        keep = true
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                        if keep then
+                            seen[w] = true
+                            result[#result + 1] = w
+                        end
+                    end
                 end
             end
         end
     end
-    
+
     return #result > 0 and result or nil
 end
 
@@ -102,15 +210,8 @@ end
 
 -- ============ 簡繁轉換 ============
 
-local function get_opencc_s2t()
-    if not opencc_s2t then
-        opencc_s2t = Opencc("s2t.json")
-    end
-    return opencc_s2t
-end
-
 local function get_char_codes(char, is_simplified)
-    local code_data = liu_data.get_w2c_data() -- Always get fresh data from liu_data
+    local code_data = liu_data.get_w2c_data(is_simplified)  -- 傳入參數
     if not code_data then
         return nil
     end
@@ -204,6 +305,7 @@ local function liu_phonetic_suffix_processor(key, env)
     local context = engine.context
     local input = context.input
     local input_len = input:len()
+
     
     -- 輸入為空時，清除狀態和快取
     if input_len == 0 then

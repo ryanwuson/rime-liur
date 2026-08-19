@@ -16,6 +16,11 @@ local HINTS = {
 }
 
 local function translator(input, seg, env)
+  -- 聯想段落是零長度的，input 同樣是空字串；沒有這道標籤檢查，
+  -- 整份符號選單會被當成聯想候選灌進聯想列。
+  if not seg:has_tag("symbols") then
+    return
+  end
   -- 注意：input 是去掉 prefix (`) 後的內容
   -- 所以 ` 對應 input=""，`' 對應 input="'"
   if input == "" then

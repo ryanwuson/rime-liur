@@ -31,13 +31,13 @@ end
 -- 檢測是否為被破壞的擴充模式選單
 local function is_corrupted_extended_menu(text)
   return text:find("小写变化", 1, true) or text:find("大写变化", 1, true) or 
-         text:find("日期时间", 1, true) or text:find("小寫變化", 1, true) or
+         text:find("日期时間", 1, true) or text:find("小寫變化", 1, true) or
          text:find("大寫變化", 1, true) or text:find("日期時間", 1, true)
 end
 
 -- 檢測是否為被破壞的日期時間選單
 local function is_corrupted_datetime_menu(text)
-  return text:find("[01]时间", 1, true) or text:find("[01]時間", 1, true) or
+  return text:find("[01]时間", 1, true) or text:find("[01]時間", 1, true) or
          text:find("[06]英文", 1, true)
 end
 

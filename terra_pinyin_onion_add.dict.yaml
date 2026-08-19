@@ -18,7 +18,7 @@
 # ===============================
 ---
 name: terra_pinyin_onion_add
-version: "202510"
+version: "202607"
 sort: by_weight
 use_preset_vocabulary: true
 max_phrase_length: 7
@@ -54,6 +54,8 @@ min_phrase_weight: 100
 # 遢	(ta1)	10%
 # 逾	(yu4)	90%
 # 月	(rou4)	0%
+# 蔞	(lv3)	0.1%
+# 蒌	(lv3)	0.1%
 蒲	(pu3)
 蛤	(ge3)
 樺	(hua2)
@@ -189,16 +191,12 @@ min_phrase_weight: 100
 喔	(wu5)	0%
 擬	(ni2)	50%
 拟	(ni2)	50%
-氬	(ya3)
-氩	(ya3)
 鍥	(qi4)	0.1%
 锲	(qi4)	0.1%
 鏤	(lv3)	0.1%
 镂	(lv3)	0.1%
 畿	(ji3)	50%
 㠐	(qiao2)	0.1%
-蔞	(lv3)	0.1%
-蒌	(lv3)	0.1%
 雹	(bao4)	0.1%
 血	(xue3)	1%
 貘	(mo2)	3%
@@ -230,6 +228,8 @@ min_phrase_weight: 100
 噌	(zeng1)
 円	(dan1)	50%
 纖	(qian1)
+纤	(qian1)
+繊	(qian1)
 珈	(ka1)	1%
 媧	(wo1)
 娲	(wo1)
@@ -296,6 +296,10 @@ min_phrase_weight: 100
 齷	(wo1)
 龌	(wo1)
 屑	(xue4)
+涕	(ti2)	0%
+憎	(zeng4)
+艔	(du4)
+枉	(wang4)	0%
 ### @補充為《一聲》，通俗慣用或方便輸入，『非正確發音』！！！ ###
 腓	(fei1)	1%
 琲	(fei1)	1%
@@ -329,6 +333,7 @@ min_phrase_weight: 100
 嗯	(en1)	1%
 嘛	(ma1)	10%
 唄	(bei1)	10%
+呗	(bei1)	10%
 朵	(duo1)
 麼	(mo1)	1%
 麼	(me1)	1%
@@ -456,6 +461,7 @@ min_phrase_weight: 100
 卟	(bo5)	0%
 哵	(ba5)	0%
 唄	(bai5)	0%
+呗	(bai5)	0%
 𠺚	(ban5)	0%
 𠷊	(pian5)	0%
 嚬	(pin5)	0%
@@ -549,6 +555,7 @@ min_phrase_weight: 100
 哋	(di5)	1%
 哋	(die5)	1%
 嗲	(die5)	1%
+哆	(die5)	0%
 嗲	(dia5)	1%
 叼	(diao5)	0%
 啁	(diao5)	0%
@@ -598,6 +605,7 @@ min_phrase_weight: 100
 嗔	(tian5)	0%
 听	(ting5)	0%
 啁	(tiao5)	0%
+咷	(tiao5)	0%
 唋	(tu5)	0%
 吐	(tu5)	0%
 咃	(tuo5)	1%
@@ -607,6 +615,7 @@ min_phrase_weight: 100
 哃	(tong5)	0%
 咃	(ta5)	1%
 嚺	(ta5)	0%
+哈	(ta5)	0%
 㘆	(tai5)	0%
 叨	(tao5)	1%
 咷	(tao5)	0%
@@ -838,6 +847,7 @@ min_phrase_weight: 100
 喝	(he5)	0%
 嗬	(he5)	0%
 啝	(he5)	0%
+哈	(he5)	0%
 嗨	(hai5)	100%
 咳	(hai5)	0%
 咍	(hai5)	0%
@@ -1065,6 +1075,7 @@ min_phrase_weight: 100
 哳	(zha5)	0%
 囃	(zha5)	0%
 𠯩	(zha5)	0%
+哆	(zha5)	0%
 啫	(zhe5)	0%
 嘲	(zhao5)	0%
 啅	(zhao5)	0%
@@ -1088,6 +1099,7 @@ min_phrase_weight: 100
 嘯	(chi5)	0%
 啸	(chi5)	0%
 嘨	(chi5)	0%
+哆	(chi5)	0%
 㗙	(chu5)	0%
 吷	(chuo5)	0%
 啜	(chuo5)	0%
@@ -1111,6 +1123,7 @@ min_phrase_weight: 100
 唓	(che5)	0%
 呫	(che5)	0%
 喢	(che5)	0%
+哆	(che5)	0%
 嗟	(chai5)	0%
 喍	(chai5)	0%
 囆	(chai5)	0%
@@ -1151,6 +1164,7 @@ min_phrase_weight: 100
 唼	(sha5)	0%
 啑	(sha5)	0%
 喢	(sha5)	0%
+哈	(sha5)	0%
 篩	(shai5)	0%
 筛	(shai5)	0%
 𠱡	(shai5)	0%

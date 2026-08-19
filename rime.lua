@@ -61,15 +61,70 @@ function date_translator(input, seg)
   end
 end
 
--- easy_en: 英文連續輸入增強
-local easy_en = require("easy_en")
-easy_en_enhance_filter = easy_en.enhance_filter
-
 -- liu_phonetic_suffix: 嘸蝦米同音字模式（選中後按 '）
 local liu_phonetic_suffix = require("liu_phonetic_suffix")
 liu_phonetic_suffix_processor = liu_phonetic_suffix.processor
 liu_phonetic_suffix_translator = liu_phonetic_suffix.translator
 liu_phonetic_suffix_filter = liu_phonetic_suffix.filter
+
+-- ── 注音／拼音／Easy English：切到該方案才載入 ──────────────────────
+-- librime-lua 的 lua_processor@x 是在「建立元件」時才用 lua_getglobal 查全域 x，
+-- 而元件只有切到掛載它的方案時才會建立。所以把這些全域改成惰性解析：
+-- 只打蝦米就一路不會 require；切到注音／拼音／Easy English 才載入，
+-- 之後留在 package.loaded 內，不會重複載入。
+-- 查到的是模組本體，init／func／fini 行為與原本直接 require 完全相同。
+-- 蝦米方案自己也掛的模組（liu_emoji_filter、liu_wildcard_*）不可放進來，
+-- 那些一進蝦米就要用，惰性化沒有意義。
+local LAZY_GLOBALS = {
+  -- 獨立注音 v2（空白＝一聲；Enter＝中文上屏；Shift+Return＝注音文）
+  select_character               = "select_character",               -- 注音、拼音共用
+  liu_bpmf_tone_processor        = "liu_bpmf_tone_processor",
+  liu_bpmf_backspace_processor   = "liu_bpmf_backspace_processor",
+  liu_bpmf_enter_processor       = "liu_bpmf_enter_processor",       -- 連帶 liu_bpmf_common
+  liu_bpmf_refresh_processor     = "liu_bpmf_refresh_processor",
+  liu_bpmf_delimiter_processor   = "liu_bpmf_delimiter_processor",
+  liu_bpmf_symbol_filter         = "liu_bpmf_symbol_filter",
+
+  -- 獨立拼音（空白找字；Enter＝羅馬拼音；Shift+Return＝帶音標）
+  liu_pinyin_backspace_processor = "liu_pinyin_backspace_processor",
+  liu_pinyin_delimiter_processor = "liu_pinyin_delimiter_processor",
+  liu_pinyin_enter_processor     = "liu_pinyin_enter_processor",     -- 連帶 liu_pinyin_common
+  liu_pinyin_refresh_processor   = "liu_pinyin_refresh_processor",
+  liu_pinyin_preedit_filter      = "liu_pinyin_preedit_filter",
+  liu_phonetic_w2c_hint          = "liu_phonetic_w2c_hint",          -- 注音、拼音共用
+
+  -- Easy English（英文連續輸入增強）
+  easy_en_enhance_filter  = function() return require("easy_en").enhance_filter end,
+}
+
+setmetatable(_G, {
+  __index = function(_, name)
+    local source = LAZY_GLOBALS[name]
+    if not source then
+      return nil
+    end
+    -- lua_getglobal 沒有錯誤保護，載入失敗時把錯誤往 C 端拋可能直接讓輸入法掛掉，
+    -- 所以這裡吞掉錯誤回傳 nil，librime 會在 log 記下元件建立失敗。
+    local ok, module
+    if type(source) == "function" then
+      ok, module = pcall(source)
+    else
+      ok, module = pcall(require, source)
+    end
+    if not ok then
+      if log and log.error then
+        log.error("lazy global load failed: " .. name .. ": " .. tostring(module))
+      end
+      return nil
+    end
+    _G[name] = module
+    return module
+  end,
+})
+
+-- 行內注音／拼音隨附 Emoji：蝦米方案自己也掛，維持啟動即載入
+-- （emoji.txt 與 Opencc 已由模組內部延遲到第一次查詢才讀）
+liu_emoji_filter = require("liu_emoji_filter")
 
 -- 各功能模組載入
 liu_w2c_sorter = require("liu_w2c_sorter")                    -- 反查編碼排序
@@ -78,7 +133,7 @@ liu_wildcard_code_hint = require("liu_wildcard_code_hint")    -- 萬用字元顯
 liu_phonetic_override = require("liu_phonetic_override")      -- 讀音查詢模式處理
 liu_phonetic_hint_processor = require("liu_phonetic_hint_processor")  -- 讀音查詢模式屏蔽 ctrl+'
 liu_remove_trad_in_w2c = require("liu_remove_trad_in_w2c")    -- 反查模式移除繁體標記
-liu_charset_filter = require("liu_charset_filter")            -- 字符集過濾
+liu_charset_filter = require("liu_charset_filter")            -- 字元集過濾
 liu_quick_hint = require("liu_quick_hint")                    -- 快打模式簡碼提示
 liu_quick_mode_processor = require("liu_quick_mode_processor")  -- 快打模式切換
 
@@ -107,9 +162,6 @@ liu_fancy_filter = require("liu_fancy_filter")
 -- VRSF 選字提示
 liu_vrsf_hint = require("liu_vrsf_hint")
 
--- 編碼解碼器（,,x 模式）
-liu_code_decoder_translator = require("liu_code_decoder")
-
 -- 自定詞翻譯器和過濾器
 liu_custom_word_translator = require("liu_custom_word_translator")
 liu_custom_word_filter = require("liu_custom_word_filter")
@@ -131,5 +183,41 @@ liu_english_case_filter = require("liu_english_case_filter")
 -- 上屏後小步垃圾回收
 liu_gc_processor = require("liu_gc_processor")
 
+-- 聯想學習（預設 predict.db + 使用者調序；桌面版 schema 已註解，不掛 filter）
+liu_user_predict = require("liu_user_predict")
+
 -- 方案切換狀態保持（liur ↔ easy_en 切換時保持 ascii_mode 狀態）
 liu_schema_switch_processor = require("liu_schema_switch_processor")
+
+-- 計算機（= 引導）：延遲載入約 3500 行，平常打字不佔啟動時間
+do
+  local impl
+  local function load_calc()
+    if not impl then
+      impl = require("liu_calculator")
+    end
+    return impl
+  end
+  liu_calculator = {
+    init = function(env)
+      env._liu_calc_need_init = true
+    end,
+    func = function(input, seg, env)
+      if not seg:has_tag("calculator") then
+        if type(input) ~= "string" or input:sub(1, 3) ~= ",,=" then
+          return
+        end
+      end
+      local m = load_calc()
+      if env._liu_calc_need_init then
+        env._liu_calc_need_init = false
+        if m.init then m.init(env) end
+      end
+      return m.func(input, seg, env)
+    end,
+    fini = function(env)
+      if impl and impl.fini then impl.fini(env) end
+    end,
+  }
+end
+liu_calculator_shortcut = require("liu_calculator_shortcut")

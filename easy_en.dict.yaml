@@ -221,6 +221,7 @@ use_preset_vocabulary: false
 .zip	.zip
 a'man	a'man
 a's	a's
+a	a
 a.	a.
 a.a.	a.a.
 a. a. michelson	a.a.michelson
@@ -55714,6 +55715,7 @@ azzurro	azzurro
 A~Z	a~z
 a~z	a~z
 B & B	b&b
+b	b
 b.	b.
 b.a.	b.a.
 B.A.	b.a.
@@ -96329,6 +96331,7 @@ bzz	bzz
 bzzt	bzzt
 bzzz	bzzz
 bzzzt	bzzzt
+c	c
 C#	c#
 c'	c'
 c'mon	c'mon
@@ -160338,6 +160341,7 @@ Czyzewski	czyzewski
 D&D	d&d
 Dungeons & Dragons	d&d
 d'arsonvalism	d'arsonvalism
+d	d
 d.	d.
 d.a.	d.a.
 d. a. h.	d.a.h.
@@ -198899,8 +198903,10 @@ Dzungarians	dzungarians
 Dzvina	dzvina
 Dzwinsk	dzwinsk
 Dzyanis	dzyanis
+e	e
 e'en	e'en
 e'er	e'er
+e	e
 e.	e.
 e. a. von willebrand	e.a.vonwillebrand
 e. b.	e.b.
@@ -227909,6 +227915,7 @@ eztlite	eztlite
 ezzell	ezzell
 Ezzie	ezzie
 Ezzo	ezzo
+f	f
 f.	f.
 f.a.	f.a.
 f. and r.	f.andr.
@@ -251999,6 +252006,7 @@ fyzabad	fyzabad
 fz	fz
 fzl	fzl
 FZS	fzs
+g	g
 g.	g.
 g. a.	g.a.
 g. a. s.	g.a.s.
@@ -276740,6 +276748,7 @@ gzip	gzip
 GZMA	gzma
 GZMB	gzmb
 h'm	h'm
+h	h
 h.	h.
 h. band	h.band
 h.c.	h.c.
@@ -310697,6 +310706,7 @@ Hz	hz
 HzRG	hzrg
 Hzt	hzt
 hzv	hzv
+i	i	
 I	i
 I'D	i'd
 I'd	i'd
@@ -336111,6 +336121,7 @@ izzit	izzit
 izzo	izzo
 izzy	izzy
 j'adoube	j'adoube
+j	j
 j.	j.
 j.a.	j.a.
 j. b. rhine	j.b.rhine
@@ -342553,6 +342564,7 @@ Jyvaskyla	jyvaskyla
 JZ	jz
 Jz	jz
 jz	jz
+k	k
 k.	k.
 k.c.	k.c.
 k.e.	k.e.
@@ -356232,6 +356244,7 @@ l'aquila	l'aquila
 l'enfant	l'enfant
 l'envoi	l'envoi
 L'vov	l'vov
+l	l
 l.	l.
 L.	l.
 l. and a.	l.anda.
@@ -379242,6 +379255,7 @@ lzd	lzd
 lzh	lzh
 LZO	lzo
 Lzw	lzw
+m	m
 m's	m's
 m'sieur	m'sieur
 m. a.	m.a.
@@ -431892,6 +431906,7 @@ N'T	n't
 N't	n't
 n't	n't
 n'test	n'test
+n	n
 n.	n.
 n. a.	n.a.
 n. a. d.	n.a.d.
@@ -464465,6 +464480,7 @@ NZSE	nzse
 NZSO	nzso
 NZT	nzt
 nZVI	nzvi
+o	o
 o'	o'
 o'brien	o'brien
 O'Brien	o'brien
@@ -498949,6 +498965,7 @@ pbys	pbys
 Pbyte	pbyte
 pbytoprecipitin	pbytoprecipitin
 PBZ	pbz
+p	p
 pc	pc
 PC	pc
 PC's	pc's
@@ -556511,6 +556528,7 @@ pzm	pzm
 pzp	pzp
 Pzq	pzq
 Pzzl	pzzl
+q	q
 q.	q.
 q.c.	q.c.
 q.d.	q.d.
@@ -560329,6 +560347,7 @@ qzone	qzone
 R & B	r&b
 R & D	r&d
 R & R	r&r
+r	r
 r.	r.
 r.a.f	r.a.f
 r.a.f.	r.a.f.
@@ -591409,6 +591428,7 @@ Rzezsow	rzezsow
 rzhev	rzhev
 Rzhevsky	rzhevsky
 rzr	rzr
+s	s
 s.a.	s.a.
 s.a.c.	s.a.c.
 s.a.c.s	s.a.c.s
@@ -662710,6 +662730,7 @@ Szymborska	szymborska
 Szymczak	szymczak
 t'aint	t'aint
 t'aints	t'aints
+t	t
 t.	t.
 t. a.	t.a.
 t. a. f.	t.a.f.
@@ -699755,6 +699776,7 @@ Tzutujil	tzutujil
 Tzyon	tzyon
 u's	u's
 U,u	u,u
+u	u
 u.	u.
 u.k.	u.k.
 U.K.	u.k.
@@ -728957,6 +728979,7 @@ Uzzell	uzzell
 Uzziel	uzziel
 Uzzle	uzzle
 v's	v's
+v	v
 v.	v.
 v.baer's cavity	v.baer'scavity
 v. c.	v.c.
@@ -740150,6 +740173,7 @@ vyvyan	vyvyan
 vz	vz
 VZIG	vzig
 vzv	vzv
+w	w
 w's	w's
 w.	w.
 w.b.c.	w.b.c.
@@ -753005,6 +753029,7 @@ wyzanski	wyzanski
 wz	wz
 wzo	wzo
 x'mas	x'mas
+x	x
 x.	x.
 xa	xa
 XAAS	xaas
@@ -754828,6 +754853,7 @@ y'all'd	y'all'd
 y'all'll	y'all'll
 y'all're	y'all're
 y'all've	y'all've
+y	y
 y.	y.
 y. s.	y.s.
 ya	ya
@@ -758109,6 +758135,7 @@ yz	yz
 Yzaguirre	yzaguirre
 yzr	yzr
 yzrs	yzrs
+z	z
 z.	z.
 z.z.z	z.z.z
 za	za

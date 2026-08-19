@@ -1,6 +1,6 @@
 -- liu_charset_filter.lua
--- 自定義字符集過濾器，將 CJK Compatibility Forms 區塊加入常用字集
--- 自定詞（type="custom"）不受字符集過濾影響
+-- 自定義字元集過濾器，將 CJK Compatibility Forms 區塊加入常用字集
+-- 自定詞（type="custom"）不受字元集過濾影響
 
 local common = require("liu_common")
 local is_extended_charset = common.is_extended_charset

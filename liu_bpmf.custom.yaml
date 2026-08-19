@@ -1,0 +1,21 @@
+# liu_bpmf.custom.yaml（桌面）
+# 空白＝一聲；Enter＝中文上屏；Shift+Enter＝注音文
+# 絕對跳轉：'族＝蝦／注；;族＝英／拼；/＝查碼
+patch:
+  menu/page_size: 5
+  key_binder/bindings/+:
+    - { when: always, accept: "Control+apostrophe", select: liur }
+    # 注音：Ctrl+Shift+' —— Shift 會把 ' 變成 "，各前端送法不同，故全綁
+    - { when: always, accept: "Control+Shift+apostrophe", select: liu_bpmf }
+    - { when: always, accept: "Control+Shift+quotedbl", select: liu_bpmf }
+    - { when: always, accept: "Control+quotedbl", select: liu_bpmf }
+    - { when: always, accept: "Control+Alt+apostrophe", select: liu_bpmf }
+    - { when: always, accept: "Control+semicolon", select: easy_en }
+    # 拼音：Ctrl+Shift+; —— Shift 會把 ; 變成 :
+    - { when: always, accept: "Control+Shift+semicolon", select: liu_pinyin }
+    - { when: always, accept: "Control+Shift+colon", select: liu_pinyin }
+    - { when: always, accept: "Control+colon", select: liu_pinyin }
+    - { when: always, accept: "Control+Alt+semicolon", select: liu_pinyin }
+    - { when: always, accept: "Control+slash", toggle: liu_w2c }
+    - { when: always, accept: "Control+period", toggle: simplification }
+    - { when: always, accept: "Shift+space", toggle: full_shape }

@@ -3,15 +3,69 @@
 -- ``/ = 日期時間選單
 -- ``/01 = 時間, ``/02 = 日期, ``/03 = 中文, etc.
 
--- 嘗試載入農曆模組
-local lc_1_ok, lc_1 = pcall(require, "lunar_calendar/lunar_calendar_1")
-local lc_2_ok, lc_2 = pcall(require, "lunar_calendar/lunar_calendar_2")
-local lc_time_ok, GetLunarSichen = pcall(require, "lunar_calendar/lunar_time")
+-- 農曆三檔只在首次使用 [07]農曆／[10]節氣時載入。
+-- 平常啟動及使用時間、日期等分類都不 require 約三千多行的農曆程式。
+local liu_data = require("liu_data")
 
-local Date2LunarDate = lc_1_ok and lc_1.Date2LunarDate or nil
-local lunarJzl = lc_1_ok and lc_1.lunarJzl or nil
-local GetNowTimeJq = lc_1_ok and lc_1.GetNowTimeJq or nil
-local jieqi_out1 = lc_2_ok and lc_2.jieqi_out1 or nil
+local LUNAR_MODULES = {
+  "lunar_calendar/lunar_calendar_1",
+  "lunar_calendar/lunar_calendar_2",
+  "lunar_calendar/lunar_time",
+}
+
+local lunar_loaded = false
+local lc_time_ok = false
+local Date2LunarDate = nil
+local lunarJzl = nil
+local GetNowTimeJq = nil
+local jieqi_out1 = nil
+local GetLunarSichen = nil
+local lunar_cleanup_registered = false
+
+-- 用過農曆後久沒用，隨週期 GC 一起退場：清掉本地引用與 package.loaded，
+-- 讓 Lua 能真正回收三千多行的農曆程式；下次查農曆會自動重新載入。
+local function release_lunar_modules()
+  if not lunar_loaded then return end
+  lunar_loaded = false
+  lc_time_ok = false
+  Date2LunarDate = nil
+  lunarJzl = nil
+  GetNowTimeJq = nil
+  jieqi_out1 = nil
+  GetLunarSichen = nil
+  for _, name in ipairs(LUNAR_MODULES) do
+    package.loaded[name] = nil
+  end
+end
+
+local function ensure_lunar_modules()
+  if lunar_loaded then return end
+  lunar_loaded = true
+
+  -- 只註冊一次；free_data 釋放大表時會一併呼叫，讓農曆跟著退場
+  if not lunar_cleanup_registered then
+    lunar_cleanup_registered = true
+    liu_data.register_cleanup_callback(release_lunar_modules)
+  end
+
+  local lc_1_ok, lc_1 = pcall(require, "lunar_calendar/lunar_calendar_1")
+  if lc_1_ok and lc_1 then
+    Date2LunarDate = lc_1.Date2LunarDate
+    lunarJzl = lc_1.lunarJzl
+    GetNowTimeJq = lc_1.GetNowTimeJq
+  end
+
+  local lc_2_ok, lc_2 = pcall(require, "lunar_calendar/lunar_calendar_2")
+  if lc_2_ok and lc_2 then
+    jieqi_out1 = lc_2.jieqi_out1
+  end
+
+  local lunar_time
+  lc_time_ok, lunar_time = pcall(require, "lunar_calendar/lunar_time")
+  if lc_time_ok then
+    GetLunarSichen = lunar_time
+  end
+end
 
 -- 從共用模組取得選單資料
 local extended_data = require("liu_extended_data")
@@ -135,6 +189,7 @@ local function generate_candidates(category, seg, yield)
     add(MONTHS_EN[month_num] .. " " .. ordinal(day_num) .. ", " .. Y)
     
   elseif category == 7 then  -- 農曆
+    ensure_lunar_modules()
     if Date2LunarDate then
       local date_str = Y .. m .. d
       local ll_1, ll_2, ly_1, ly_2, lm, ld = Date2LunarDate(date_str)
@@ -168,6 +223,7 @@ local function generate_candidates(category, seg, yield)
     add(tz_name)
     
   elseif category == 10 then  -- 節氣
+    ensure_lunar_modules()
     if jieqi_out1 then
       local ok, jq_1, jq_2, jq_3, jq_4 = pcall(jieqi_out1)
       if ok and jq_1 then

@@ -1,0 +1,313 @@
+# Rime schema
+# encoding: utf-8
+# 獨立拼音：空白鍵 = 找字上屏；Enter = 羅馬拼音上屏；Shift+Enter = 帶音標拼音（桌面）
+
+schema:
+  schema_id: liu_pinyin
+  name: "拼音輸入法"
+  version: "1.2.3-desktop"
+  author:
+    - 元書
+  description: |
+    獨立拼音：空白找字；Enter 羅馬拼音上屏；Shift+Enter 帶音標（不自動補調）
+    桌面：Shift+Enter＝帶音標；Ctrl+;／Ctrl+Shift+; 絕對跳轉
+    主詞庫：terra_pinyin_onion.extended（與注音同組中文大庫）
+  dependencies:
+    - terra_pinyin_onion
+    - liur_symbols
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 英文 ]
+  - name: full_shape
+    states: [ 半形, 全形 ]
+  - name: simplification
+    # 不設 reset：與 liur 一致，跨方案切換保留簡繁（避免工具列「繁」與實際繁體不同步）
+    states: [ 繁體, 简体 ]
+  - name: liu_w2c
+    reset: 0
+    states: [ 正常, 查碼 ]
+  - name: zh_tw
+    reset: 1
+
+# 小狼毫切換提示（Windows 專用；鼠鬚管與手機端會忽略這個鍵）
+# 寫在方案內，切換方案時小狼毫會讀本方案的設定並覆蓋全域值，
+# 所以不管使用者套用哪一套小狼毫主題／weasel.custom.yaml 都有效。
+# 規則一：名單含 schema 才會顯示方案名稱「拼音輸入法」。
+# 規則二：切換方案時 librime 會依序重設每個帶 reset 的開關並各發一則通知，
+#         小狼毫只顯示最後一則；名單外的開關靜默，不會蓋掉方案名稱。
+#         本方案最後一個帶 reset 的是 zh_tw，它無 states 本來就靜默，故安全。
+show_notifications:
+  - schema
+  - ascii_mode
+  - full_shape
+  - simplification
+  - liu_w2c
+
+engine:
+  processors:
+    - ascii_composer
+    - lua_processor@select_character
+    - lua_processor@liu_extended_backspace          # `` 擴充模式（字母變化形）
+    - lua_processor@liu_fancy_processor               # 變體英數 `/
+    - lua_processor@liu_symbols_number_processor      # ` 數字選字
+    - lua_processor@liu_calculator_shortcut         # 長按 d「計算」→ ,,=
+    - lua_processor@liu_pinyin_backspace_processor
+    - lua_processor@liu_pinyin_enter_processor
+    - recognizer
+    - key_binder
+    - lua_processor@liu_pinyin_delimiter_processor
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+    - lua_processor@liu_pinyin_refresh_processor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - lua_segmentor@liu_extended_segmentor           # 擴充模式 ``（字母變化形）
+    - affix_segmentor@extended_mode                  # 擴充模式 ``（字母變化形）
+    - affix_segmentor@fancy_number
+    - affix_segmentor@fancy_upper
+    - affix_segmentor@fancy_lower
+    - affix_segmentor@fancy_title
+    - affix_segmentor@number_variant
+    - affix_segmentor@symbols
+    - affix_segmentor@calculator                     # 計算機（,,= 引導）
+    - abc_segmentor
+    - fallback_segmentor
+  translators:
+    - lua_translator@liu_calculator                  # 計算機（,,= 引導）
+    - lua_translator@liu_symbols_hint                # 符號清單提示
+    - lua_translator@liu_letter_variants             # 擴充模式字母變化形（``a → ā á...）
+    - lua_translator@liu_datetime                    # ``/01~10 日期時間
+    - lua_translator@liu_fancy_translator
+    - lua_translator@date_translator                 # `a 字母變體、`' 數字變體
+    - table_translator@symbols                       # 符號清單 `01~`50
+    - script_translator@lookup
+    - punct_translator
+  filters:
+    - lua_filter@liu_extended_filter                 # 擴充模式候選處理
+    - lua_filter@liu_symbols_hint_filter             # 符號清單提示處理
+    - lua_filter@liu_fancy_filter
+    - lua_filter@liu_pinyin_preedit_filter
+    - simplifier
+    - simplifier@zh_tw
+    # 必須在 simplifier 之後：簡體 tips〔繁〕會蓋掉拆碼；對齊原始 '; 注音的 liu_w2c_sorter
+    - lua_filter@liu_phonetic_w2c_hint
+    - lua_filter@liu_emoji_filter
+    - uniquifier
+
+abc_segmentor:
+  extra_tags:
+    - pinyin
+
+menu:
+  page_size: 5
+
+style:
+  inline_preedit: false
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba12345
+  delimiter: " '"
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  algebra:
+    - derive/^([A-Z])/\L$1/
+    - erase/^xx$/
+    - xform/^r5$/er5/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    - derive/^([nl])ve$/$1ue/
+    - derive/^([jqxy])u/$1v/
+    - derive/un$/uen/
+    - derive/ui$/uei/
+    - derive/iu$/iou/
+    - derive/([aeiou])ng$/$1gn/
+    - derive/ong$/on/
+    - derive/ao$/oa/
+    - derive/([iu])a(o|n)$/$1$2a/
+    - derive/^([a-z]+)\d$/$1/
+
+# Rime 部署只編譯 translator/dictionary；lookup 掛 extended 時若缺此段會無 table.bin → 拼音無候選
+translator:
+  dictionary: terra_pinyin_onion.extended
+  prism: terra_pinyin_onion
+
+lookup:
+  tag: pinyin
+  # 與 Mount_bopomo.extended 同組：terra + add + phrases.chtp（僅中文）
+  dictionary: terra_pinyin_onion.extended
+  prism: terra_pinyin_onion
+  enable_completion: false
+  enable_sentence: true
+  enable_user_dict: true
+  encode_commit_history: true
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+zh_tw:
+  opencc_config: t2tw.json
+  option_name: zh_tw
+  tags: [ pinyin ]
+
+simplifier:
+  option_name: simplification
+  tips: all
+  tags: [ pinyin ]
+
+key_binder:
+  import_preset: default
+  select_first_character: "bracketleft"
+  select_last_character: "bracketright"
+
+editor:
+  bindings:
+    space: confirm
+    Return: commit_raw_input
+    KP_Enter: commit_raw_input
+    BackSpace: revert
+    Delete: delete
+    Control+BackSpace: back_syllable
+    Escape: cancel
+
+recognizer:
+  import_preset: default
+  patterns:
+    uppercase: ""
+    fancy_number: "`/'[0-9.']*`?$"
+    fancy_upper: "`///[a-z.]*`?$"
+    fancy_lower: "`//[a-z.]*`?$"
+    fancy_title: "`/[a-z.]*`?$"
+    number_variant: "(?<![=`/])`'[0-9]{0,2}`?$"
+    symbols: "^`([0-9]{0,2}|[a-z])`?$"
+    extended_mode: "^``[a-zA-Z/0-9:`']*`?$"
+    calculator: "^,,=.*$"
+
+symbols:
+  tag: symbols
+  dictionary: liur_symbols
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  prefix: "`"
+  alphabet: "abcdefghijklmnopqrstuvwxyz`"
+  tips: "《符號清單》▸"
+  closing_tips: ""
+  initial_quality: 1
+  comment_format:
+    - xform/^/~/
+  preedit_format:
+    - xform/^01/[01]一般/
+    - xform/^02/[02]括號/
+    - xform/^03/[03]引號/
+    - xform/^04/[04]豎標/
+    - xform/^05/[05]數學/
+    - xform/^06/[06]單位/
+    - xform/^07/[07]貨幣/
+    - xform/^08/[08]分數/
+    - xform/^09/[09]上標/
+    - xform/^10/[10]下標/
+    - xform/^11/[11]注音/
+    - xform/^12/[12]拼音/
+    - xform/^13/[13]音標/
+    - xform/^14/[14]平假/
+    - xform/^15/[15]片假/
+    - xform/^16/[16]韓文/
+    - xform/^17/[17]藏文/
+    - xform/^18/[18]希臘/
+    - xform/^19/[19]俄語/
+    - xform/^20/[20]合字/
+    - xform/^21/[21]部首/
+    - xform/^22/[22]月份/
+    - xform/^23/[23]日期/
+    - xform/^24/[24]時間/
+    - xform/^25/[25]性別/
+    - xform/^26/[26]圈英/
+    - xform/^27/[27]圈數/
+    - xform/^28/[28]圈漢/
+    - xform/^29/[29]圈日/
+    - xform/^30/[30]圈韓/
+    - xform/^31/[31]括英/
+    - xform/^32/[32]括數/
+    - xform/^33/[33]括漢/
+    - xform/^34/[34]括韓/
+    - xform/^35/[35]框英/
+    - xform/^36/[36]框數/
+    - xform/^37/[37]框漢/
+    - xform/^38/[38]點數/
+    - xform/^39/[39]羅馬/
+    - xform/^40/[40]箭頭/
+    - xform/^41/[41]線段/
+    - xform/^42/[42]框線/
+    - xform/^43/[43]圓形/
+    - xform/^44/[44]三角/
+    - xform/^45/[45]方形/
+    - xform/^46/[46]星星/
+    - xform/^47/[47]八卦/
+    - xform/^48/[48]易經/
+    - xform/^49/[49]音樂/
+    - xform/^50/[50]圖案/
+    - "xform/^`$/``/"
+
+fancy_title:
+  tag: fancy_title
+  prefix: "`/"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體Aa》▸"
+
+fancy_lower:
+  tag: fancy_lower
+  prefix: "`//"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體aa》▸"
+
+fancy_upper:
+  tag: fancy_upper
+  prefix: "`///"
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  tips: "《變體AA》▸"
+
+fancy_number:
+  tag: fancy_number
+  prefix: "`/'"
+  alphabet: "0123456789.'`"
+  tips: "《變體數字》▸"
+
+number_variant:
+  tag: number_variant
+  prefix: "`'"
+  alphabet: "0123456789`"
+  tips: "《變體數字》▸"
+
+# 擴充模式（``）字母變化形設定
+extended_mode:
+  tag: extended_mode
+  prefix: "``"
+  suffix: ""
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:`'"
+  tips: "▸"
+
+# 計算機（,,= 引導）- 同蝦米／Easy English 長按 d「計算」
+calculator:
+  tag: calculator
+  prefix: ",,="
+  tips: "《計算機》▸"
+  closing_tips: "◂《計算機》"
+  alphabet: "0123456789+-*/().abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,'"
+  initial_quality: 50
+
+punctuator:
+  full_shape:
+    "<" : { commit: "，" }
+    ">" : { commit: "。" }
+  half_shape:
+    "<" : { commit: "，" }
+    ">" : { commit: "。" }

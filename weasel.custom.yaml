@@ -10,6 +10,13 @@ customization:
   rime_version: 1.11.2
 
 patch:
+  # 切換方案的通知內容（哪些開關要通知、要不要顯示方案名稱）已改寫在各方案的
+  # .schema.yaml 內的 show_notifications，這樣換任何小狼毫主題都不會失效，此處不再重複設定。
+  #
+  # 這一項無法寫在方案內，只能全域設定：通知顯示時間（ms），設 0 等於關閉所有提示。
+  # 若使用者的主題把它設成 0，方案名稱也不會出現。
+  show_notifications_time: 1200
+
   style:
     # 選擇皮膚，亮色與暗色主題
     color_scheme: macos_light
@@ -20,7 +27,7 @@ patch:
     click_to_capture: false
 
     # 預設選項
-    font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+    font_face: "Maple Mono Normal, Microsoft JhengHei, Plangothic P1, Plangothic P2"
     label_font_face: "Maple Mono Normal"
     comment_font_face: "Maple Mono Normal"
     font_point: 16
@@ -57,7 +64,7 @@ patch:
       name: "MacOS 淺色／MacOS Light"
       author: Ryan
       # 字體設定
-      font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+      font_face: "Maple Mono Normal, Microsoft JhengHei, Plangothic P1, Plangothic P2"
       font_point: 16
       label_font_face: "Maple Mono Normal"
       label_font_point: 9
@@ -86,7 +93,7 @@ patch:
       name: "MacOS 深色／MacOS Dark"
       author: Ryan
       # 字體設定
-      font_face: "Maple Mono Normal, Source Han Sans TC, Plangothic P1, Plangothic P2"
+      font_face: "Maple Mono Normal, Microsoft JhengHei, Plangothic P1, Plangothic P2"
       font_point: 16
       label_font_face: "Maple Mono Normal"
       label_font_point: 9

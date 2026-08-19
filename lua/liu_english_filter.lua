@@ -24,9 +24,13 @@ end
 
 local function filter(input, env)
     for cand in input:iter() do
-        if is_pure_ascii_english(cand.text) then
+        local text = cand.text
+        -- 漢字（UTF-8 首 byte > 127）或 comment 已空：不必掃描、不必重建 Candidate
+        if not text or text == "" or string.byte(text, 1) > 127 or (cand.comment or "") == "" then
+            yield(cand)
+        elseif is_pure_ascii_english(text) then
             -- 純 ASCII 英文：移除 comment（不管正常模式還是反查模式）
-            local new_cand = Candidate(cand.type, cand.start, cand._end, cand.text, "")
+            local new_cand = Candidate(cand.type, cand.start, cand._end, text, "")
             new_cand.quality = cand.quality
             new_cand.preedit = cand.preedit
             yield(new_cand)
