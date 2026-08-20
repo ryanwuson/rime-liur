@@ -2,7 +2,7 @@ __patch:
   - patch:
       menu:
         alternative_select_keys: "0123456789"	#重碼選擇鍵，從 0 開始
-        page_size: 5	#選單每頁個數（嘸蝦米／注音／拼音／英文只改這裡）
+        # page_size 請改各方案 *.custom.yaml（小狼毫改此處常不生效）
       ascii_composer:
         good_old_caps_lock: true
         switch_key: {Caps_Lock: clear, Control_L: noop, Control_R: noop, Eisu_toggle: clear, Shift_L: commit_code, Shift_R: commit_code}

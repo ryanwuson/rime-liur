@@ -1,6 +1,7 @@
 # liur.custom.yaml
 # 絕對跳轉：'族＝蝦／注；;族＝英／拼；/＝查碼
 patch:
+  menu/page_size: 5
   key_binder/bindings/+:
     - { when: always, accept: "Control+apostrophe", select: liur }
     # 注音：Ctrl+Shift+' —— Shift 會把 ' 變成 "，各前端送法不同，故全綁
