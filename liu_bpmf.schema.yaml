@@ -5,12 +5,13 @@
 schema:
   schema_id: liu_bpmf
   name: "注音輸入法"
-  version: "2.0.2-desktop"
+  version: "2.0.3-desktop"
   author:
     - 元書
   description: |
     獨立注音（洋蔥骨架）：空白補一聲／上屏，Enter 中文上屏
     桌面：Shift+Enter＝注音文；Ctrl+'／Ctrl+Shift+' 絕對跳轉
+    2.0.3：手動分節改 \；補齊常用標點（'＝、、[ ]＝「」）
     2.0.2：符號清單（`）與擴充模式（``），同 Easy English
   dependencies:
     - Mount_bopomo
@@ -73,6 +74,7 @@ engine:
     - affix_segmentor@symbols                        # 符號清單 `
     - affix_segmentor@calculator
     - abc_segmentor
+    - punct_segmentor
     - fallback_segmentor
   translators:
     - lua_translator@liu_calculator
@@ -102,19 +104,19 @@ style:
   inline_preedit: false
 
 # P0.1：use_space + 空白當一聲
-# delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 '（預輸入顯示「･」）
+# delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 \（預輸入顯示「･」；與行內／洋蔥一致）
 speller:
   alphabet: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-3467 "
   initials: "1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/-"
   finals: " 6347"
-  delimiter: "~'"
+  delimiter: "~\\"
   use_space: true
   auto_select: false
   preedit_format:
-    # 大千鍵 → 注音；空白鍵一聲 → ˉ；~ → 空白；' → ･
+    # 大千鍵 → 注音；空白鍵一聲 → ˉ；~ → 空白；\ → ･
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
     - "xform/~/ /"
-    - "xform/'/･/"
+    - 'xform/\\/･/'
   algebra:
     - xform/[)(]//
     - xform/iu/iU/
@@ -141,7 +143,7 @@ speller:
     - xform/eh/E/
     - xform/([iv])e/$1E/
     # 頭碼／縮寫：必須用 derive，不可用 abbrev。
-    # 有自動分節 ' 時，音節被當成「完整音節」；abbrev 碼在此路徑下不會命中
+    # 有自動分節時，音節被當成「完整音節」；abbrev 碼在此路徑下不會命中
     # （故 ㄘㄕ 只剩 ci→xform 的「此時」，ce 頭碼「測試」出不來；ㄅㄓㄉ 同理）。
     - derive/^([bpmfdtnlgkhjqxZCSrzcsiuvaoeEAIOUMNKGR]).+$/$1/
     - derive/^([A-Za-z]+)\d$/$1/
@@ -174,7 +176,7 @@ lookup:
   preedit_format:
     - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙|"
     - "xform/~/ /"
-    - "xform/'/･/"
+    - 'xform/\\/･/'
 
 zh_tw:
   opencc_config: t2tw.json
@@ -308,10 +310,55 @@ calculator:
   alphabet: "0123456789+-*/().abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,'"
   initial_quality: 50
 
+# 大千：, . ; / 為注音鍵，標點走 Shift／旁鍵；'＝頓號、「」＝[ ]（與行內分節 \ 錯開）
 punctuator:
   full_shape:
     "<" : { commit: "，" }
     ">" : { commit: "。" }
+    "?" : { commit: "？" }
+    "!" : { commit: "！" }
+    ":" : { commit: "：" }
+    "\"" : { commit: "；" }
+    "'" : { commit: "、" }
+    "[" : [ "「", "【", "《", "〔", "［" ]
+    "]" : [ "」", "】", "》", "〕", "］" ]
+    "{" : [ "『", "〖", "〈", "｛" ]
+    "}" : [ "』", "〗", "〉", "｝" ]
+    "(" : "（"
+    ")" : "）"
+    "~" : "～"
+    "^" : { commit: "……" }
+    "_" : "——"
+    "|" : [ "·", "｜", "§", "¦" ]
+    "*" : [ "＊", "·", "・", "×", "※" ]
+    "@" : [ "＠", "◎" ]
+    "#" : [ "＃", "⌘" ]
+    "%" : [ "％", "°", "℃" ]
+    "$" : [ "￥", "$", "€", "£" ]
+    "+" : "＋"
+    "=" : "＝"
   half_shape:
     "<" : { commit: "，" }
     ">" : { commit: "。" }
+    "?" : { commit: "？" }
+    "!" : { commit: "！" }
+    ":" : { commit: "：" }
+    "\"" : { commit: "；" }
+    "'" : { commit: "、" }
+    "[" : [ "「", "【", "《", "〔", "［" ]
+    "]" : [ "」", "】", "》", "〕", "］" ]
+    "{" : [ "『", "〖", "〈", "｛" ]
+    "}" : [ "』", "〗", "〉", "｝" ]
+    "(" : "（"
+    ")" : "）"
+    "~" : [ "~", "～" ]
+    "^" : { commit: "……" }
+    "_" : "——"
+    "|" : [ "·", "|", "｜", "§", "¦" ]
+    "*" : [ "*", "＊", "·", "・", "×", "※" ]
+    "@" : "@"
+    "#" : "#"
+    "%" : [ "%", "％", "°", "℃" ]
+    "$" : [ "￥", "$", "€", "£" ]
+    "+" : "+"
+    "=" : "="

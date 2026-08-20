@@ -1,5 +1,5 @@
 -- liu_phonetic_w2c_hint.lua
--- 獨立注音／拼音：單字候選顯示嘸蝦米拆碼（詞組不加）
+-- 獨立注音／拼音：單字漢字候選顯示嘸蝦米拆碼（詞組／標點符號不加）
 --
 -- 簡繁字碼表已拆開：
 --   simplification 開 → 只查 liu_w2c_simp.txt（鍵為簡體字，如「发」）
@@ -25,6 +25,34 @@ local SKIP_TYPES = {
     emoji = true,
 }
 
+-- 只對漢字提示拆碼（含日文漢字）；排除「」【】等標點符號
+local function is_cjk_ideograph(text)
+    if not text or text == "" then
+        return false
+    end
+    local cp = utf8.codepoint(text)
+    if not cp then
+        return false
+    end
+    -- CJK Unified Ideographs
+    if cp >= 0x4E00 and cp <= 0x9FFF then
+        return true
+    end
+    -- Extension A
+    if cp >= 0x3400 and cp <= 0x4DBF then
+        return true
+    end
+    -- Compatibility Ideographs
+    if cp >= 0xF900 and cp <= 0xFAFF then
+        return true
+    end
+    -- Extension B–G（罕用／大碼位）
+    if cp >= 0x20000 and cp <= 0x2CEAF then
+        return true
+    end
+    return false
+end
+
 local function parse_codes(raw_codes)
     local codes = {}
     if not raw_codes then
@@ -48,6 +76,9 @@ local function format_w2c_comment(codes, with_tilde)
     return comment
 end
 
+-- shadow 的 comment 若為 "" 會回落 genuine（〔全角〕仍會顯示）；用零寬空白強制蓋掉
+local CLEAR_COMMENT = utf8.char(0x200B)
+
 local function filter(input, env)
     local schema_id = env.engine.schema.schema_id
     if not PHONETIC_SCHEMAS[schema_id] then
@@ -68,6 +99,9 @@ local function filter(input, env)
             yield(cand)
         elseif not cand.text or utf8.len(cand.text) ~= 1 then
             yield(cand)
+        elseif not is_cjk_ideograph(cand.text) then
+            -- 符號：清掉 〔全角〕〔半角〕等提示，也不加拆碼
+            yield(cand:to_shadow_candidate(cand.type, cand.text, CLEAR_COMMENT))
         else
             local raw_codes = code_dict and code_dict[cand.text]
             local codes = parse_codes(raw_codes)

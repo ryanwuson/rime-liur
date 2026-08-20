@@ -96,8 +96,8 @@ end
 local SEP = "･"
 
 local function is_segment_delimiter(ch)
-    -- ~ = 自動分節；' = 手動分節；\ = 舊手動；空白＝一聲（不是分節）
-    return ch == "~" or ch == "'" or ch == "\\"
+    -- ~ = 自動分節；\ = 手動分節；' = 舊手動（相容）；空白＝一聲（不是分節）
+    return ch == "~" or ch == "\\" or ch == "'"
 end
 
 local function split_delimited_segments(input)
@@ -236,7 +236,7 @@ local function split_syllables(code)
     return syllables
 end
 
--- 預輸入：自動分節 → 空白；手動分節 '/\ → ･
+-- 預輸入：自動分節 → 空白；手動分節 \（及舊 '）→ ･
 function M.keys_to_bpmf_preedit(input)
     if not input or input == "" then
         return ""
@@ -303,7 +303,7 @@ function M.keys_to_bpmf_preedit(input)
 end
 
 -- Enter 上滑上屏：
--- 1) 手動／自動分節符（\、'）→ 空白
+-- 1) 手動／自動分節符（\、舊 '）→ 空白
 -- 2) 無分節符時仍依音節切開再插空白（空白鍵一聲不算分節）
 function M.keys_to_bpmf_commit(input)
     if not input or input == "" then

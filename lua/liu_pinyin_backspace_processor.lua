@@ -1,5 +1,5 @@
 -- liu_pinyin_backspace_processor.lua
--- 刪除時一併清掉孤立的分節符（空白或 '），避免殘碼
+-- 刪除時一併清掉孤立的分節符（空白或 \），避免殘碼
 
 local function refresh(context)
     if context.refresh_non_confirmed_composition then
@@ -8,7 +8,7 @@ local function refresh(context)
 end
 
 local function is_delimiter_ch(ch)
-    return ch == "'" or ch == " "
+    return ch == "\\" or ch == "'" or ch == " "
 end
 
 local function trim_trailing_delimiters(input)

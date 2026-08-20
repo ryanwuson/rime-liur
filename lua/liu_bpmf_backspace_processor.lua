@@ -1,5 +1,5 @@
 -- liu_bpmf_backspace_processor.lua
--- 刪除時一併清掉孤立的分節符（自動 ~ 或手動 '）
+-- 刪除時一併清掉孤立的分節符（自動 ~ 或手動 \）
 -- P0：空白＝一聲，不當分節符剝除
 
 local function refresh(context)
