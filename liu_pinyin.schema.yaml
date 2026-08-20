@@ -104,9 +104,6 @@ abc_segmentor:
   extra_tags:
     - pinyin
 
-menu:
-  page_size: 5
-
 style:
   inline_preedit: false
 

@@ -98,9 +98,6 @@ abc_segmentor:
   extra_tags:
     - bpmf
 
-menu:
-  page_size: 5
-
 style:
   inline_preedit: false
 
