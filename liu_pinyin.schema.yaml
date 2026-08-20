@@ -107,7 +107,8 @@ abc_segmentor:
     - pinyin
 
 style:
-  inline_preedit: false
+  # 桌面：須 true。小狼毫會讀方案此鍵並覆蓋 weasel.custom；false 會在候選窗上方畫預編輯區（蝦米不會）
+  inline_preedit: true
 
 speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba12345
