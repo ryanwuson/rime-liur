@@ -106,10 +106,7 @@ abc_segmentor:
   extra_tags:
     - pinyin
 
-style:
-  # 桌面：須 true。小狼毫會讀方案此鍵並覆蓋 weasel.custom；false 會在候選窗上方畫預編輯區（蝦米不會）
-  inline_preedit: true
-
+# 不設 style/inline_preedit：與蝦米一致，沿用鼠鬚管／小狼毫全域（true）
 speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba12345
   # 自動分節空白；手動分節 \（預輸入顯示「･」；與行內／獨立注音一致）

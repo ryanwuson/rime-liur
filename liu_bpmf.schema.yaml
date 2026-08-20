@@ -100,10 +100,7 @@ abc_segmentor:
   extra_tags:
     - bpmf
 
-style:
-  # 桌面：須 true。小狼毫會讀方案此鍵並覆蓋 weasel.custom；false 會在候選窗上方畫預編輯區（蝦米不會）
-  inline_preedit: true
-
+# 不設 style/inline_preedit：與蝦米一致，沿用鼠鬚管／小狼毫全域（true）；方案寫 false 會讓小狼毫畫出預編輯區
 # P0.1：use_space + 空白當一聲
 # delimiter：自動分節用 ~（預輸入顯示空白）；手動分節用 \（預輸入顯示「･」；與行內／洋蔥一致）
 speller:
