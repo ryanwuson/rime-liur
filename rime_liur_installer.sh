@@ -210,6 +210,7 @@ echo "[ Step 1: 下載蝦米輸入方案檔案 ]"
 mkdir -p "$RIME_FOLDER"
 mkdir -p "$RIME_FOLDER/lua"
 mkdir -p "$RIME_FOLDER/lua/lunar_calendar"
+mkdir -p "$RIME_FOLDER/lua/data"
 mkdir -p "$RIME_FOLDER/opencc"
 mkdir -p "$RIME_FOLDER/configs"
 
@@ -230,12 +231,14 @@ for file in "${ROOT_FILES[@]}"; do
     fi
 done
 
-# 下載 Lua 檔案
+# 下載 Lua 檔案（保留 lua/ 子目錄，例如 lua/data/emoji.txt，不可壓成 lua/emoji.txt）
 for file in "${LUA_FILES[@]}"; do
     CURRENT=$((CURRENT + 1))
-    filename=$(basename "$file")
-    show_progress $CURRENT $TOTAL_FILES "$filename"
-    curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/lua/$filename"
+    rel="${file#lua/}"
+    dest_dir="$RIME_FOLDER/lua/$(dirname "$rel")"
+    mkdir -p "$dest_dir"
+    show_progress $CURRENT $TOTAL_FILES "$file"
+    curl -fsSL "${GITHUB_RAW}/${file}" -o "$RIME_FOLDER/lua/$rel"
 done
 
 # 下載 Lua lunar_calendar 檔案

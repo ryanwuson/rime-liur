@@ -202,6 +202,7 @@ Write-Host "[ Step 1: 下載蝦米輸入方案檔案 ]" -ForegroundColor Green
 New-Item -ItemType Directory -Force -Path $RIME_FOLDER | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\lua" | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\lua\lunar_calendar" | Out-Null
+New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\lua\data" | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\opencc" | Out-Null
 New-Item -ItemType Directory -Force -Path "$RIME_FOLDER\configs" | Out-Null
 
@@ -222,12 +223,15 @@ foreach ($file in $ROOT_FILES) {
     }
 }
 
-# 下載 Lua 檔案
+# 下載 Lua 檔案（保留 lua/ 子目錄，例如 lua/data/emoji.txt）
 foreach ($file in $LUA_FILES) {
     $current++
-    $filename = Split-Path $file -Leaf
-    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $filename
-    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile "$RIME_FOLDER\lua\$filename" | Out-Null
+    $rel = $file -replace '^lua/', ''
+    $dest = Join-Path $RIME_FOLDER "lua\$rel"
+    $destDir = Split-Path $dest -Parent
+    New-Item -ItemType Directory -Force -Path $destDir | Out-Null
+    Show-Progress -Current $current -Total $TOTAL_FILES -FileName $file
+    Invoke-WebRequest -Uri "$GITHUB_RAW/$file" -OutFile $dest | Out-Null
 }
 
 # 下載 Lua lunar_calendar 檔案

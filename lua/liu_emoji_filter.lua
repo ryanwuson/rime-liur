@@ -21,22 +21,27 @@ local SKIP_TYPES = {
 }
 
 local function resolve_emoji_path()
-    local rel = "lua/data/emoji.txt"
+    local candidates = {
+        "lua/data/emoji.txt",
+        "lua/emoji.txt", -- 相容舊佈局
+    }
     local user_dir = rime_api.get_user_data_dir()
     local shared_dir = rime_api.get_shared_data_dir()
-    local user_path = user_dir .. "/" .. rel
-    local f = io.open(user_path, "r")
-    if f then
-        f:close()
-        return user_path
+    for _, rel in ipairs(candidates) do
+        local user_path = user_dir .. "/" .. rel
+        local f = io.open(user_path, "r")
+        if f then
+            f:close()
+            return user_path
+        end
+        local shared_path = shared_dir .. "/" .. rel
+        f = io.open(shared_path, "r")
+        if f then
+            f:close()
+            return shared_path
+        end
     end
-    local shared_path = shared_dir .. "/" .. rel
-    f = io.open(shared_path, "r")
-    if f then
-        f:close()
-        return shared_path
-    end
-    return user_path
+    return user_dir .. "/" .. candidates[1]
 end
 
 local function load_emoji_map(path)
