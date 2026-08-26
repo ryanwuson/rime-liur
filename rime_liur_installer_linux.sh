@@ -257,13 +257,14 @@ echo
 mkdir -p "$RIME_FOLDER"
 mkdir -p "$RIME_FOLDER/lua"
 mkdir -p "$RIME_FOLDER/lua/lunar_calendar"
+mkdir -p "$RIME_FOLDER/lua/data"
 mkdir -p "$RIME_FOLDER/opencc"
 mkdir -p "$RIME_FOLDER/configs"
 
 # 建立共用 rime 預設檔案的符號連結（fcitx5-rime 需要這些）
 RIME_SHARED="/usr/share/rime-data"
 for preset in default.yaml key_bindings.yaml punctuation.yaml; do
-    if [ -f "$RIME_SHARED/$preset" ] && [ ! -f "$RIME_FOLDER/$preset" ]; then
+    if [ -f "$RIME_SHARED/$preset" ]; then
         ln -sf "$RIME_SHARED/$preset" "$RIME_FOLDER/$preset"
     fi
 done
@@ -299,11 +300,12 @@ for file in "${ROOT_FILES[@]}"; do
     fi
 done
 
-# 下載 Lua 檔案
+# 下載 Lua 檔案（保留 lua/ 子目錄，例如 lua/data/emoji.txt）
 for file in "${LUA_FILES[@]}"; do
     CURRENT=$((CURRENT + 1))
-    filename=$(basename "$file")
-    download_file "${GITHUB_RAW}/${file}" "$RIME_FOLDER/lua/$filename" "$filename" $CURRENT $TOTAL_FILES
+    rel="${file#lua/}"
+    mkdir -p "$RIME_FOLDER/lua/$(dirname "$rel")"
+    download_file "${GITHUB_RAW}/${file}" "$RIME_FOLDER/lua/$rel" "$file" $CURRENT $TOTAL_FILES
 done
 
 # 下載 Lua lunar_calendar 檔案
@@ -502,7 +504,7 @@ if command -v fcitx5-remote &>/dev/null; then
     sleep 1
     # 觸發 rime 重新部署
     if command -v rime_deployer &>/dev/null; then
-        rime_deployer --build "$RIME_FOLDER" 2>/dev/null || true
+        rime_deployer --build "$RIME_FOLDER" "$RIME_SHARED" 2>/dev/null || true
     fi
     fcitx5-remote -r 2>/dev/null || true
     echo -e "${GREEN}已重新部署 fcitx5-rime${NC}"

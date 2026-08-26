@@ -94,6 +94,8 @@ sudo apt install fcitx5 fcitx5-rime fcitx5-config-qt
 
 ##### 自動安裝
 
+> 注意：安裝腳本目前僅支援 **Arch Linux**（依賴 `pacman`）；Debian/Ubuntu 使用者請依下方手動安裝步驟操作。
+
 打開終端機，輸入以下指令：
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ryanwuson/rime-liur/main/rime_liur_installer_linux.sh | bash
